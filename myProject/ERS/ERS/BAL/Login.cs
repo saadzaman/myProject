@@ -11,9 +11,16 @@ namespace ERS.BAL
     {
         ERSRepository ersRep = new ERSRepository();
 
-        public int GetUserID(string email)
+        public Employee GetUserID(string email)
         {
             return ersRep.GetUserID(email);
+        }
+
+        public bool isLM(int EmpID)
+        {
+
+            return ersRep.isLM(EmpID);
+        
         }
     }
 }

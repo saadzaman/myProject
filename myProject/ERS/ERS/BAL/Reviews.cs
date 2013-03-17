@@ -27,13 +27,16 @@ namespace ERS.BAL
             return ersRep.GetEmployee(EmpID);
         }
 
-        public bool FillReviews( int ReviewID , List<ReviewInfo> Infoes )
+        public bool FillReviews( int ReviewID , List<ReviewInfo> Infoes , string Type )
         {
 
 
             if (ersRep.InsertMultipleReviewInfo(Infoes))
             {
-                ersRep.UpdateReviewStatus(ReviewID);
+                if(Type == "submit")
+                ersRep.UpdateReviewStatus(ReviewID,1);
+                else
+                ersRep.UpdateReviewStatus(ReviewID,3);
                 return true;
             } return false;
         }
@@ -44,6 +47,12 @@ namespace ERS.BAL
             return ersRep.GetReviewInfo(pReviewID, pCategoryID);
         }
 
+        public bool isDraft(int ReviewID)
+        {
+
+            return ersRep.isReviewDraft(ReviewID);
+        
+        }
 
         public List<EmpWithRevInfo_Cat> GetAllReviewsOf_Peer_GivenCategory(int EmpID, int CatID)
         {

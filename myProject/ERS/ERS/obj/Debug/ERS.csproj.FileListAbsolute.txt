@@ -3,3 +3,8 @@ c:\users\saad\documents\visual studio 2010\Projects\ERS\ERS\bin\Debug\ERS.dll
 c:\users\saad\documents\visual studio 2010\Projects\ERS\ERS\bin\Debug\ERS.pdb
 c:\users\saad\documents\visual studio 2010\Projects\ERS\ERS\obj\Debug\ERS.dll
 c:\users\saad\documents\visual studio 2010\Projects\ERS\ERS\obj\Debug\ERS.pdb
+C:\Users\Saad\myProject\ERS\ERS\bin\Debug\ERS.dll.config
+C:\Users\Saad\myProject\ERS\ERS\bin\Debug\ERS.dll
+C:\Users\Saad\myProject\ERS\ERS\bin\Debug\ERS.pdb
+C:\Users\Saad\myProject\ERS\ERS\obj\Debug\ERS.dll
+C:\Users\Saad\myProject\ERS\ERS\obj\Debug\ERS.pdb

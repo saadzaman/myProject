@@ -13,14 +13,10 @@ namespace ERSv1._2
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             MenuItemMyManagees = "active";
-            Session["LMID"] = 2;
-            Session["UserType"] = "LM";
-       
-            
             if (!IsPostBack)
             {
                 ERS.BAL.Managees BManagees = new Managees();
-                ManageeList.DataSource = BManagees.GetManageesList((int)Session["LMID"]);
+                ManageeList.DataSource = BManagees.GetManageesList((int)Session["UserID"]);
                 ManageeList.DataBind();
                 
             }
@@ -55,7 +51,7 @@ namespace ERSv1._2
                         EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);
                         peerID = Int32.Parse((row.FindControl("PeerID") as HiddenField).Value);
                         temp.EmpID = EmpID;
-                        temp.LMID = Int32.Parse( Session["LMID"].ToString() );
+                        temp.LMID = Int32.Parse( Session["UserID"].ToString() );
                         temp.IsActive = 0;
                         temp.Status = 2;
                         temp.version = 1;
@@ -95,14 +91,12 @@ namespace ERSv1._2
                     GridView Peers = (GridView) row.FindControl("ManageePeers");
                     Peers.DataSource = null;
 
-                    Peers.DataSource = BManagees.GetPeerList(EmpID);
+                    Peers.DataSource = BManagees.GetPeerList(EmpID,Int32.Parse(Session["UserId"].ToString()));
                     Peers.DataBind();
 
                     break;
 
                 case "Consolidate":
-
-                   
 
                     break;
 
@@ -125,13 +119,18 @@ namespace ERSv1._2
 
                     case DataControlRowType.DataRow:
 
-                        List<Review> mylist = (List<Review>)((GridView)sender).DataSource;
+
+                      
+                        
+                       
                         Button ConsoBtn = (Button)e.Row.FindControl("ConsoBtn");
-                           
-                        if (mylist[e.Row.RowIndex].isReady)
-                            ConsoBtn.Enabled = false;
+                         int EmpID = (int)((GridView)sender).DataKeys[e.Row.RowIndex]["EmpID"];
+                    Managees BALManageeInst = new Managees();
+
+                    if (BALManageeInst.CanConsolidate(EmpID))
+                            ConsoBtn.Enabled = true;
                         else
-                            ConsoBtn.Enabled = true;  
+                            ConsoBtn.Enabled = false;  
                        
                         break;
                 }

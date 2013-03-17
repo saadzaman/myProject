@@ -13,18 +13,22 @@ namespace ERS.DAL
         public ReviewInfo GetReviewInfo(int pReviewID, int pCategoryID)
         {
 
-            return (from a in context.ReviewInfoes
+           var result = (from a in context.ReviewInfoes
                     where (a.ReviewId == pReviewID && a.CategoryID == pCategoryID)
-                    select a).ToList<ReviewInfo>()[0];
+                    select a).ToList<ReviewInfo>();
 
+           if (result.Count() > 0)
+               return result[0];
+           else
+               return null;
         
         }
 
-        public int GetUserID(string email)
+        public Employee GetUserID(string email)
         {
-            int result = (from a in context.Employees
+            Employee result = (from a in context.Employees
                          where a.Email == email
-                         select a.EmpID).FirstOrDefault();
+                         select a).FirstOrDefault();
             return result;
         }
         public List<EmployeeReviews> GetMyReviews(int ParamEmpId)
@@ -139,16 +143,16 @@ namespace ERS.DAL
        {
            return (from a in context.Reviews
                    where a.EmpID == EmployeeID && a.Status == 1
-                   select a).Count() == (from b in context.Peers where b.EmpID == EmployeeID select b).Count();
+                   select a).Count() == (from b in context.Peers where (b.EmpID == EmployeeID || b.PeerID == EmployeeID) select b).Count();
        }
 
-       public bool UpdateReviewStatus(int ReviewID)
+       public bool UpdateReviewStatus(int ReviewID,int Status)
        {
            try
            {
                Review Orignal = (from a in context.Reviews where a.ReviewId == ReviewID select a).ToList<Review>()[0];
                context.Reviews.Attach(Orignal);
-               Orignal.Status = 1;
+               Orignal.Status = Status;
                context.ApplyCurrentValues("Reviews", Orignal);
                context.SaveChanges();
                return true;
@@ -173,19 +177,25 @@ namespace ERS.DAL
        }
 
 
-       public List<PeersWithReviews> GetPeersWithReviewStats(int pManageeID)
+       public List<PeersWithReviews> GetPeersWithReviewStats(int pManageeID , int pLMID)
        {
 
            List<PeersWithReviews> ReturnList = new List<PeersWithReviews>();
+
+
            var Result = from a in context.Peers
+                        join f in context.Reviews on a.PeerID equals f.ReviewerID into fg
+                        from fgi in
+                            (from f in fg
+                             where f.EmpID == a.EmpID
+                             && f.LMID == pLMID
+                             select f).DefaultIfEmpty()
                         where a.EmpID == pManageeID
-                        join b in context.Reviews on a.PeerID equals b.ReviewerID into b_join
-                        from b in b_join.DefaultIfEmpty()
                         select new
                         {
                             Employee = a.Employee1,
-                            ReviewId = (System.Int32?)b.ReviewId,
-                            ReviewStatus = (System.Int32?)b.Status
+                            ReviewId = (System.Int32?)fgi.ReviewId,
+                            ReviewStatus = (System.Int32?)fgi.Status
                         };
 
            foreach (var b in Result)
@@ -197,10 +207,45 @@ namespace ERS.DAL
 
            }
 
+
+           var Result2 = from a in context.Peers
+                         join f in context.Reviews on a.EmpID equals f.ReviewerID into fg
+                         from fgi in
+                             (from f in fg
+                              where f.EmpID == a.PeerID
+                              && f.LMID == pLMID
+                              select f).DefaultIfEmpty()
+                         where a.PeerID == pManageeID
+                        select new
+                        {
+                            Employee = a.Employee,
+                            ReviewId = (System.Int32?)fgi.ReviewId,
+                            ReviewStatus = (System.Int32?)fgi.Status
+                        };
+
+           foreach (var b in Result2)
+           {
+              if(CheckIfExists(ReturnList , (Int32)b.Employee.EmpID))
+              {
+               if (b.ReviewId != null)
+                   ReturnList.Add(new PeersWithReviews((Int32)b.ReviewId, b.ReviewStatus.ToString(), b.Employee, pManageeID));
+               else
+                   ReturnList.Add(new PeersWithReviews(0, "0", b.Employee, pManageeID));
+              }
+           }
+
            return ReturnList;
 
        }
-
+       bool CheckIfExists(List<PeersWithReviews> ReturnList, int id)
+       {
+           foreach (PeersWithReviews ItemRet in ReturnList)
+           {
+               if (ItemRet.PeerID == id)
+                   return false;
+           }
+           return true;
+       }
        public List<EmpWithRevInfo_Cat> GetAllReviewsOf_Peer_GivenCategory(int EmpID, int CatID)
        {
            List<EmpWithRevInfo_Cat> ReturnList = new List<EmpWithRevInfo_Cat>();
@@ -317,7 +362,22 @@ namespace ERS.DAL
            GC.SuppressFinalize(this);
        }
 
-       
+
+
+       public bool isLM(int EmpID)
+       {
+           return (from a in context.Employees
+                   join b in context.LMAllocations on a.EmpID equals b.LMID
+                   where a.EmpID == EmpID
+                   select a).Count() != 0;
+       }
+
+       public bool isReviewDraft(int ReviewID)
+       {
+           return (from a in context.Reviews
+                   where a.ReviewId == ReviewID
+                   select a.Status).FirstOrDefault() == 3;
+       }
     }
 
 }

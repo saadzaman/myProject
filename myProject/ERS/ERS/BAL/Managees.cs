@@ -23,9 +23,9 @@ namespace ERS.BAL
                 return ReturnList;
             }
 
-            public List<DAL.PeersWithReviews> GetPeerList(int ManageeID)
+            public List<DAL.PeersWithReviews> GetPeerList(int ManageeID,int LMID)
             {
-                return ersRep.GetPeersWithReviewStats(ManageeID);
+                return ersRep.GetPeersWithReviewStats(ManageeID,LMID);
             }
             public bool CanConsolidate(int EmployeeID)
             {

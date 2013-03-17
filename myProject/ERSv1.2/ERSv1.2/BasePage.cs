@@ -12,13 +12,14 @@ namespace ERSv1._2
          public string MenuItemMyManagees { get; set; }
          public string MenuItemDirector { get; set; }
          public string MenuItemAbout { get; set; }
+         public string Name { get; set; }
 
 
-      
-
-
-
-
+         public BasePages()
+         {
+             Name = "UnSigned";
+         }
+        
    }
 
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ERS;
 
 
 namespace ERSv1._2
@@ -18,8 +19,21 @@ namespace ERSv1._2
         protected void LoginButton_Click(object sender, EventArgs e)
         {
             ERS.BAL.Login lg = new ERS.BAL.Login();
-            int UserID = lg.GetUserID(UserName.Text.Trim());
-            Session.Add("UserID", UserID);
+            Employee Current = lg.GetUserID(UserName.Text.Trim());
+            if (Current != null)
+            {
+                int UserID = Current.EmpID;
+
+                Session.Add("UserID", UserID);
+                Session.Add("UserName", Current.Name);
+                Session.Add("isLM",lg.isLM(UserID));
+                Response.Redirect("MyReviews.aspx");
+
+            }
+            else
+            {
+                FailureText.Text = "Sorry Your Credentials are Incorrect";
+            }
         }
     }
 }

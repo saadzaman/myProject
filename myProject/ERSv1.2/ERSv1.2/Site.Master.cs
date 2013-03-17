@@ -15,6 +15,18 @@ namespace ERSv1._2
         {
             base.OnPreRender(e);
             BasePages current = Page as BasePages;
+
+            if (Session["UserID"] == null)
+                navBar.Visible = false;
+            else
+                userName.InnerText = Session["UserName"].ToString();
+            if (Session["isLM"] != null)
+                if(Session["isLM"].Equals(false))
+                MyManagees.Visible = false;
+            
+          //  if(current!=null)
+          //  if(current.Name != null )
+          //  userName.InnerText = current.Name;
             if (current != null && !string.IsNullOrEmpty(current.MenuItemMyReviews))
             {
                 
@@ -22,8 +34,9 @@ namespace ERSv1._2
             }
             if (current != null && !string.IsNullOrEmpty(current.MenuItemMyManagees))
             {
-
+                
                 MyManagees.Attributes["class"] = current.MenuItemMyManagees;
+              
             }
             if (current != null && !string.IsNullOrEmpty(current.MenuItemDirector))
             {

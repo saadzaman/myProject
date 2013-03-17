@@ -29,6 +29,8 @@
 <fieldset>
        <div class="well">
      
+       </div>
+     
        <legend>Review Form</legend>
 <div class="row">  
         <div class="span6">
@@ -191,7 +193,8 @@
                 <div class="pagination-centered">
                 <asp:Button ID="submit" runat="server" class="btn btn-success" Text="Submit Review" 
                         onclick="submit_Click" />
-                <asp:Button ID="reset" runat="server" class="btn btn-danger" Text="Reset Review" />
+                <asp:Button ID="save" runat="server" class="btn btn-danger" Text="Draft Review" 
+                        onclick="save_Click" />
              
                 </div>
                </div>

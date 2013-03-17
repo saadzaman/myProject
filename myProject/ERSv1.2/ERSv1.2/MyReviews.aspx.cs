@@ -11,18 +11,18 @@ namespace ERSv1._2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Permissions perm = new Permissions();
-            perm.Insert(1, 2);
+         //   Permissions perm = new Permissions();
+          //  perm.Insert(1, 2);
 
 
-            Session["UserID"] = 4;
-            Session["LMID"] = null;
+          //  Session["UserID"] = 1;
+          //  Session["LMID"] = null;
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             MenuItemMyReviews = "active";
+           // Name = Session["UserName"].ToString();
             if (!IsPostBack)
             {
                 Reviews BReviews = new Reviews();
-                
                 ReviewList.DataSource = BReviews.GetReviewsList((Int32)Session["UserID"]);
                 ReviewList.DataBind();
               

@@ -41,13 +41,13 @@
     <h2 class="text-info">Employee Review System</h2>
     
     </div>
-    
+    <p class="fright">Asalam O Aleikum , <span runat="server" id="userName" ><%# Eval("Name") %></span></p>
     </div>
 
 <div class="row padding-top15">  
-<div class="span">  
+<div class="span" id="navBar" runat="server">  
 <ul class="nav nav-tabs">  
-<li  runat="server" id="MyReviews"><a href="MyReviews.aspx">My Reviews</a> </li>   
+<li runat="server" id="MyReviews"><a href="MyReviews.aspx">My Reviews</a> </li>   
 <li runat="server" id="MyManagees"><a href="MyManagees.aspx">My Managees</a></li>  
 <li runat="server" id="MyDirector"><a href="Director.aspx">My LineManagers</a></li>   
 <li runat="server" id="MyAbout"><a href="About.aspx">About</a></li>   
