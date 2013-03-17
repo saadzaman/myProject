@@ -1,0 +1,1544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ERS_LMTModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="ERS_LMTEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Allocations" EntityType="ERS_LMTModel.Allocation" />
+    <EntitySet Name="AllocationActivities" EntityType="ERS_LMTModel.AllocationActivity" />
+    <EntitySet Name="AllocationTypes" EntityType="ERS_LMTModel.AllocationType" />
+    <EntitySet Name="Answers" EntityType="ERS_LMTModel.Answer" />
+    <EntitySet Name="aspnet_Applications" EntityType="ERS_LMTModel.aspnet_Applications" />
+    <EntitySet Name="aspnet_Membership" EntityType="ERS_LMTModel.aspnet_Membership" />
+    <EntitySet Name="aspnet_Paths" EntityType="ERS_LMTModel.aspnet_Paths" />
+    <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="ERS_LMTModel.aspnet_PersonalizationAllUsers" />
+    <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="ERS_LMTModel.aspnet_PersonalizationPerUser" />
+    <EntitySet Name="aspnet_Profile" EntityType="ERS_LMTModel.aspnet_Profile" />
+    <EntitySet Name="aspnet_Roles" EntityType="ERS_LMTModel.aspnet_Roles" />
+    <EntitySet Name="aspnet_SchemaVersions" EntityType="ERS_LMTModel.aspnet_SchemaVersions" />
+    <EntitySet Name="aspnet_Users" EntityType="ERS_LMTModel.aspnet_Users" />
+    <EntitySet Name="aspnet_WebEvent_Events" EntityType="ERS_LMTModel.aspnet_WebEvent_Events" />
+    <EntitySet Name="CategoryWeightages" EntityType="ERS_LMTModel.CategoryWeightage" />
+    <EntitySet Name="Choices" EntityType="ERS_LMTModel.Choice" />
+    <EntitySet Name="Departments" EntityType="ERS_LMTModel.Department" />
+    <EntitySet Name="DirectorAllocations" EntityType="ERS_LMTModel.DirectorAllocation" />
+    <EntitySet Name="Employees" EntityType="ERS_LMTModel.Employee" />
+    <EntitySet Name="EmployeeRoles" EntityType="ERS_LMTModel.EmployeeRole" />
+    <EntitySet Name="Levels" EntityType="ERS_LMTModel.Level" />
+    <EntitySet Name="LMAllocations" EntityType="ERS_LMTModel.LMAllocation" />
+    <EntitySet Name="MeetingNotes" EntityType="ERS_LMTModel.MeetingNote" />
+    <EntitySet Name="MeetingNotifications" EntityType="ERS_LMTModel.MeetingNotification" />
+    <EntitySet Name="MeetingSchedules" EntityType="ERS_LMTModel.MeetingSchedule" />
+    <EntitySet Name="MeetingTemplates" EntityType="ERS_LMTModel.MeetingTemplate" />
+    <EntitySet Name="Positions" EntityType="ERS_LMTModel.Position" />
+    <EntitySet Name="Priorities" EntityType="ERS_LMTModel.Priority" />
+    <EntitySet Name="Projects" EntityType="ERS_LMTModel.Project" />
+    <EntitySet Name="ProjectStatus" EntityType="ERS_LMTModel.ProjectStatu" />
+    <EntitySet Name="Questions" EntityType="ERS_LMTModel.Question" />
+    <EntitySet Name="RedFlags" EntityType="ERS_LMTModel.RedFlag" />
+    <EntitySet Name="RequestAllocations" EntityType="ERS_LMTModel.RequestAllocation" />
+    <EntitySet Name="RequestStatus" EntityType="ERS_LMTModel.RequestStatu" />
+    <EntitySet Name="ResourceAllocationChrons" EntityType="ERS_LMTModel.ResourceAllocationChron" />
+    <EntitySet Name="Reviews" EntityType="ERS_LMTModel.Review" />
+    <EntitySet Name="ReviewCategories" EntityType="ERS_LMTModel.ReviewCategory" />
+    <EntitySet Name="ReviewInfoes" EntityType="ERS_LMTModel.ReviewInfo" />
+    <EntitySet Name="ReviewTypes" EntityType="ERS_LMTModel.ReviewType" />
+    <EntitySet Name="Roles" EntityType="ERS_LMTModel.Role" />
+    <EntitySet Name="Roles1" EntityType="ERS_LMTModel.Role1" />
+    <EntitySet Name="SectionOptions" EntityType="ERS_LMTModel.SectionOption" />
+    <EntitySet Name="Skills" EntityType="ERS_LMTModel.Skill" />
+    <EntitySet Name="sysdiagrams" EntityType="ERS_LMTModel.sysdiagram" />
+    <EntitySet Name="TechSkills" EntityType="ERS_LMTModel.TechSkill" />
+    <EntitySet Name="TemplateSections" EntityType="ERS_LMTModel.TemplateSection" />
+    <AssociationSet Name="FK_Allocation_AllocationType" Association="ERS_LMTModel.FK_Allocation_AllocationType">
+      <End Role="AllocationType" EntitySet="AllocationTypes" />
+      <End Role="Allocation" EntitySet="Allocations" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_Allocation" Association="ERS_LMTModel.fk1_Allocation">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Allocation" EntitySet="Allocations" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_Allocation" Association="ERS_LMTModel.fk2_Allocation">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Allocation" EntitySet="Allocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AllocationType_AllocationType" Association="ERS_LMTModel.FK_AllocationType_AllocationType">
+      <End Role="AllocationType" EntitySet="AllocationTypes" />
+      <End Role="AllocationType1" EntitySet="AllocationTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Answers_Meeting" Association="ERS_LMTModel.FK_Answers_Meeting">
+      <End Role="MeetingSchedule" EntitySet="MeetingSchedules" />
+      <End Role="Answers" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Answers_Question" Association="ERS_LMTModel.FK_Answers_Question">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="Answers" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Me__Appli__7C4F7684" Association="ERS_LMTModel.FK__aspnet_Me__Appli__7C4F7684">
+      <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+      <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Pa__Appli__07C12930" Association="ERS_LMTModel.FK__aspnet_Pa__Appli__07C12930">
+      <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+      <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Ro__Appli__08B54D69" Association="ERS_LMTModel.FK__aspnet_Ro__Appli__08B54D69">
+      <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+      <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Us__Appli__09A971A2" Association="ERS_LMTModel.FK__aspnet_Us__Appli__09A971A2">
+      <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Me__UserI__7D439ABD" Association="ERS_LMTModel.FK__aspnet_Me__UserI__7D439ABD">
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+      <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Pe__PathI__76969D2E" Association="ERS_LMTModel.FK__aspnet_Pe__PathI__76969D2E">
+      <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+      <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Pe__PathI__787EE5A0" Association="ERS_LMTModel.FK__aspnet_Pe__PathI__787EE5A0">
+      <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+      <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Pe__UserI__778AC167" Association="ERS_LMTModel.FK__aspnet_Pe__UserI__778AC167">
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+      <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__aspnet_Pr__UserI__7B5B524B" Association="ERS_LMTModel.FK__aspnet_Pr__UserI__7B5B524B">
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+      <End Role="aspnet_Profile" EntitySet="aspnet_Profile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category" Association="ERS_LMTModel.FK_Category">
+      <End Role="ReviewCategories" EntitySet="ReviewCategories" />
+      <End Role="CategoryWeightage" EntitySet="CategoryWeightages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Position" Association="ERS_LMTModel.FK_Position">
+      <End Role="Position" EntitySet="Positions" />
+      <End Role="CategoryWeightage" EntitySet="CategoryWeightages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Choices_Question" Association="ERS_LMTModel.FK_Choices_Question">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="Choices" EntitySet="Choices" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Red_DirectorAllocation" Association="ERS_LMTModel.fk_Red_DirectorAllocation">
+      <End Role="DirectorAllocation" EntitySet="DirectorAllocations" />
+      <End Role="RedFlags" EntitySet="RedFlags" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_DirectorAllocation" Association="ERS_LMTModel.fk1_DirectorAllocation">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="DirectorAllocation" EntitySet="DirectorAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_DirectorAllocation" Association="ERS_LMTModel.fk2_DirectorAllocation">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="DirectorAllocation" EntitySet="DirectorAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Position" Association="ERS_LMTModel.FK_Employee_Position">
+      <End Role="Position" EntitySet="Positions" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requestAllocation_Employee" Association="ERS_LMTModel.FK_requestAllocation_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="RequestAllocation" EntitySet="RequestAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Emp" Association="ERS_LMTModel.FK_Review_Emp">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_LM" Association="ERS_LMTModel.FK_Review_LM">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Reviewer" Association="ERS_LMTModel.FK_Review_Reviewer">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_EmployeeRole" Association="ERS_LMTModel.fk1_EmployeeRole">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_LMAllocation" Association="ERS_LMTModel.fk1_LMAllocation">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="LMAllocation" EntitySet="LMAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_LMAllocation" Association="ERS_LMTModel.fk2_LMAllocation">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="LMAllocation" EntitySet="LMAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="fk2_EmployeeRole" Association="ERS_LMTModel.fk2_EmployeeRole">
+      <End Role="Roles" EntitySet="Roles1" />
+      <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TechSkills_Level" Association="ERS_LMTModel.FK_TechSkills_Level">
+      <End Role="Level" EntitySet="Levels" />
+      <End Role="TechSkills" EntitySet="TechSkills" />
+    </AssociationSet>
+    <AssociationSet Name="fk_MeetingSchedule" Association="ERS_LMTModel.fk_MeetingSchedule">
+      <End Role="LMAllocation" EntitySet="LMAllocations" />
+      <End Role="MeetingSchedule" EntitySet="MeetingSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_MeetingNotes" Association="ERS_LMTModel.fk_MeetingNotes">
+      <End Role="MeetingSchedule" EntitySet="MeetingSchedules" />
+      <End Role="MeetingNotes" EntitySet="MeetingNotes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_MeetingNotes_TemplateSection" Association="ERS_LMTModel.fk_MeetingNotes_TemplateSection">
+      <End Role="TemplateSection" EntitySet="TemplateSections" />
+      <End Role="MeetingNotes" EntitySet="MeetingNotes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_MeetingNotifications" Association="ERS_LMTModel.fk_MeetingNotifications">
+      <End Role="MeetingSchedule" EntitySet="MeetingSchedules" />
+      <End Role="MeetingNotifications" EntitySet="MeetingNotifications" />
+    </AssociationSet>
+    <AssociationSet Name="fk_MeetingTemplate" Association="ERS_LMTModel.fk_MeetingTemplate">
+      <End Role="MeetingTemplate" EntitySet="MeetingTemplates" />
+      <End Role="MeetingSchedule" EntitySet="MeetingSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RedFlags" Association="ERS_LMTModel.fk_RedFlags">
+      <End Role="MeetingSchedule" EntitySet="MeetingSchedules" />
+      <End Role="RedFlags" EntitySet="RedFlags" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TemplateSection" Association="ERS_LMTModel.fk_TemplateSection">
+      <End Role="MeetingTemplate" EntitySet="MeetingTemplates" />
+      <End Role="TemplateSection" EntitySet="TemplateSections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questions_Position" Association="ERS_LMTModel.FK_Questions_Position">
+      <End Role="Position" EntitySet="Positions" />
+      <End Role="Questions" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requestAllocation_Position" Association="ERS_LMTModel.FK_requestAllocation_Position">
+      <End Role="Position" EntitySet="Positions" />
+      <End Role="RequestAllocation" EntitySet="RequestAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requestAllocation_priority" Association="ERS_LMTModel.FK_requestAllocation_priority">
+      <End Role="Priority" EntitySet="Priorities" />
+      <End Role="RequestAllocation" EntitySet="RequestAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requestAllocation_Project" Association="ERS_LMTModel.FK_requestAllocation_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="RequestAllocation" EntitySet="RequestAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requestAllocation_requestStatus" Association="ERS_LMTModel.FK_requestAllocation_requestStatus">
+      <End Role="RequestStatus" EntitySet="RequestStatus" />
+      <End Role="RequestAllocation" EntitySet="RequestAllocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_ReviewType" Association="ERS_LMTModel.FK_Review_ReviewType">
+      <End Role="ReviewType" EntitySet="ReviewTypes" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReviewInfo_Review" Association="ERS_LMTModel.FK_ReviewInfo_Review">
+      <End Role="Review" EntitySet="Reviews" />
+      <End Role="ReviewInfo" EntitySet="ReviewInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReviewInfo_ReviewCategories" Association="ERS_LMTModel.FK_ReviewInfo_ReviewCategories">
+      <End Role="ReviewCategories" EntitySet="ReviewCategories" />
+      <End Role="ReviewInfo" EntitySet="ReviewInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Skill_Role" Association="ERS_LMTModel.FK_Skill_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Skill" EntitySet="Skills" />
+    </AssociationSet>
+    <AssociationSet Name="fk_SectionOption" Association="ERS_LMTModel.fk_SectionOption">
+      <End Role="TemplateSection" EntitySet="TemplateSections" />
+      <End Role="SectionOption" EntitySet="SectionOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TechSkills_Skill" Association="ERS_LMTModel.FK_TechSkills_Skill">
+      <End Role="Skill" EntitySet="Skills" />
+      <End Role="TechSkills" EntitySet="TechSkills" />
+    </AssociationSet>
+    <AssociationSet Name="aspnet_UsersInRoles" Association="ERS_LMTModel.aspnet_UsersInRoles">
+      <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+    </AssociationSet>
+    <EntitySet Name="Peers" EntityType="ERS_LMTModel.Peer" />
+    <AssociationSet Name="FK_Peers_Employee" Association="ERS_LMTModel.FK_Peers_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Peer" EntitySet="Peers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Peers_Employee1" Association="ERS_LMTModel.FK_Peers_Employee1">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Peer" EntitySet="Peers" />
+    </AssociationSet>
+    <EntitySet Name="Features" EntityType="ERS_LMTModel.Feature" />
+    <EntitySet Name="Permissions" EntityType="ERS_LMTModel.Permission" />
+    <AssociationSet Name="FK_Permissions_Features" Association="ERS_LMTModel.FK_Permissions_Features">
+      <End Role="Feature" EntitySet="Features" />
+      <End Role="Permission" EntitySet="Permissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Permissions_Role" Association="ERS_LMTModel.FK_Permissions_Role">
+      <End Role="Role1" EntitySet="Roles1" />
+      <End Role="Permission" EntitySet="Permissions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Allocation">
+    <Key>
+      <PropertyRef Name="AllocationId" />
+    </Key>
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="EmpID" Type="Int32" Nullable="false" />
+    <Property Name="PercentAlloc" Type="Double" />
+    <Property Name="StartDate" Type="DateTime" />
+    <Property Name="EndDate" Type="DateTime" />
+    <Property Name="AllocationTypeId" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="RequestID" Type="Int32" />
+    <Property Name="Billed" Type="Int32" />
+    <Property Name="Notify" Type="Int32" />
+    <Property Name="AllocationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PercentBilling" Type="Int32" />
+    <NavigationProperty Name="AllocationType" Relationship="ERS_LMTModel.FK_Allocation_AllocationType" FromRole="Allocation" ToRole="AllocationType" />
+    <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.fk1_Allocation" FromRole="Allocation" ToRole="Employee" />
+    <NavigationProperty Name="Project" Relationship="ERS_LMTModel.fk2_Allocation" FromRole="Allocation" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="AllocationActivity">
+    <Key>
+      <PropertyRef Name="AllocationActivityID" />
+    </Key>
+    <Property Name="AllocationActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="EmpID" Type="Int32" Nullable="false" />
+    <Property Name="PercentAlloc" Type="Double" />
+    <Property Name="StartDate" Type="DateTime" />
+    <Property Name="EndDate" Type="DateTime" />
+    <Property Name="AllocationTypeId" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="RequestID" Type="Int32" />
+    <Property Name="Billed" Type="Int32" />
+    <Property Name="Notify" Type="Int32" />
+    <Property Name="ActivityDate" Type="DateTime" />
+    <Property Name="ActivityBy" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="AllocationId" Type="Int32" />
+    <Property Name="PercentBilling" Type="Int32" />
+  </EntityType>
+  <EntityType Name="AllocationType">
+    <Key>
+      <PropertyRef Name="AllocationTypeID" />
+    </Key>
+    <Property Name="AllocationTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AllocationTypeName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Allocations" Relationship="ERS_LMTModel.FK_Allocation_AllocationType" FromRole="AllocationType" ToRole="Allocation" />
+    <NavigationProperty Name="AllocationType1" Relationship="ERS_LMTModel.FK_AllocationType_AllocationType" FromRole="AllocationType" ToRole="AllocationType1" />
+    <NavigationProperty Name="AllocationType2" Relationship="ERS_LMTModel.FK_AllocationType_AllocationType" FromRole="AllocationType1" ToRole="AllocationType" />
+  </EntityType>
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+      <PropertyRef Name="MSID" />
+    </Key>
+    <Property Name="QuestionID" Type="Int32" Nullable="false" />
+    <Property Name="MSID" Type="Int32" Nullable="false" />
+    <Property Name="AnswerText" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="MeetingSchedule" Relationship="ERS_LMTModel.FK_Answers_Meeting" FromRole="Answers" ToRole="MeetingSchedule" />
+    <NavigationProperty Name="Question" Relationship="ERS_LMTModel.FK_Answers_Question" FromRole="Answers" ToRole="Questions" />
+  </EntityType>
+  <EntityType Name="aspnet_Applications">
+    <Key>
+      <PropertyRef Name="ApplicationId" />
+    </Key>
+    <Property Name="ApplicationName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="LoweredApplicationName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="aspnet_Membership" Relationship="ERS_LMTModel.FK__aspnet_Me__Appli__7C4F7684" FromRole="aspnet_Applications" ToRole="aspnet_Membership" />
+    <NavigationProperty Name="aspnet_Paths" Relationship="ERS_LMTModel.FK__aspnet_Pa__Appli__07C12930" FromRole="aspnet_Applications" ToRole="aspnet_Paths" />
+    <NavigationProperty Name="aspnet_Roles" Relationship="ERS_LMTModel.FK__aspnet_Ro__Appli__08B54D69" FromRole="aspnet_Applications" ToRole="aspnet_Roles" />
+    <NavigationProperty Name="aspnet_Users" Relationship="ERS_LMTModel.FK__aspnet_Us__Appli__09A971A2" FromRole="aspnet_Applications" ToRole="aspnet_Users" />
+  </EntityType>
+  <EntityType Name="aspnet_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="MobilePIN" Type="String" MaxLength="16" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="LoweredEmail" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordQuestion" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordAnswer" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="LastLoginDate" Type="DateTime" Nullable="false" />
+    <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" />
+    <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" />
+    <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+    <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" />
+    <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
+    <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="aspnet_Applications" Relationship="ERS_LMTModel.FK__aspnet_Me__Appli__7C4F7684" FromRole="aspnet_Membership" ToRole="aspnet_Applications" />
+    <NavigationProperty Name="aspnet_Users" Relationship="ERS_LMTModel.FK__aspnet_Me__UserI__7D439ABD" FromRole="aspnet_Membership" ToRole="aspnet_Users" />
+  </EntityType>
+  <EntityType Name="aspnet_Paths">
+    <Key>
+      <PropertyRef Name="PathId" />
+    </Key>
+    <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+    <Property Name="PathId" Type="Guid" Nullable="false" />
+    <Property Name="Path" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="LoweredPath" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="aspnet_Applications" Relationship="ERS_LMTModel.FK__aspnet_Pa__Appli__07C12930" FromRole="aspnet_Paths" ToRole="aspnet_Applications" />
+    <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="ERS_LMTModel.FK__aspnet_Pe__PathI__76969D2E" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationPerUser" />
+    <NavigationProperty Name="aspnet_PersonalizationAllUsers" Relationship="ERS_LMTModel.FK__aspnet_Pe__PathI__787EE5A0" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationAllUsers" />
+  </EntityType>
+  <EntityType Name="aspnet_PersonalizationAllUsers">
+    <Key>
+      <PropertyRef Name="PathId" />
+    </Key>
+    <Property Name="PathId" Type="Guid" Nullable="false" />
+    <Property Name="PageSettings" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="aspnet_Paths" Relationship="ERS_LMTModel.FK__aspnet_Pe__PathI__787EE5A0" FromRole="aspnet_PersonalizationAllUsers" ToRole="aspnet_Paths" />
+  </EntityType>
+  <EntityType Name="aspnet_PersonalizationPerUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="PathId" Type="Guid" />
+    <Property Name="UserId" Type="Guid" />
+    <Property Name="PageSettings" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="aspnet_Paths" Relationship="ERS_LMTModel.FK__aspnet_Pe__PathI__76969D2E" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Paths" />
+    <NavigationProperty Name="aspnet_Users" Relationship="ERS_LMTModel.FK__aspnet_Pe__UserI__778AC167" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Users" />
+  </EntityType>
+  <EntityType Name="aspnet_Profile">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="PropertyNames" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="PropertyValuesString" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="PropertyValuesBinary" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="aspnet_Users" Relationship="ERS_LMTModel.FK__aspnet_Pr__UserI__7B5B524B" FromRole="aspnet_Profile" ToRole="aspnet_Users" />
+  </EntityType>
+  <EntityType Name="aspnet_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+    <Property Name="RoleId" Type="Guid" Nullable="false" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="LoweredRoleName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="aspnet_Applications" Relationship="ERS_LMTModel.FK__aspnet_Ro__Appli__08B54D69" FromRole="aspnet_Roles" ToRole="aspnet_Applications" />
+    <NavigationProperty Name="aspnet_Users" Relationship="ERS_LMTModel.aspnet_UsersInRoles" FromRole="aspnet_Roles" ToRole="aspnet_Users" />
+  </EntityType>
+  <EntityType Name="aspnet_SchemaVersions">
+    <Key>
+      <PropertyRef Name="Feature" />
+      <PropertyRef Name="CompatibleSchemaVersion" />
+    </Key>
+    <Property Name="Feature" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="CompatibleSchemaVersion" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="IsCurrentVersion" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="aspnet_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="LoweredUserName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="MobileAlias" Type="String" MaxLength="16" Unicode="true" FixedLength="false" />
+    <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="aspnet_Applications" Relationship="ERS_LMTModel.FK__aspnet_Us__Appli__09A971A2" FromRole="aspnet_Users" ToRole="aspnet_Applications" />
+    <NavigationProperty Name="aspnet_Membership" Relationship="ERS_LMTModel.FK__aspnet_Me__UserI__7D439ABD" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
+    <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="ERS_LMTModel.FK__aspnet_Pe__UserI__778AC167" FromRole="aspnet_Users" ToRole="aspnet_PersonalizationPerUser" />
+    <NavigationProperty Name="aspnet_Profile" Relationship="ERS_LMTModel.FK__aspnet_Pr__UserI__7B5B524B" FromRole="aspnet_Users" ToRole="aspnet_Profile" />
+    <NavigationProperty Name="aspnet_Roles" Relationship="ERS_LMTModel.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
+  </EntityType>
+  <EntityType Name="aspnet_WebEvent_Events">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Name="EventId" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="true" />
+    <Property Name="EventTimeUtc" Type="DateTime" Nullable="false" />
+    <Property Name="EventTime" Type="DateTime" Nullable="false" />
+    <Property Name="EventType" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="EventSequence" Type="Decimal" Nullable="false" Precision="19" Scale="0" />
+    <Property Name="EventOccurrence" Type="Decimal" Nullable="false" Precision="19" Scale="0" />
+    <Property Name="EventCode" Type="Int32" Nullable="false" />
+    <Property Name="EventDetailCode" Type="Int32" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="1024" Unicode="true" FixedLength="false" />
+    <Property Name="ApplicationPath" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="ApplicationVirtualPath" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="MachineName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="RequestUrl" Type="String" MaxLength="1024" Unicode="true" FixedLength="false" />
+    <Property Name="ExceptionType" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="Details" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="CategoryWeightage">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+      <PropertyRef Name="PositionID" />
+      <PropertyRef Name="Weightage" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="PositionID" Type="Int32" Nullable="false" />
+    <Property Name="Weightage" Type="Double" Nullable="false" />
+    <NavigationProperty Name="ReviewCategory" Relationship="ERS_LMTModel.FK_Category" FromRole="CategoryWeightage" ToRole="ReviewCategories" />
+    <NavigationProperty Name="Position" Relationship="ERS_LMTModel.FK_Position" FromRole="CategoryWeightage" ToRole="Position" />
+  </EntityType>
+  <EntityType Name="Choice">
+    <Key>
+      <PropertyRef Name="ChoiceID" />
+    </Key>
+    <Property Name="ChoiceID" Type="Int32" Nullable="false" />
+    <Property Name="QuestionID" Type="Int32" />
+    <Property Name="Choice1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Question" Relationship="ERS_LMTModel.FK_Choices_Question" FromRole="Choices" ToRole="Questions" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="DepartmentDetails" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="DirectorAllocation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DirectorID" Type="Int32" Nullable="false" />
+    <Property Name="LMId" Type="Int32" Nullable="false" />
+    <Property Name="DateOfAllocation" Type="DateTime" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="RedFlags" Relationship="ERS_LMTModel.fk_Red_DirectorAllocation" FromRole="DirectorAllocation" ToRole="RedFlags" />
+    <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.fk1_DirectorAllocation" FromRole="DirectorAllocation" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="ERS_LMTModel.fk2_DirectorAllocation" FromRole="DirectorAllocation" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="PositionID" Type="Int32" />
+    <Property Name="DOJ" Type="DateTime" />
+    <Property Name="Email" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="YahooId" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="EmployeeStatus" Type="Boolean" />
+    <NavigationProperty Name="Allocations" Relationship="ERS_LMTModel.fk1_Allocation" FromRole="Employee" ToRole="Allocation" />
+    <NavigationProperty Name="DirectorAllocations" Relationship="ERS_LMTModel.fk1_DirectorAllocation" FromRole="Employee" ToRole="DirectorAllocation" />
+    <NavigationProperty Name="DirectorAllocations1" Relationship="ERS_LMTModel.fk2_DirectorAllocation" FromRole="Employee" ToRole="DirectorAllocation" />
+    <NavigationProperty Name="Position" Relationship="ERS_LMTModel.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
+    <NavigationProperty Name="RequestAllocations" Relationship="ERS_LMTModel.FK_requestAllocation_Employee" FromRole="Employee" ToRole="RequestAllocation" />
+    <NavigationProperty Name="Reviews" Relationship="ERS_LMTModel.FK_Review_Emp" FromRole="Employee" ToRole="Review" />
+    <NavigationProperty Name="Reviews1" Relationship="ERS_LMTModel.FK_Review_LM" FromRole="Employee" ToRole="Review" />
+    <NavigationProperty Name="Reviews2" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Employee" ToRole="Review" />
+    <NavigationProperty Name="EmployeeRoles" Relationship="ERS_LMTModel.fk1_EmployeeRole" FromRole="Employee" ToRole="EmployeeRole" />
+    <NavigationProperty Name="LMAllocations" Relationship="ERS_LMTModel.fk1_LMAllocation" FromRole="Employee" ToRole="LMAllocation" />
+    <NavigationProperty Name="LMAllocations1" Relationship="ERS_LMTModel.fk2_LMAllocation" FromRole="Employee" ToRole="LMAllocation" />
+    <NavigationProperty Name="Peers" Relationship="ERS_LMTModel.FK_Peers_Employee" FromRole="Employee" ToRole="Peer" />
+    <NavigationProperty Name="Peers1" Relationship="ERS_LMTModel.FK_Peers_Employee1" FromRole="Employee" ToRole="Peer" />
+  </EntityType>
+  <EntityType Name="EmployeeRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpID" Type="Int32" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.fk1_EmployeeRole" FromRole="EmployeeRole" ToRole="Employee" />
+    <NavigationProperty Name="Role" Relationship="ERS_LMTModel.fk2_EmployeeRole" FromRole="EmployeeRole" ToRole="Roles" />
+  </EntityType>
+  <EntityType Name="Level">
+    <Key>
+      <PropertyRef Name="LevelID" />
+    </Key>
+    <Property Name="LevelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LevelName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="LevelDetail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="TechSkills" Relationship="ERS_LMTModel.FK_TechSkills_Level" FromRole="Level" ToRole="TechSkills" />
+  </EntityType>
+  <EntityType Name="LMAllocation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LMID" Type="Int32" Nullable="false" />
+    <Property Name="ManageeId" Type="Int32" Nullable="false" />
+    <Property Name="DateOfAllocation" Type="DateTime" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.fk1_LMAllocation" FromRole="LMAllocation" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="ERS_LMTModel.fk2_LMAllocation" FromRole="LMAllocation" ToRole="Employee" />
+    <NavigationProperty Name="MeetingSchedules" Relationship="ERS_LMTModel.fk_MeetingSchedule" FromRole="LMAllocation" ToRole="MeetingSchedule" />
+  </EntityType>
+  <EntityType Name="MeetingNote">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MSID" Type="Int32" Nullable="false" />
+    <Property Name="LMNotes" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="LastUpdated" Type="DateTime" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" />
+    <Property Name="Revision" Type="Int32" Nullable="false" />
+    <Property Name="TemplateSectionId" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="MeetingSchedule" Relationship="ERS_LMTModel.fk_MeetingNotes" FromRole="MeetingNotes" ToRole="MeetingSchedule" />
+    <NavigationProperty Name="TemplateSection" Relationship="ERS_LMTModel.fk_MeetingNotes_TemplateSection" FromRole="MeetingNotes" ToRole="TemplateSection" />
+  </EntityType>
+  <EntityType Name="MeetingNotification">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MSID" Type="Int32" Nullable="false" />
+    <Property Name="NotificationDate" Type="DateTime" Nullable="false" />
+    <Property Name="NotificationNo" Type="Int16" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="MeetingSchedule" Relationship="ERS_LMTModel.fk_MeetingNotifications" FromRole="MeetingNotifications" ToRole="MeetingSchedule" />
+  </EntityType>
+  <EntityType Name="MeetingSchedule">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LMAllocationId" Type="Int32" Nullable="false" />
+    <Property Name="MDate" Type="DateTime" />
+    <Property Name="LastUpdated" Type="DateTime" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" />
+    <Property Name="Revision" Type="Int32" Nullable="false" />
+    <Property Name="TemplateId" Type="Int32" Nullable="false" />
+    <Property Name="IsHeld" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Answers" Relationship="ERS_LMTModel.FK_Answers_Meeting" FromRole="MeetingSchedule" ToRole="Answers" />
+    <NavigationProperty Name="LMAllocation" Relationship="ERS_LMTModel.fk_MeetingSchedule" FromRole="MeetingSchedule" ToRole="LMAllocation" />
+    <NavigationProperty Name="MeetingNotes" Relationship="ERS_LMTModel.fk_MeetingNotes" FromRole="MeetingSchedule" ToRole="MeetingNotes" />
+    <NavigationProperty Name="MeetingNotifications" Relationship="ERS_LMTModel.fk_MeetingNotifications" FromRole="MeetingSchedule" ToRole="MeetingNotifications" />
+    <NavigationProperty Name="MeetingTemplate" Relationship="ERS_LMTModel.fk_MeetingTemplate" FromRole="MeetingSchedule" ToRole="MeetingTemplate" />
+    <NavigationProperty Name="RedFlags" Relationship="ERS_LMTModel.fk_RedFlags" FromRole="MeetingSchedule" ToRole="RedFlags" />
+  </EntityType>
+  <EntityType Name="MeetingTemplate">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="MeetingSchedules" Relationship="ERS_LMTModel.fk_MeetingTemplate" FromRole="MeetingTemplate" ToRole="MeetingSchedule" />
+    <NavigationProperty Name="TemplateSections" Relationship="ERS_LMTModel.fk_TemplateSection" FromRole="MeetingTemplate" ToRole="TemplateSection" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="PositionID" />
+    </Key>
+    <Property Name="PositionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PositionName" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="PositionDetails" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="CategoryWeightages" Relationship="ERS_LMTModel.FK_Position" FromRole="Position" ToRole="CategoryWeightage" />
+    <NavigationProperty Name="Employees" Relationship="ERS_LMTModel.FK_Employee_Position" FromRole="Position" ToRole="Employee" />
+    <NavigationProperty Name="Questions" Relationship="ERS_LMTModel.FK_Questions_Position" FromRole="Position" ToRole="Questions" />
+    <NavigationProperty Name="RequestAllocations" Relationship="ERS_LMTModel.FK_requestAllocation_Position" FromRole="Position" ToRole="RequestAllocation" />
+  </EntityType>
+  <EntityType Name="Priority">
+    <Key>
+      <PropertyRef Name="PriorityID" />
+    </Key>
+    <Property Name="PriorityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PriorityName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="PriorityDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="RequestAllocations" Relationship="ERS_LMTModel.FK_requestAllocation_priority" FromRole="Priority" ToRole="RequestAllocation" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectName" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="SuggestedPM" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="SuggestedTeam" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="ProjectDetail" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Status" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="StartDate" Type="DateTime" />
+    <Property Name="EndDate" Type="DateTime" />
+    <Property Name="Director" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Allocations" Relationship="ERS_LMTModel.fk2_Allocation" FromRole="Project" ToRole="Allocation" />
+    <NavigationProperty Name="RequestAllocations" Relationship="ERS_LMTModel.FK_requestAllocation_Project" FromRole="Project" ToRole="RequestAllocation" />
+  </EntityType>
+  <EntityType Name="ProjectStatu">
+    <Key>
+      <PropertyRef Name="ProjectStatusID" />
+    </Key>
+    <Property Name="ProjectStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectStatusName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ProjectStatusDesc" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="Int32" Nullable="false" />
+    <Property Name="Text" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PositionID" Type="Int32" />
+    <NavigationProperty Name="Answers" Relationship="ERS_LMTModel.FK_Answers_Question" FromRole="Questions" ToRole="Answers" />
+    <NavigationProperty Name="Choices" Relationship="ERS_LMTModel.FK_Choices_Question" FromRole="Questions" ToRole="Choices" />
+    <NavigationProperty Name="Position" Relationship="ERS_LMTModel.FK_Questions_Position" FromRole="Questions" ToRole="Position" />
+  </EntityType>
+  <EntityType Name="RedFlag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MSID" Type="Int32" Nullable="false" />
+    <Property Name="LMNotes" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="DirectorNotes" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Severity" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="Tags" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="LastUpdated" Type="DateTime" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" />
+    <Property Name="Revision" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="Notify" Type="Int32" />
+    <Property Name="DrAllocationId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DirectorAllocation" Relationship="ERS_LMTModel.fk_Red_DirectorAllocation" FromRole="RedFlags" ToRole="DirectorAllocation" />
+    <NavigationProperty Name="MeetingSchedule" Relationship="ERS_LMTModel.fk_RedFlags" FromRole="RedFlags" ToRole="MeetingSchedule" />
+  </EntityType>
+  <EntityType Name="RequestAllocation">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestorID" Type="Int32" />
+    <Property Name="ProjectID" Type="Int32" />
+    <Property Name="RequestTypeID" Type="Int32" />
+    <Property Name="PercentAlloc" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" />
+    <Property Name="EndDate" Type="DateTime" />
+    <Property Name="DateOfRequest" Type="DateTime" />
+    <Property Name="PriorityID" Type="Int32" />
+    <Property Name="RequestStatusID" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Billable" Type="Int32" />
+    <Property Name="PercentBilling" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.FK_requestAllocation_Employee" FromRole="RequestAllocation" ToRole="Employee" />
+    <NavigationProperty Name="Position" Relationship="ERS_LMTModel.FK_requestAllocation_Position" FromRole="RequestAllocation" ToRole="Position" />
+    <NavigationProperty Name="Priority" Relationship="ERS_LMTModel.FK_requestAllocation_priority" FromRole="RequestAllocation" ToRole="Priority" />
+    <NavigationProperty Name="Project" Relationship="ERS_LMTModel.FK_requestAllocation_Project" FromRole="RequestAllocation" ToRole="Project" />
+    <NavigationProperty Name="RequestStatu" Relationship="ERS_LMTModel.FK_requestAllocation_requestStatus" FromRole="RequestAllocation" ToRole="RequestStatus" />
+  </EntityType>
+  <EntityType Name="RequestStatu">
+    <Key>
+      <PropertyRef Name="RequestStatusID" />
+    </Key>
+    <Property Name="RequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestStatusName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="RequestStatusDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="RequestAllocations" Relationship="ERS_LMTModel.FK_requestAllocation_requestStatus" FromRole="RequestStatus" ToRole="RequestAllocation" />
+  </EntityType>
+  <EntityType Name="ResourceAllocationChron">
+    <Key>
+      <PropertyRef Name="ChronId" />
+      <PropertyRef Name="LastExecutedOn" />
+    </Key>
+    <Property Name="ChronId" Type="Int32" Nullable="false" />
+    <Property Name="LastExecutedOn" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="ReviewId" />
+    </Key>
+    <Property Name="ReviewId" Type="Int32" Nullable="false" />
+    <Property Name="LMID" Type="Int32" />
+    <Property Name="EmpID" Type="Int32" />
+    <Property Name="ReviewerID" Type="Int32" />
+    <Property Name="Date" Type="DateTime" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="ReviewTypeID" Type="Int32" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="feedback" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.FK_Review_Emp" FromRole="Review" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="ERS_LMTModel.FK_Review_LM" FromRole="Review" ToRole="Employee" />
+    <NavigationProperty Name="Employee2" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Review" ToRole="Employee" />
+    <NavigationProperty Name="ReviewType" Relationship="ERS_LMTModel.FK_Review_ReviewType" FromRole="Review" ToRole="ReviewType" />
+    <NavigationProperty Name="ReviewInfoes" Relationship="ERS_LMTModel.FK_ReviewInfo_Review" FromRole="Review" ToRole="ReviewInfo" />
+  </EntityType>
+  <EntityType Name="ReviewCategory">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="CategoryWeightages" Relationship="ERS_LMTModel.FK_Category" FromRole="ReviewCategories" ToRole="CategoryWeightage" />
+    <NavigationProperty Name="ReviewInfoes" Relationship="ERS_LMTModel.FK_ReviewInfo_ReviewCategories" FromRole="ReviewCategories" ToRole="ReviewInfo" />
+  </EntityType>
+  <EntityType Name="ReviewInfo">
+    <Key>
+      <PropertyRef Name="ReviewId" />
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="ReviewId" Type="Int32" Nullable="false" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="Rating" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Comments" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Review" Relationship="ERS_LMTModel.FK_ReviewInfo_Review" FromRole="ReviewInfo" ToRole="Review" />
+    <NavigationProperty Name="ReviewCategory" Relationship="ERS_LMTModel.FK_ReviewInfo_ReviewCategories" FromRole="ReviewInfo" ToRole="ReviewCategories" />
+  </EntityType>
+  <EntityType Name="ReviewType">
+    <Key>
+      <PropertyRef Name="ReviewTypeID" />
+    </Key>
+    <Property Name="ReviewTypeID" Type="Int32" Nullable="false" />
+    <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Reviews" Relationship="ERS_LMTModel.FK_Review_ReviewType" FromRole="ReviewType" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="RoleDetails" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Skills" Relationship="ERS_LMTModel.FK_Skill_Role" FromRole="Role" ToRole="Skill" />
+  </EntityType>
+  <EntityType Name="Role1">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="EmployeeRoles" Relationship="ERS_LMTModel.fk2_EmployeeRole" FromRole="Roles" ToRole="EmployeeRole" />
+    <NavigationProperty Name="Permissions" Relationship="ERS_LMTModel.FK_Permissions_Role" FromRole="Role1" ToRole="Permission" />
+  </EntityType>
+  <EntityType Name="SectionOption">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SectionId" Type="Int32" Nullable="false" />
+    <Property Name="Caption" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Order" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="TemplateSection" Relationship="ERS_LMTModel.fk_SectionOption" FromRole="SectionOption" ToRole="TemplateSection" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="SkillID" />
+    </Key>
+    <Property Name="SkillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SkillName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="SkillDetail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="RoleID" Type="Int32" />
+    <NavigationProperty Name="Role" Relationship="ERS_LMTModel.FK_Skill_Role" FromRole="Skill" ToRole="Role" />
+    <NavigationProperty Name="TechSkills" Relationship="ERS_LMTModel.FK_TechSkills_Skill" FromRole="Skill" ToRole="TechSkills" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TechSkill">
+    <Key>
+      <PropertyRef Name="TechSkillID" />
+    </Key>
+    <Property Name="TechSkillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpID" Type="Int32" Nullable="false" />
+    <Property Name="SkillID" Type="Int32" />
+    <Property Name="LevelID" Type="Int32" />
+    <Property Name="Experience" Type="Int32" />
+    <Property Name="Priority" Type="Int32" />
+    <NavigationProperty Name="Level" Relationship="ERS_LMTModel.FK_TechSkills_Level" FromRole="TechSkills" ToRole="Level" />
+    <NavigationProperty Name="Skill" Relationship="ERS_LMTModel.FK_TechSkills_Skill" FromRole="TechSkills" ToRole="Skill" />
+  </EntityType>
+  <EntityType Name="TemplateSection">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TemplateId" Type="Int32" Nullable="false" />
+    <Property Name="Caption" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Type" Type="Byte" Nullable="false" />
+    <Property Name="Order" Type="Byte" Nullable="false" />
+    <Property Name="HasComments" Type="Boolean" Nullable="false" />
+    <Property Name="LMRights" Type="Byte" Nullable="false" />
+    <Property Name="DirectorRights" Type="Byte" Nullable="false" />
+    <Property Name="ManageeRights" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="MeetingNotes" Relationship="ERS_LMTModel.fk_MeetingNotes_TemplateSection" FromRole="TemplateSection" ToRole="MeetingNotes" />
+    <NavigationProperty Name="MeetingTemplate" Relationship="ERS_LMTModel.fk_TemplateSection" FromRole="TemplateSection" ToRole="MeetingTemplate" />
+    <NavigationProperty Name="SectionOptions" Relationship="ERS_LMTModel.fk_SectionOption" FromRole="TemplateSection" ToRole="SectionOption" />
+  </EntityType>
+  <Association Name="FK_Allocation_AllocationType">
+    <End Role="AllocationType" Type="ERS_LMTModel.AllocationType" Multiplicity="0..1" />
+    <End Role="Allocation" Type="ERS_LMTModel.Allocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AllocationType">
+        <PropertyRef Name="AllocationTypeID" />
+      </Principal>
+      <Dependent Role="Allocation">
+        <PropertyRef Name="AllocationTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_Allocation">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="1" />
+    <End Role="Allocation" Type="ERS_LMTModel.Allocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Allocation">
+        <PropertyRef Name="EmpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_Allocation">
+    <End Role="Project" Type="ERS_LMTModel.Project" Multiplicity="1" />
+    <End Role="Allocation" Type="ERS_LMTModel.Allocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Allocation">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AllocationType_AllocationType">
+    <End Role="AllocationType" Type="ERS_LMTModel.AllocationType" Multiplicity="1" />
+    <End Role="AllocationType1" Type="ERS_LMTModel.AllocationType" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AllocationType">
+        <PropertyRef Name="AllocationTypeID" />
+      </Principal>
+      <Dependent Role="AllocationType1">
+        <PropertyRef Name="AllocationTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Answers_Meeting">
+    <End Role="MeetingSchedule" Type="ERS_LMTModel.MeetingSchedule" Multiplicity="1" />
+    <End Role="Answers" Type="ERS_LMTModel.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingSchedule">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Answers">
+        <PropertyRef Name="MSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Answers_Question">
+    <End Role="Questions" Type="ERS_LMTModel.Question" Multiplicity="1" />
+    <End Role="Answers" Type="ERS_LMTModel.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="QuestionID" />
+      </Principal>
+      <Dependent Role="Answers">
+        <PropertyRef Name="QuestionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Me__Appli__7C4F7684">
+    <End Role="aspnet_Applications" Type="ERS_LMTModel.aspnet_Applications" Multiplicity="1" />
+    <End Role="aspnet_Membership" Type="ERS_LMTModel.aspnet_Membership" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Applications">
+        <PropertyRef Name="ApplicationId" />
+      </Principal>
+      <Dependent Role="aspnet_Membership">
+        <PropertyRef Name="ApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Pa__Appli__07C12930">
+    <End Role="aspnet_Applications" Type="ERS_LMTModel.aspnet_Applications" Multiplicity="1" />
+    <End Role="aspnet_Paths" Type="ERS_LMTModel.aspnet_Paths" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Applications">
+        <PropertyRef Name="ApplicationId" />
+      </Principal>
+      <Dependent Role="aspnet_Paths">
+        <PropertyRef Name="ApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Ro__Appli__08B54D69">
+    <End Role="aspnet_Applications" Type="ERS_LMTModel.aspnet_Applications" Multiplicity="1" />
+    <End Role="aspnet_Roles" Type="ERS_LMTModel.aspnet_Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Applications">
+        <PropertyRef Name="ApplicationId" />
+      </Principal>
+      <Dependent Role="aspnet_Roles">
+        <PropertyRef Name="ApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Us__Appli__09A971A2">
+    <End Role="aspnet_Applications" Type="ERS_LMTModel.aspnet_Applications" Multiplicity="1" />
+    <End Role="aspnet_Users" Type="ERS_LMTModel.aspnet_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Applications">
+        <PropertyRef Name="ApplicationId" />
+      </Principal>
+      <Dependent Role="aspnet_Users">
+        <PropertyRef Name="ApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Me__UserI__7D439ABD">
+    <End Role="aspnet_Users" Type="ERS_LMTModel.aspnet_Users" Multiplicity="1" />
+    <End Role="aspnet_Membership" Type="ERS_LMTModel.aspnet_Membership" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="aspnet_Membership">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Pe__PathI__76969D2E">
+    <End Role="aspnet_Paths" Type="ERS_LMTModel.aspnet_Paths" Multiplicity="0..1" />
+    <End Role="aspnet_PersonalizationPerUser" Type="ERS_LMTModel.aspnet_PersonalizationPerUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Paths">
+        <PropertyRef Name="PathId" />
+      </Principal>
+      <Dependent Role="aspnet_PersonalizationPerUser">
+        <PropertyRef Name="PathId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Pe__PathI__787EE5A0">
+    <End Role="aspnet_Paths" Type="ERS_LMTModel.aspnet_Paths" Multiplicity="1" />
+    <End Role="aspnet_PersonalizationAllUsers" Type="ERS_LMTModel.aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Paths">
+        <PropertyRef Name="PathId" />
+      </Principal>
+      <Dependent Role="aspnet_PersonalizationAllUsers">
+        <PropertyRef Name="PathId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Pe__UserI__778AC167">
+    <End Role="aspnet_Users" Type="ERS_LMTModel.aspnet_Users" Multiplicity="0..1" />
+    <End Role="aspnet_PersonalizationPerUser" Type="ERS_LMTModel.aspnet_PersonalizationPerUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="aspnet_PersonalizationPerUser">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__aspnet_Pr__UserI__7B5B524B">
+    <End Role="aspnet_Users" Type="ERS_LMTModel.aspnet_Users" Multiplicity="1" />
+    <End Role="aspnet_Profile" Type="ERS_LMTModel.aspnet_Profile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="aspnet_Profile">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Category">
+    <End Role="ReviewCategories" Type="ERS_LMTModel.ReviewCategory" Multiplicity="1" />
+    <End Role="CategoryWeightage" Type="ERS_LMTModel.CategoryWeightage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReviewCategories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="CategoryWeightage">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Position">
+    <End Role="Position" Type="ERS_LMTModel.Position" Multiplicity="1" />
+    <End Role="CategoryWeightage" Type="ERS_LMTModel.CategoryWeightage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="PositionID" />
+      </Principal>
+      <Dependent Role="CategoryWeightage">
+        <PropertyRef Name="PositionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Choices_Question">
+    <End Role="Questions" Type="ERS_LMTModel.Question" Multiplicity="0..1" />
+    <End Role="Choices" Type="ERS_LMTModel.Choice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="QuestionID" />
+      </Principal>
+      <Dependent Role="Choices">
+        <PropertyRef Name="QuestionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Red_DirectorAllocation">
+    <End Role="DirectorAllocation" Type="ERS_LMTModel.DirectorAllocation" Multiplicity="1" />
+    <End Role="RedFlags" Type="ERS_LMTModel.RedFlag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DirectorAllocation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RedFlags">
+        <PropertyRef Name="DrAllocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_DirectorAllocation">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="1" />
+    <End Role="DirectorAllocation" Type="ERS_LMTModel.DirectorAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="DirectorAllocation">
+        <PropertyRef Name="LMId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_DirectorAllocation">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="1" />
+    <End Role="DirectorAllocation" Type="ERS_LMTModel.DirectorAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="DirectorAllocation">
+        <PropertyRef Name="DirectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Position">
+    <End Role="Position" Type="ERS_LMTModel.Position" Multiplicity="0..1" />
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="PositionID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="PositionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requestAllocation_Employee">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="0..1" />
+    <End Role="RequestAllocation" Type="ERS_LMTModel.RequestAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="RequestAllocation">
+        <PropertyRef Name="RequestorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Emp">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="0..1" />
+    <End Role="Review" Type="ERS_LMTModel.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="EmpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_LM">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="0..1" />
+    <End Role="Review" Type="ERS_LMTModel.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="LMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Reviewer">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="0..1" />
+    <End Role="Review" Type="ERS_LMTModel.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="ReviewerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_EmployeeRole">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="1" />
+    <End Role="EmployeeRole" Type="ERS_LMTModel.EmployeeRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="EmployeeRole">
+        <PropertyRef Name="EmpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_LMAllocation">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="1" />
+    <End Role="LMAllocation" Type="ERS_LMTModel.LMAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="LMAllocation">
+        <PropertyRef Name="LMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_LMAllocation">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="1" />
+    <End Role="LMAllocation" Type="ERS_LMTModel.LMAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="LMAllocation">
+        <PropertyRef Name="ManageeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk2_EmployeeRole">
+    <End Role="Roles" Type="ERS_LMTModel.Role1" Multiplicity="1" />
+    <End Role="EmployeeRole" Type="ERS_LMTModel.EmployeeRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmployeeRole">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TechSkills_Level">
+    <End Role="Level" Type="ERS_LMTModel.Level" Multiplicity="0..1" />
+    <End Role="TechSkills" Type="ERS_LMTModel.TechSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Level">
+        <PropertyRef Name="LevelID" />
+      </Principal>
+      <Dependent Role="TechSkills">
+        <PropertyRef Name="LevelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_MeetingSchedule">
+    <End Role="LMAllocation" Type="ERS_LMTModel.LMAllocation" Multiplicity="1" />
+    <End Role="MeetingSchedule" Type="ERS_LMTModel.MeetingSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LMAllocation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MeetingSchedule">
+        <PropertyRef Name="LMAllocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_MeetingNotes">
+    <End Role="MeetingSchedule" Type="ERS_LMTModel.MeetingSchedule" Multiplicity="1" />
+    <End Role="MeetingNotes" Type="ERS_LMTModel.MeetingNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingSchedule">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MeetingNotes">
+        <PropertyRef Name="MSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_MeetingNotes_TemplateSection">
+    <End Role="TemplateSection" Type="ERS_LMTModel.TemplateSection" Multiplicity="1" />
+    <End Role="MeetingNotes" Type="ERS_LMTModel.MeetingNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TemplateSection">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MeetingNotes">
+        <PropertyRef Name="TemplateSectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_MeetingNotifications">
+    <End Role="MeetingSchedule" Type="ERS_LMTModel.MeetingSchedule" Multiplicity="1" />
+    <End Role="MeetingNotifications" Type="ERS_LMTModel.MeetingNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingSchedule">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MeetingNotifications">
+        <PropertyRef Name="MSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_MeetingTemplate">
+    <End Role="MeetingTemplate" Type="ERS_LMTModel.MeetingTemplate" Multiplicity="1" />
+    <End Role="MeetingSchedule" Type="ERS_LMTModel.MeetingSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingTemplate">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MeetingSchedule">
+        <PropertyRef Name="TemplateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RedFlags">
+    <End Role="MeetingSchedule" Type="ERS_LMTModel.MeetingSchedule" Multiplicity="1" />
+    <End Role="RedFlags" Type="ERS_LMTModel.RedFlag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingSchedule">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RedFlags">
+        <PropertyRef Name="MSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TemplateSection">
+    <End Role="MeetingTemplate" Type="ERS_LMTModel.MeetingTemplate" Multiplicity="1" />
+    <End Role="TemplateSection" Type="ERS_LMTModel.TemplateSection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingTemplate">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TemplateSection">
+        <PropertyRef Name="TemplateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questions_Position">
+    <End Role="Position" Type="ERS_LMTModel.Position" Multiplicity="0..1" />
+    <End Role="Questions" Type="ERS_LMTModel.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="PositionID" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="PositionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requestAllocation_Position">
+    <End Role="Position" Type="ERS_LMTModel.Position" Multiplicity="0..1" />
+    <End Role="RequestAllocation" Type="ERS_LMTModel.RequestAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="PositionID" />
+      </Principal>
+      <Dependent Role="RequestAllocation">
+        <PropertyRef Name="RequestTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requestAllocation_priority">
+    <End Role="Priority" Type="ERS_LMTModel.Priority" Multiplicity="0..1" />
+    <End Role="RequestAllocation" Type="ERS_LMTModel.RequestAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priority">
+        <PropertyRef Name="PriorityID" />
+      </Principal>
+      <Dependent Role="RequestAllocation">
+        <PropertyRef Name="PriorityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requestAllocation_Project">
+    <End Role="Project" Type="ERS_LMTModel.Project" Multiplicity="0..1" />
+    <End Role="RequestAllocation" Type="ERS_LMTModel.RequestAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="RequestAllocation">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requestAllocation_requestStatus">
+    <End Role="RequestStatus" Type="ERS_LMTModel.RequestStatu" Multiplicity="0..1" />
+    <End Role="RequestAllocation" Type="ERS_LMTModel.RequestAllocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestStatus">
+        <PropertyRef Name="RequestStatusID" />
+      </Principal>
+      <Dependent Role="RequestAllocation">
+        <PropertyRef Name="RequestStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_ReviewType">
+    <End Role="ReviewType" Type="ERS_LMTModel.ReviewType" Multiplicity="0..1" />
+    <End Role="Review" Type="ERS_LMTModel.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReviewType">
+        <PropertyRef Name="ReviewTypeID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="ReviewTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReviewInfo_Review">
+    <End Role="Review" Type="ERS_LMTModel.Review" Multiplicity="1" />
+    <End Role="ReviewInfo" Type="ERS_LMTModel.ReviewInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Review">
+        <PropertyRef Name="ReviewId" />
+      </Principal>
+      <Dependent Role="ReviewInfo">
+        <PropertyRef Name="ReviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReviewInfo_ReviewCategories">
+    <End Role="ReviewCategories" Type="ERS_LMTModel.ReviewCategory" Multiplicity="1" />
+    <End Role="ReviewInfo" Type="ERS_LMTModel.ReviewInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReviewCategories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="ReviewInfo">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Skill_Role">
+    <End Role="Role" Type="ERS_LMTModel.Role" Multiplicity="0..1" />
+    <End Role="Skill" Type="ERS_LMTModel.Skill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Skill">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_SectionOption">
+    <End Role="TemplateSection" Type="ERS_LMTModel.TemplateSection" Multiplicity="1" />
+    <End Role="SectionOption" Type="ERS_LMTModel.SectionOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TemplateSection">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SectionOption">
+        <PropertyRef Name="SectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TechSkills_Skill">
+    <End Role="Skill" Type="ERS_LMTModel.Skill" Multiplicity="0..1" />
+    <End Role="TechSkills" Type="ERS_LMTModel.TechSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="SkillID" />
+      </Principal>
+      <Dependent Role="TechSkills">
+        <PropertyRef Name="SkillID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="aspnet_UsersInRoles">
+    <End Role="aspnet_Roles" Type="ERS_LMTModel.aspnet_Roles" Multiplicity="*" />
+    <End Role="aspnet_Users" Type="ERS_LMTModel.aspnet_Users" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Peer">
+    <Key>
+      <PropertyRef Name="EmpID" />
+      <PropertyRef Name="PeerID" />
+    </Key>
+    <Property Type="Int32" Name="EmpID" Nullable="false" />
+    <Property Type="Int32" Name="PeerID" Nullable="false" />
+    <Property Type="Boolean" Name="IsActive" />
+    <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.FK_Peers_Employee" FromRole="Peer" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="ERS_LMTModel.FK_Peers_Employee1" FromRole="Peer" ToRole="Employee" />
+  </EntityType>
+  <Association Name="FK_Peers_Employee">
+    <End Type="ERS_LMTModel.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="ERS_LMTModel.Peer" Role="Peer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Peer">
+        <PropertyRef Name="EmpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Peers_Employee1">
+    <End Type="ERS_LMTModel.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="ERS_LMTModel.Peer" Role="Peer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Peer">
+        <PropertyRef Name="PeerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Feature">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Permissions" Relationship="ERS_LMTModel.FK_Permissions_Features" FromRole="Feature" ToRole="Permission" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="FeatureID" />
+    <Property Type="Int32" Name="RoleID" />
+    <NavigationProperty Name="Feature" Relationship="ERS_LMTModel.FK_Permissions_Features" FromRole="Permission" ToRole="Feature" />
+    <NavigationProperty Name="Role" Relationship="ERS_LMTModel.FK_Permissions_Role" FromRole="Permission" ToRole="Role1" />
+  </EntityType>
+  <Association Name="FK_Permissions_Features">
+    <End Type="ERS_LMTModel.Feature" Role="Feature" Multiplicity="0..1" />
+    <End Type="ERS_LMTModel.Permission" Role="Permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Feature">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Permission">
+        <PropertyRef Name="FeatureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Permissions_Role">
+    <End Type="ERS_LMTModel.Role1" Role="Role1" Multiplicity="0..1" />
+    <End Type="ERS_LMTModel.Permission" Role="Permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role1">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Permission">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

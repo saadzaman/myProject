@@ -1,0 +1,10 @@
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\ERSv1.2.dll
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\ERSv1.2.pdb
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\ERS.dll
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\ERS.pdb
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\obj\Debug\ERSv1.2.dll
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\obj\Debug\ERSv1.2.pdb
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\Castle.Core.dll
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\DevDefined.OAuth.dll
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\DevDefined.OAuth.pdb
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\obj\Debug\ERSv1.2.csprojResolveAssemblyReference.cache
