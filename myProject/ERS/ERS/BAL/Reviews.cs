@@ -27,6 +27,30 @@ namespace ERS.BAL
             return ersRep.GetEmployee(EmpID);
         }
 
+        public EmployeeWithLM GetEmployeeFromReview(int ReviewID)
+        {
+            return ersRep.GetEmployeeFromReview(ReviewID);
+        }
+        public bool isLMOfReview(int UserID, int ReviewID)
+        {
+            return ersRep.isLMOfReview(UserID, ReviewID);
+        
+        }
+        public int AddReview(int EmpID, int LMID, int PeerID, String feedback)
+        {
+            return ersRep.AddReview(EmpID, LMID, PeerID, feedback);
+        
+        }
+        public int CreateReviewForConsolidate(int EmpID, int LMID)
+        {
+            return ersRep.CreateReviewForConsolidate(EmpID, LMID);
+        }
+
+        public bool isEmpOfReview(int UserID, int ReviewID)
+        {
+
+            return ersRep.isEmpOfReview(UserID, ReviewID);
+        }
         public bool FillReviews( int ReviewID , List<ReviewInfo> Infoes , string Type )
         {
 
@@ -51,6 +75,11 @@ namespace ERS.BAL
         {
 
             return ersRep.isReviewDraft(ReviewID);
+        
+        }
+        public string GetType(int ReviewID)
+        {
+            return ersRep.GetType(ReviewID);
         
         }
 

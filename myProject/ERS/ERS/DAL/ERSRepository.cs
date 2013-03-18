@@ -61,25 +61,32 @@ namespace ERS.DAL
         }
      
 
-       public  bool InsertReview(Review ParamReview)
+       public  int InsertReview(Review ParamReview)
         {
-
             try
             {
-               
-                ParamReview.ReviewId = GenerateReviewID();
-                context.Reviews.AddObject(ParamReview);
-                context.SaveChanges();
-                return true;
+                Review Orignal = (from a in context.Reviews
+                                  where a.LMID == ParamReview.LMID
+                                  && a.EmpID == ParamReview.EmpID
+                                  && a.ReviewerID == ParamReview.ReviewerID
+                                  select a).FirstOrDefault();
+                if (Orignal != null)
+                    return Orignal.ReviewId;
+                else
+                {
+                    ParamReview.ReviewId = GenerateReviewID();
+                    context.Reviews.AddObject(ParamReview);
+                    context.SaveChanges();
+                    return ParamReview.ReviewId;
+                }
             }
             catch (Exception ex)
             {
-                
                 //Include catch blocks for specific exceptions first,
                 //and handle or log the error as appropriate in each.
                 //Include a generic catch block like this one last.
                 throw ex;
-                return false;
+               // return false;
             }
 
 
@@ -145,7 +152,7 @@ namespace ERS.DAL
                    where a.EmpID == EmployeeID && a.Status == 1
                    select a).Count() == (from b in context.Peers where (b.EmpID == EmployeeID || b.PeerID == EmployeeID) select b).Count();
        }
-
+        
        public bool UpdateReviewStatus(int ReviewID,int Status)
        {
            try
@@ -377,6 +384,117 @@ namespace ERS.DAL
            return (from a in context.Reviews
                    where a.ReviewId == ReviewID
                    select a.Status).FirstOrDefault() == 3;
+       }
+
+       public string GetType(int ReviewID)
+       {
+           switch ((from a in context.Reviews
+                    where a.ReviewId == ReviewID
+                    select a.Status).FirstOrDefault())
+           {
+               case 1:
+                   return "Complete";
+               //break;
+               case 2:
+                   return "Pending";
+               //break;
+               case 3:
+                   return "Draft";
+                   break;
+               default:
+                   return "invalid";
+           }
+
+       }
+
+       public EmployeeWithLM GetEmployeeFromReview(int ReviewID)
+       {
+           var a = (from b in context.Reviews
+                    where b.ReviewId == ReviewID
+                    select new
+                    {
+                        Employee = b.Employee,
+                        LineManager = b.Employee1
+                    });
+           foreach (var va in a)
+               return new EmployeeWithLM(va.Employee, va.LineManager);
+           return null;
+         
+       }
+
+       public bool isLMOfReview(int UserID ,int ReviewID)
+       {
+           return (from a in context.Reviews
+                   where a.LMID == UserID && a.ReviewId == ReviewID
+                   select a.LMID).FirstOrDefault() != 0;
+       }
+
+       public bool isEmpOfReview(int UserID , int ReviewID)
+       {
+           return (from a in context.Reviews
+                   where a.EmpID == UserID && a.ReviewId == ReviewID
+                   select a.LMID).FirstOrDefault() != 0;
+       }
+
+        //CONDITION FOR MAKING PEERS
+        //(from b in Peers where (b.EmpID == PEER1 && b.PeerID == PEER2) || ( b.EmpID == PEER2 && b.PeerID == PEER1) select b).Count() == 0
+       public int AddReview(int EmpID, int LMID ,int PeerID , String feedback)
+       {
+
+           try
+           {
+               Review temp = new ERS.Review();
+               temp.Date = DateTime.Now;
+               temp.EmpID = EmpID;
+               temp.LMID = LMID;
+               temp.IsActive = 0;
+               temp.Status = 2;
+               temp.version = 1;
+               temp.ReviewTypeID = 0;
+               temp.feedback = feedback;
+               temp.ReviewerID = PeerID;
+
+
+
+
+               return InsertReview(temp); 
+           }
+           catch
+           {
+               return -1;
+           }
+
+       }
+
+
+
+       public int AddReview(int EmpID , int LMID)
+       {
+
+           try
+           {
+               Review temp = new ERS.Review();
+               temp.Date = DateTime.Now;
+               temp.EmpID = EmpID;
+               temp.LMID = LMID;
+               temp.IsActive = 0;
+               temp.Status = 2;
+               temp.version = 1;
+               temp.ReviewTypeID = 0;
+               temp.feedback = "None";
+               temp.ReviewerID = LMID;
+                return InsertReview(temp);
+           }
+           catch {
+           return -1;
+           }
+
+       }
+
+       public int CreateReviewForConsolidate(int EmpID, int LMID)
+       {
+           int ReviewID =  AddReview(EmpID, LMID);
+           return ReviewID;
        }
     }
 

@@ -13,6 +13,8 @@ namespace ERSv1._2
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             MenuItemMyManagees = "active";
+            if (Session["UserId"] == null)
+                Response.Redirect("Default.aspx");
             if (!IsPostBack)
             {
                 ERS.BAL.Managees BManagees = new Managees();
@@ -34,9 +36,6 @@ namespace ERSv1._2
             {
                 case "Show":
 
-                    // I , LineManager Of  "ImPeerOf"( A employee of which a peer is selected ) 
-                    // wants to see what the peer has filled about my LineManagee
-                    //Session["ShowReviewOfID"] = ReviewID;    //ReviewID
                     int EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);  // He is the Person i.e LM's Managee whose review will be Opened
                     int peerID = Int32.Parse((row.FindControl("PeerID") as HiddenField).Value);
                     Response.Redirect("ReviewForm.aspx?type=show&ROE=" + EmpID + "&SRI=" + ReviewID);
@@ -45,23 +44,25 @@ namespace ERSv1._2
 
                 case "Ask":
 
-                        ERS.DAL.ERSRepository Rep = new ERS.DAL.ERSRepository();
-                        ERS.Review temp = new ERS.Review();
-                        temp.Date =  DateTime.Now;
-                        EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);
+                       // ERS.DAL.ERSRepository Rep = new ERS.DAL.ERSRepository();
+                       // ERS.Review temp = new ERS.Review();
+                       // temp.Date =  DateTime.Now;
+                    Reviews rev = new Reviews();
+                       EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);
                         peerID = Int32.Parse((row.FindControl("PeerID") as HiddenField).Value);
-                        temp.EmpID = EmpID;
-                        temp.LMID = Int32.Parse( Session["UserID"].ToString() );
-                        temp.IsActive = 0;
-                        temp.Status = 2;
-                        temp.version = 1;
-                        temp.ReviewTypeID = 0;
-                        temp.feedback = "None";
-                        temp.ReviewerID = peerID;
+                       // temp.EmpID = EmpID;
+                       // temp.LMID = Int32.Parse( Session["UserID"].ToString() );
+                       // temp.IsActive = 0;
+                       // temp.Status = 2;
+                       // temp.version = 1;
+                       // temp.ReviewTypeID = 0;
+                       // temp.feedback = "None";
+                       // temp.ReviewerID = peerID;
                      
 
 
-                        Rep.InsertReview(temp);
+                        //Rep.InsertReview(temp);
+                        rev.AddReview(EmpID, (int)Session["UserID"], peerID, "None");
                         string script = "alert('" + "A Request Has Been Sent" + "')";
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "UserSecurity", script, true);
                         ((GridView)sender).DataBind();
@@ -98,6 +99,20 @@ namespace ERSv1._2
 
                 case "Consolidate":
 
+                    Reviews rev = new Reviews();
+                  rowIndex = int.Parse(e.CommandArgument.ToString());
+                  
+                    row = ((GridView)sender).Rows[rowIndex];
+
+
+                    EmpID = (int)((GridView)sender).DataKeys[rowIndex]["EmpID"];
+                    
+                    int ReviewID = rev.CreateReviewForConsolidate(EmpID, (int)Session["UserID"]);
+                    Response.Redirect("ReviewForm.aspx?type=consolidate&ROE=" + EmpID + "&SRI=" + ReviewID);
+
+                    
+
+
                     break;
 
 
@@ -125,7 +140,7 @@ namespace ERSv1._2
                        
                         Button ConsoBtn = (Button)e.Row.FindControl("ConsoBtn");
                          int EmpID = (int)((GridView)sender).DataKeys[e.Row.RowIndex]["EmpID"];
-                    Managees BALManageeInst = new Managees();
+                        Managees BALManageeInst = new Managees();
 
                     if (BALManageeInst.CanConsolidate(EmpID))
                             ConsoBtn.Enabled = true;

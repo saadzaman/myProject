@@ -11,23 +11,18 @@ namespace ERSv1._2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-         //   Permissions perm = new Permissions();
+          //   Permissions perm = new Permissions();
           //  perm.Insert(1, 2);
-
-
-          //  Session["UserID"] = 1;
-          //  Session["LMID"] = null;
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             MenuItemMyReviews = "active";
-           // Name = Session["UserName"].ToString();
+            if (Session["UserId"] == null)
+                Response.Redirect("Default.aspx");
+
             if (!IsPostBack)
             {
                 Reviews BReviews = new Reviews();
                 ReviewList.DataSource = BReviews.GetReviewsList((Int32)Session["UserID"]);
                 ReviewList.DataBind();
-              
-
-               
             }
         }
 

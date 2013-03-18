@@ -27,9 +27,7 @@
  <asp:ScriptManager ID="MainScriptManager" runat="server" />
 
 <fieldset>
-       <div class="well">
-     
-       </div>
+       
      
        <legend>Review Form</legend>
 <div class="row">  

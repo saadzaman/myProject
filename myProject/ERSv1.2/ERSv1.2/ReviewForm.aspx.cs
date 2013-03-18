@@ -12,56 +12,116 @@ namespace ERSv1._2
         protected void Page_Load(object sender, EventArgs e)
         {   
             MenuItemMyReviews = "active";
-            string referer = Request.UrlReferrer.ToString();
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            if (Session["isLM"].Equals(false))
-            {
-                PeerPanel.Visible = false;
-                LineManagerRating.Visible = false;
-                DirectorRating.Visible = false;
-                CalcRating.Visible = false;
-            }
-            
+            if (Session["UserId"] == null)
+                Response.Redirect("Default.aspx");
             if (Request.QueryString["SRI"] != null && !IsPostBack)
             {
+
+                   
+
+                string referer = Request.UrlReferrer.ToString();           
                 int ReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
-                //Whose Review is filled/has been filled
-                int EmpID = Int32.Parse(Request.QueryString["ROE"].ToString());
-                ViewState["ReviewID"] = ReviewID;
-                ViewState["EmpID"] = EmpID;
+                //int EmpID = Int32.Parse(Request.QueryString["ROE"].ToString());
+                
+                            
                 ERS.BAL.Reviews rev = new ERS.BAL.Reviews();
-                ERS.DAL.EmployeeWithLM ReviewedEmp = rev.GetEmployee(EmpID);
+                ERS.DAL.EmployeeWithLM ReviewedEmp = rev.GetEmployeeFromReview(ReviewID);
                 LMName.InnerText = ReviewedEmp.CurrEmployeeLM.Name;
                 EmpName.InnerText = ReviewedEmp.CurrEmployee.Name;
                 EmpDesignation.InnerText = ReviewedEmp.CurrEmployee.Position.PositionName;
+
+                if (Session["UserID"] != null)
+                {
+                    bool isLMOfReview = rev.isLMOfReview(Int32.Parse(Session["UserID"].ToString()), ReviewID);
+                    bool isEmpOfReview = rev.isEmpOfReview(Int32.Parse(Session["UserID"].ToString()), ReviewID);
+                    if (!(isLMOfReview || isEmpOfReview))
+                        Response.Redirect("Default.aspx");
+                    if (isLMOfReview && Request.QueryString["type"] == "show")
+                    {
+                        PeerPanel.Visible = false;
+                        LineManagerRating.Visible = false;
+                        DirectorRating.Visible = false;
+                        CalcRating.Visible = false;
+                        submit.Visible = false;
+                        save.Visible = false;
+                    }
+                    else if (isLMOfReview && Request.QueryString["type"] == "consolidate")
+                    {
+                        PeerPanel.Visible = true;
+                        LineManagerRating.Visible = true;
+                        DirectorRating.Visible = true;
+                        CalcRating.Visible = true;
+
+                    }
+                    else
+                    {
+                        PeerPanel.Visible = false;
+                        LineManagerRating.Visible = false;
+                        DirectorRating.Visible = false;
+                        CalcRating.Visible = false;
+                        submit.Visible = false;
+                        save.Visible = false;
+                    }
+
+                }
+                else
+                {
+                    Response.Redirect("Default.aspx");
+                }
+
+                ViewState["PreviousPageUrl"] = Request.UrlReferrer.ToString();
+                ViewState["ReviewID"] = ReviewID;
+                ViewState["EmpID"] = ReviewedEmp.CurrEmployee.EmpID;
+                
                 Categories.DataSource = rev.GetAllCategories();
                 Categories.DataBind();
-               // if (Request.QueryString["type"] == "show")
-               // {
-                ViewState["PreviousPageUrl"] = Request.UrlReferrer.ToString();
+                bool toShowOrNot = true;
+                String Type = rev.GetType(ReviewID);
+
+                if (Type != null)
+                {
+                    if (Type == "Complete")
+                    {
+                        toShowOrNot = false;
+                        submit.Visible = false;
+                        save.Visible = false;
+                    }
+                    else if (Type == "Draft" || Type == "Pending")
+                    {
+                        toShowOrNot = true;
+                        submit.Visible = true;
+                        save.Visible = true;
+                    }
+                }
+                
                     foreach (RepeaterItem a in Categories.Items)
                     {
                          int pReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
                          int pCategoryID = Int32.Parse((a.FindControl("CatID") as HiddenField).Value);
-                         bool isDraft = rev.isDraft(ReviewID);
+                         String str = rev.GetType(ReviewID);
                         
                              ERS.ReviewInfo RevInfo = rev.GetReviewInfo(ReviewID, pCategoryID);
                              if(RevInfo != null )
                              {
                                  TextBox RatingsTxt = (a.FindControl("RatingsTxt") as TextBox);
                                  RatingsTxt.Text = RevInfo.Rating.ToString();
-                                 if(!isDraft)
-                                 RatingsTxt.Enabled = false;
+                                 RatingsTxt.Enabled = toShowOrNot;
+
                                  TextBox CommentsTxt = (a.FindControl("CommentsTxt") as TextBox);
                                  CommentsTxt.Text = RevInfo.Comments.ToString();
-                                 if (!isDraft)
-                                 CommentsTxt.Enabled = false;
+                                 CommentsTxt.Enabled = toShowOrNot;
+
                              }
-                         
 
                     }
-                //}
-            }
+                   
+
+
+                    
+             }
+                        
+            
            
         }
 

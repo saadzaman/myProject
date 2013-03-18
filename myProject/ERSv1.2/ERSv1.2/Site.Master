@@ -41,7 +41,11 @@
     <h2 class="text-info">Employee Review System</h2>
     
     </div>
-    <p class="fright">Asalam O Aleikum , <span runat="server" id="userName" ><%# Eval("Name") %></span></p>
+        
+    <p class="fright">Asalam O Aleikum , <span runat="server" id="userName" ><%# Eval("Name") %></span>
+        <asp:LinkButton ID="LogOut" class="paddingForRow" runat="server" 
+            onclick="LogOut_Click">LogOut&nbsp;&nbsp;&nbsp;<i class="icon-lock" ></i></asp:LinkButton></p>
+    
     </div>
 
 <div class="row padding-top15">  
