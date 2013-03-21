@@ -1,0 +1,16 @@
+For a very large number of small files 
+time taken in my pc as shown in figure 1 was 0.14 in serial
+and 
+
+for same number of files time taken was 0.031 in parallel
+
+speedup for Matching = 0.14/0.031 = 4.5times
+
+but speed for hashing was decreased in parallel :S
+speed in parallel = 0.031
+speed in serial = 0.016
+A Decrease of 0.5 times in speed while hashing
+
+
+*All these results have been obtained by using a simple generic data set of small files
+
