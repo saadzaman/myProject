@@ -91,15 +91,20 @@ namespace ERSv1._2
                     Managees BManagees = new Managees();
                     GridView Peers = (GridView) row.FindControl("ManageePeers");
                     Peers.DataSource = null;
+                    int LMID = Int32.Parse(Session["UserId"].ToString());
+                    
 
-                    Peers.DataSource = BManagees.GetPeerList(EmpID,Int32.Parse(Session["UserId"].ToString()));
+                    Peers.DataSource = BManagees.GetPeerList(EmpID,LMID);
                     Peers.DataBind();
+                    Reviews rev = new Reviews();
+
+                    rev.AddReview(EmpID, LMID, EmpID, "Self");
 
                     break;
 
                 case "Consolidate":
 
-                    Reviews rev = new Reviews();
+                    rev = new Reviews();
                   rowIndex = int.Parse(e.CommandArgument.ToString());
                   
                     row = ((GridView)sender).Rows[rowIndex];
