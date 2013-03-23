@@ -50,8 +50,9 @@ namespace ERSv1._2
                     {
                         PeerPanel.Visible = true;
                         LineManagerRating.Visible = true;
-                       // DirectorRating.Visible = true;
-                       // CalcRating.Visible = true;
+                        DirectorRating.Visible = false;
+                        CalcRating.Visible = false;
+                        submit.Visible = true;
 
                     }
                     else
@@ -83,7 +84,7 @@ namespace ERSv1._2
                         submit.Visible = false;
                         save.Visible = false;
                     }
-                    else if (Type == "Draft" || Type == "Pending")
+                    else if (Type == "Draft" || Type == "Pending" )
                     {
                         toShowOrNot = true;
                         submit.Visible = true;
@@ -111,7 +112,16 @@ namespace ERSv1._2
                              }
 
                     }
-                   
+
+                    if (Session["isLM"].Equals(true))
+                    {
+                         ERS.ReviewInfo RevInfo = rev.GetReviewInfo(ReviewID, 4);
+                         if(RevInfo != null )
+                             {
+                                 LMCommentsTxt.Text = RevInfo.Comments;
+                                 LMRatingsTxt.Text = RevInfo.Rating.ToString();
+                            }
+                    }
 
 
                     
@@ -138,18 +148,30 @@ namespace ERSv1._2
 
         protected void submit_Click(object sender, EventArgs e)
         {
-
+            Reviews rev = new Reviews();
             List<ERS.ReviewInfo> Result = new List<ERS.ReviewInfo>();
+            int pReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
             foreach (RepeaterItem a in Categories.Items)
             {
-                int pReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
+              
                 int pCategoryID = Int32.Parse((a.FindControl("CatID") as HiddenField).Value);
+               
                 Double pRating = Double.Parse((a.FindControl("RatingsTxt") as TextBox).Text);
                 String pComments = (a.FindControl("CommentsTxt") as TextBox).Text;
                 Result.Add(new ERS.ReviewInfo() { CategoryID = pCategoryID, Comments = pComments, Rating = (decimal)pRating, ReviewId = pReviewID });
             
             }
-            ERS.BAL.Reviews rev = new ERS.BAL.Reviews();
+            // FOR LM 
+            bool isLMOfReview = rev.isLMOfReview(Int32.Parse(Session["UserID"].ToString()), pReviewID);
+            if (Session["isLM"].Equals(true) && isLMOfReview)
+            {
+                int lReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
+                int lCategoryID = 4;
+                Double lRating = Double.Parse(LMRatingsTxt.Text);
+                String lComments = LMCommentsTxt.Text;
+                Result.Add(new ERS.ReviewInfo() { CategoryID = lCategoryID, Comments = lComments, Rating = (decimal)lRating, ReviewId = lReviewID });
+            }
+            //ERS.BAL.Reviews rev = new ERS.BAL.Reviews();
             rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result , "submit");
             Response.Redirect(ViewState["PreviousPageUrl"].ToString());
         }

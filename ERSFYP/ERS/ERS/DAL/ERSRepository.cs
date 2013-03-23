@@ -149,9 +149,9 @@ namespace ERS.DAL
        public bool CanConsolidate(int EmployeeID)
        {
            return (from a in context.Reviews
-                   where a.EmpID == EmployeeID && a.Status == 1
-                   select a).Count() == (from b in context.Peers where (b.EmpID == EmployeeID || b.PeerID == EmployeeID) select b).Count();
-       }
+                   where a.EmpID == EmployeeID && a.Status == 1 && a.ReviewerID != a.Employee1.EmpID
+                   select a).Count() == (from b in context.Peers where (b.EmpID == EmployeeID || b.PeerID == EmployeeID) select b).Count() +1;
+       } //+1 is for self review
         
        public bool UpdateReviewStatus(int ReviewID,int Status)
        {
@@ -288,7 +288,7 @@ namespace ERS.DAL
 
        public List<ReviewCategory> GetCategories()
        {
-           return (from a in context.ReviewCategories select a).ToList<ReviewCategory>();
+           return (from a in context.ReviewCategories  where a.CategoryName != "LineManager" select a ).ToList<ReviewCategory>();
        }
 
        public EmployeeWithLM GetEmployee(int pEmpID)
@@ -426,7 +426,7 @@ namespace ERS.DAL
        {
            return (from a in context.Reviews
                    where a.LMID == UserID && a.ReviewId == ReviewID
-                   select a.LMID).FirstOrDefault() != 0;
+                   select a.LMID).FirstOrDefault() != null;
        }
 
        public bool isEmpOfReview(int UserID , int ReviewID)

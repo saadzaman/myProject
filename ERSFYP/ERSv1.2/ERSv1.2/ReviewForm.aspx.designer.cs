@@ -85,22 +85,22 @@ namespace ERSv1._2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LineManagerRating;
         
         /// <summary>
-        /// Textarea4 control.
+        /// LMCommentsTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Textarea4;
+        protected global::System.Web.UI.WebControls.TextBox LMCommentsTxt;
         
         /// <summary>
-        /// Text5 control.
+        /// LMRatingsTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Text5;
+        protected global::System.Web.UI.WebControls.TextBox LMRatingsTxt;
         
         /// <summary>
         /// DirectorRating control.
@@ -112,13 +112,13 @@ namespace ERSv1._2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DirectorRating;
         
         /// <summary>
-        /// Textarea3 control.
+        /// LMComment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Textarea3;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea LMComment;
         
         /// <summary>
         /// Text4 control.

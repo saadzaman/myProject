@@ -144,14 +144,15 @@
                             <div class="span5 control-group">
                                 <label class="control-label" for="Comments">Comment</label>
                                 <div class="controls">
-                                 <textarea class="span5" id='Textarea4' cols="80" rows="3" runat="server"></textarea>
+                                  <asp:TextBox ID="LMCommentsTxt" runat="server" TextMode="MultiLine" Width="250px" Rows="4"></asp:TextBox>
+                                  
                              </div>
                              </div>
        
                             <div class="span3 control-group"  >
                                 <label class="control-label" for="Rating">Ratings</label>
                                 <div class="controls">
-                                <input type="text" id='Text5' runat="server">
+                                   <asp:TextBox ID="LMRatingsTxt" Columns="70" Rows="3" runat="server"></asp:TextBox>
                                  </div>
                              </div>
                              </div>
@@ -166,7 +167,7 @@
                             <div class="span5 control-group">
                                 <label class="control-label" for="Comments">Comment</label>
                                 <div class="controls">
-                                 <textarea class="span5" id='Textarea3' cols="80" rows="3" runat="server"></textarea>
+                                 <textarea class="span5" id='LMComment' cols="80" rows="3" runat="server"></textarea>
                              </div>
                              </div>
        
