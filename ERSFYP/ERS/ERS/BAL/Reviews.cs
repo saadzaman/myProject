@@ -17,10 +17,16 @@ namespace ERS.BAL
 
         
 
-        public List<ReviewCategory> GetAllCategories()
+        public List<ReviewCategory> GetCategories()
         {
             return ersRep.GetCategories();
         }
+
+        public List<ReviewCategory> GetAllCategories()
+        {
+            return ersRep.GetAllCategories();
+        }
+
 
         public EmployeeWithLM GetEmployee(int EmpID)
         {
@@ -36,9 +42,9 @@ namespace ERS.BAL
             return ersRep.isLMOfReview(UserID, ReviewID);
         
         }
-        public int AddReview(int EmpID, int LMID, int PeerID, String feedback)
+        public int AddReview(int EmpID, int LMID, int Reviewee, String feedback)
         {
-            return ersRep.AddReview(EmpID, LMID, PeerID, feedback);
+            return ersRep.AddReview(EmpID, LMID, Reviewee, feedback);
         
         }
         public int CreateReviewForConsolidate(int EmpID, int LMID)
@@ -57,14 +63,27 @@ namespace ERS.BAL
 
             if (ersRep.InsertMultipleReviewInfo(Infoes))
             {
-                if(Type == "submit")
-                ersRep.UpdateReviewStatus(ReviewID,1);
+                if (Type == "Completed")
+                ersRep.UpdateReviewStatus(ReviewID,"Completed");
+                else if (Type == "Consolidated")
+                ersRep.UpdateReviewStatus(ReviewID, "Consolidated");
                 else
-                ersRep.UpdateReviewStatus(ReviewID,3);
+                ersRep.UpdateReviewStatus(ReviewID,"Drafted");
                 return true;
             } return false;
         }
 
+        public int GetReviewID(int LMID, int ReviewerID, int EmpID)
+        {
+            return ersRep.GetReviewID(LMID, ReviewerID, EmpID);
+        
+        }
+
+        public bool InsertReviewInfo(int lCategoryID, String lComments, decimal lRating, int lReviewId)
+        {
+            ReviewInfo NewRevInfo = new ERS.ReviewInfo() { CategoryID = lCategoryID, Comments = lComments, Rating = (decimal)lRating, ReviewId = lReviewId };
+            return ersRep.InsertReviewInfo(NewRevInfo); 
+        }
         public ReviewInfo GetReviewInfo(int pReviewID, int pCategoryID)
         {
 
@@ -83,11 +102,23 @@ namespace ERS.BAL
         
         }
 
+        public string GetType(int LMID, int EmpID)
+        {
+
+            return ersRep.GetType(LMID, EmpID);
+        }
+       
         public List<EmpWithRevInfo_Cat> GetAllReviewsOf_Peer_GivenCategory(int EmpID, int CatID)
         {
 
             return ersRep.GetAllReviewsOf_Peer_GivenCategory(EmpID, CatID);
         
+        }
+
+        public int GetCategoryID(string CatName)
+        {
+
+            return ersRep.GetCategoryID(CatName);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace ERSv1._2
 
                         List<ERS.DAL.EmployeeReviews> mylist = (List<ERS.DAL.EmployeeReviews>)ReviewList.DataSource;
 
-                                if (mylist[e.Row.RowIndex].Status == 1)
+                                if (mylist[e.Row.RowIndex].Status == "Completed")
                                 {
                                     Button FillButton = (Button)e.Row.FindControl("FillButton");
                                     FillButton.Visible = false;

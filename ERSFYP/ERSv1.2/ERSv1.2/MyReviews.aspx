@@ -6,6 +6,7 @@
 <h4>My Reviews</h4>
    
   
+  <div class=row>
         <label class="span2">
                 <input type="checkbox" id="cb" runat="server" value=""/>All
         </label>
@@ -26,9 +27,11 @@
          </div>
 
       
+      
+      </div>
 
-         <div id="gridViewDiv" class="row accordion-inner-noborder paddingForRow">
-           
+        
+           <div>
              <asp:GridView DataKeyNames="ReviewID" CssClass="table table-hover table-striped" 
                  ID="ReviewList" AutoGenerateColumns="false" runat="server" GridLines="None" 
                  onrowdatabound="ReviewList_RowDataBound" onrowcommand="ReviewList_RowCommand" 
@@ -81,8 +84,7 @@
 
 
              </asp:GridView>
-         </div>
-
+      
     
-
+</div>
 </asp:Content>

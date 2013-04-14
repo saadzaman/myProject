@@ -32,5 +32,11 @@ namespace ERS.BAL
                 return ersRep.CanConsolidate(EmployeeID);
             }
 
+            public bool isConsolidated(int EmpID, int LMID)
+            {
+                return ersRep.isConsolidated(EmpID, LMID);
+
+            }
+
     }
 }

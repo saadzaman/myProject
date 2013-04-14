@@ -10,6 +10,11 @@ namespace ERSv1._2
 {
     public partial class ReviewForm : BasePages
     {
+
+        protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+         
+        }
         protected void Page_Load(object sender, EventArgs e)
         {   
             MenuItemMyReviews = "active";
@@ -21,11 +26,10 @@ namespace ERSv1._2
 
                    
 
-                string referer = Request.UrlReferrer.ToString();           
+                string referer = Request.UrlReferrer.ToString();
+           
                 int ReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
-                //int EmpID = Int32.Parse(Request.QueryString["ROE"].ToString());
-                
-                            
+               
                 ERS.BAL.Reviews rev = new ERS.BAL.Reviews();
                 ERS.DAL.EmployeeWithLM ReviewedEmp = rev.GetEmployeeFromReview(ReviewID);
                 LMName.InnerText = ReviewedEmp.CurrEmployeeLM.Name;
@@ -37,7 +41,7 @@ namespace ERSv1._2
                     bool isEmpOfReview = rev.isEmpOfReview(Int32.Parse(Session["UserID"].ToString()), ReviewID);
                     if (!(isLMOfReview || isEmpOfReview))
                         Response.Redirect("Default.aspx");
-                    if (isLMOfReview && Request.QueryString["type"] == "show")
+                    if (isLMOfReview && Request.QueryString["OpenedFor"] == "show")
                     {
                         PeerPanel.Visible = false;
                         LineManagerRating.Visible = false;
@@ -46,7 +50,7 @@ namespace ERSv1._2
                         submit.Visible = false;
                         save.Visible = false;
                     }
-                    else if (isLMOfReview && Request.QueryString["type"] == "consolidate")
+                    else if (isLMOfReview && Request.QueryString["OpenedFor"] == "consolidate")
                     {
                         PeerPanel.Visible = true;
                         LineManagerRating.Visible = true;
@@ -56,12 +60,12 @@ namespace ERSv1._2
 
                     }
                     else
-                    {
+                    {   // Review is opened by an Employee
                         PeerPanel.Visible = false;
                         LineManagerRating.Visible = false;
                         DirectorRating.Visible = false;
                         CalcRating.Visible = false;
-                        submit.Visible = false;
+                        submit.Visible = false;   // Disabling , will enable after querying and gettiing actual status of review
                         save.Visible = false;
                     }
 
@@ -71,7 +75,7 @@ namespace ERSv1._2
                 ViewState["ReviewID"] = ReviewID;
                 ViewState["EmpID"] = ReviewedEmp.CurrEmployee.EmpID;
                 
-                Categories.DataSource = rev.GetAllCategories();
+                Categories.DataSource = rev.GetCategories();
                 Categories.DataBind();
                 bool toShowOrNot = true;
                 String Type = rev.GetType(ReviewID);
@@ -91,8 +95,10 @@ namespace ERSv1._2
                         save.Visible = true;
                     }
                 }
-                
-                    foreach (RepeaterItem a in Categories.Items)
+
+# region Loading Saved Text
+
+                foreach (RepeaterItem a in Categories.Items)
                     {
                          int pReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
                          int pCategoryID = Int32.Parse((a.FindControl("CatID") as HiddenField).Value);
@@ -115,7 +121,8 @@ namespace ERSv1._2
 
                     if (Session["isLM"].Equals(true))
                     {
-                         ERS.ReviewInfo RevInfo = rev.GetReviewInfo(ReviewID, 4);
+                        int lCategoryID = rev.GetCategoryID("LineManager");
+                         ERS.ReviewInfo RevInfo = rev.GetReviewInfo(ReviewID,lCategoryID);
                          if(RevInfo != null )
                              {
                                  LMCommentsTxt.Text = RevInfo.Comments;
@@ -124,7 +131,8 @@ namespace ERSv1._2
                     }
 
 
-                    
+  #endregion
+
              }
                         
             
@@ -142,8 +150,6 @@ namespace ERSv1._2
                 PeerReviews.DataSource = Source;
                 PeerReviews.DataBind();
             }
-          
-          //  lblHelloWorld.Text = "Hello, world - this is a fresh message from ASP.NET AJAX! The time right now is: " + DateTime.Now.ToLongTimeString();
         }
 
         protected void submit_Click(object sender, EventArgs e)
@@ -158,6 +164,8 @@ namespace ERSv1._2
                
                 Double pRating = Double.Parse((a.FindControl("RatingsTxt") as TextBox).Text);
                 String pComments = (a.FindControl("CommentsTxt") as TextBox).Text;
+
+                // THe statement Below should be done by rev.AddReviewInfo 
                 Result.Add(new ERS.ReviewInfo() { CategoryID = pCategoryID, Comments = pComments, Rating = (decimal)pRating, ReviewId = pReviewID });
             
             }
@@ -166,13 +174,18 @@ namespace ERSv1._2
             if (Session["isLM"].Equals(true) && isLMOfReview)
             {
                 int lReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
-                int lCategoryID = 4;
+                int lCategoryID = rev.GetCategoryID("LineManager");
                 Double lRating = Double.Parse(LMRatingsTxt.Text);
                 String lComments = LMCommentsTxt.Text;
+
+                // THe statement Below should be done by rev.AddReviewInfo 
                 Result.Add(new ERS.ReviewInfo() { CategoryID = lCategoryID, Comments = lComments, Rating = (decimal)lRating, ReviewId = lReviewID });
             }
-            //ERS.BAL.Reviews rev = new ERS.BAL.Reviews();
-            rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result , "submit");
+            
+            if( Request.QueryString["OpenedFor"] == "consolidate" && isLMOfReview)
+                rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result, "Consolidated");
+            else
+                rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result, "Completed");
             Response.Redirect(ViewState["PreviousPageUrl"].ToString());
         }
 
@@ -200,7 +213,7 @@ namespace ERSv1._2
             bool isLMOfReview = rev.isLMOfReview(Int32.Parse(Session["UserID"].ToString()), ReviewID);
             //if(isLMOfReview)
                
-            rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result, "save");
+            rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result, "Drafted");
             Response.Redirect(ViewState["PreviousPageUrl"].ToString());
         }
     }

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BAL\Director.cs" />
     <Compile Include="BAL\Login.cs" />
     <Compile Include="BAL\Managees.cs" />
     <Compile Include="BAL\Permissions.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="DAL\EmployeeWithLM.cs" />
     <Compile Include="DAL\EmpWithRevInfo_Cat.cs" />
     <Compile Include="DAL\ERSRepository.cs" />
+    <Compile Include="DAL\LineManagersWithDirector.cs" />
     <Compile Include="DAL\Managees.cs" />
     <Compile Include="DAL\PeersWithReviews.cs" />
     <Compile Include="DB.Designer.cs">
@@ -63,13 +65,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="DB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

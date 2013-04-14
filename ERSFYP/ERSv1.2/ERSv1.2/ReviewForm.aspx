@@ -51,15 +51,18 @@
                                              <div class="control-group">
                                                     <label class="control-label" for="Ratings">Ratings</label>
                                                     <div class="controls">
+                                                        
                                                       <asp:TextBox ID="RatingsTxt" Columns="70" Rows="3" runat="server"></asp:TextBox>
-                                                     
+                                                      <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="RatingsTxt" Type="Double" MinimumValue="1" MaximumValue="5" ErrorMessage="RangeValidator"></asp:RangeValidator>
+                                                      <asp:RequiredFieldValidator ID="RequiredFieldValidator2"  ValidationGroup="FillReview" runat="server" ControlToValidate="RatingsTxt" ErrorMessage="Please Insert Ratings"></asp:RequiredFieldValidator>
                                                      </div>
                                              </div>
 
 	                                         <div class="control-group">
                                                     <label class="control-label" for="Comments">Comments</label>
                                                     <div class="controls">
-                                                        <asp:TextBox ID="CommentsTxt" runat="server" TextMode="MultiLine" Width="250px" Rows="4"></asp:TextBox>
+                                                        <asp:TextBox ID="CommentsTxt" runat="server" TextMode="MultiLine" Width="250px" ValidationGroup="FillReview" Rows="4"></asp:TextBox>
+                                                       <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="FillReview" runat="server" ControlToValidate="CommentsTxt" ErrorMessage="Please Insert Comments"></asp:RequiredFieldValidator>
                                                      </div>
                                              </div>
                                      </div>
@@ -116,8 +119,30 @@
                       <p class="accordion-heading">Reviews From Peers - <span>Quality</span></p>                  
                     <asp:GridView ID="PeerReviews" runat="server" 
                     CssClass="table table-hover table-striped"  GridLines="None" 
-                    UseAccessibleHeader=true >
+                    UseAccessibleHeader=true AutoGenerateColumns= false
+                   >
                    
+                    <Columns>
+                            <asp:TemplateField HeaderText="Name"> 
+                            <ItemTemplate>
+                            <asp:Label ID="Label1" runat="server"><%# Eval("Name")%></asp:Label>
+                            </ItemTemplate>
+                            </asp:TemplateField>
+        
+                            <asp:TemplateField HeaderText="Rating"> 
+                            <ItemTemplate>
+                            <asp:Label ID="Label2" runat="server" ><%# Eval("Rating")%></asp:Label>
+                            </ItemTemplate>
+                            </asp:TemplateField>
+        
+                            <asp:TemplateField HeaderText="Comment"> 
+                            <ItemTemplate>
+                            <asp:Label ID="Label3" runat="server" ><%# Eval("Comment")%></asp:Label>
+                            
+                            </ItemTemplate>
+                            </asp:TemplateField>
+                    </Columns>
+
                     </asp:GridView> 
                 
                 </ContentTemplate>                                      
@@ -144,7 +169,7 @@
                             <div class="span5 control-group">
                                 <label class="control-label" for="Comments">Comment</label>
                                 <div class="controls">
-                                  <asp:TextBox ID="LMCommentsTxt" runat="server" TextMode="MultiLine" Width="250px" Rows="4"></asp:TextBox>
+                                  <asp:TextBox ID="LMCommentsTxt" runat="server" TextMode="MultiLine" Width="250px" ValidationGroup="FillReview" Rows="4"></asp:TextBox>
                                   
                              </div>
                              </div>
@@ -190,9 +215,9 @@
 
               <div class="accordion-inner-noborder">
                 <div class="pagination-centered">
-                <asp:Button ID="submit" runat="server" class="btn btn-success" Text="Submit Review" 
+                <asp:Button ID="submit" runat="server" ValidationGroup="FillReview" class="btn btn-success" Text="Submit Review" 
                         onclick="submit_Click" />
-                <asp:Button ID="save" runat="server" class="btn btn-danger" Text="Draft Review" 
+                <asp:Button ID="save" runat="server" ValidationGroup="FillReview" class="btn btn-danger" Text="Draft Review" 
                         onclick="save_Click" />
              
                 </div>

@@ -13,11 +13,13 @@ namespace ERS.DAL
         { 
             // TODO: Complete member initialization
             this.Rating = (int)b.Rating;
-           this.Name = employee.Name;
+            this.Name = employee.Name;
             this.Comment = b.Comments;
+            this.ID = employee.EmpID;
         }
         public String Name { get; set; }
         public decimal Rating { get; set; }
          public String Comment { get; set; }
+         public int ID { get; set; }
     }
 }

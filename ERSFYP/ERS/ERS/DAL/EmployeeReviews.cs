@@ -12,12 +12,12 @@ namespace ERS.DAL
            public DateTime Deadline { get; set; }
            public String Type { get; set; }
            public String Feedback { get; set; }
-           public int Status { get; set; }
+           public String Status { get; set; }
            public int ReviewID { get; set; }
            public Employee CurrEmployee { get; set; } 
            public Review CurrReview { get; set; } 
 
-           public EmployeeReviews(Employee pCurrEmployee,Review pCurrReview,int pID,String pEmployeeName, String pLineManager, DateTime pDeadline, String pType, String pFeedback,int pStatus)
+           public EmployeeReviews(Employee pCurrEmployee,Review pCurrReview,int pID,String pEmployeeName, String pLineManager, DateTime pDeadline, String pType, String pFeedback,String pStatus)
         {
             ReviewID = pID;
            EmployeeName = pEmployeeName;

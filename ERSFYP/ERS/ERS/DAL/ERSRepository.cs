@@ -24,6 +24,18 @@ namespace ERS.DAL
         
         }
 
+        public int GetReviewID(int LMID, int ReviewerID, int EmpID)
+        {
+            try
+            {
+                return (from a in context.Reviews
+                        where a.EmpID == EmpID && a.LMID == LMID && a.ReviewerID == ReviewerID
+                        select a.ReviewId).First();
+            }
+            catch(Exception ex) {
+                return -1;
+            }
+        }
         public Employee GetUserID(string email)
         {
             Employee result = (from a in context.Employees
@@ -44,7 +56,7 @@ namespace ERS.DAL
                              Deadline = a.Date,
                              Type = a.ReviewType.TypeName,
                              Feedback = a.feedback,
-                             Status = a.Status,
+                             Status = a.Status1.StatusName,
                              Employee = a.Employee,
                              Review = a
                          };
@@ -53,7 +65,7 @@ namespace ERS.DAL
             foreach (var b in Result)
             {
 
-                ReturnList.Add(new EmployeeReviews(b.Employee, b.Review ,b.ID, b.EmployeeName, b.LineManager, (DateTime)b.Deadline, b.Type, b.Feedback, (Int32)b.Status));
+                ReturnList.Add(new EmployeeReviews(b.Employee, b.Review ,b.ID, b.EmployeeName, b.LineManager, (DateTime)b.Deadline, b.Type, b.Feedback, b.Status));
             }
 
             return ReturnList;
@@ -149,17 +161,17 @@ namespace ERS.DAL
        public bool CanConsolidate(int EmployeeID)
        {
            return (from a in context.Reviews
-                   where a.EmpID == EmployeeID && a.Status == 1 && a.ReviewerID != a.Employee1.EmpID
+                   where a.EmpID == EmployeeID && a.Status1.StatusName == "Completed" && a.ReviewerID != a.Employee1.EmpID
                    select a).Count() == (from b in context.Peers where (b.EmpID == EmployeeID || b.PeerID == EmployeeID) select b).Count() +1;
        } //+1 is for self review
         
-       public bool UpdateReviewStatus(int ReviewID,int Status)
+       public bool UpdateReviewStatus(int ReviewID,String Status)
        {
            try
            {
                Review Orignal = (from a in context.Reviews where a.ReviewId == ReviewID select a).ToList<Review>()[0];
                context.Reviews.Attach(Orignal);
-               Orignal.Status = Status;
+               Orignal.Status = (from b in context.Status where b.StatusName == Status select b.ID).First();
                context.ApplyCurrentValues("Reviews", Orignal);
                context.SaveChanges();
                return true;
@@ -183,7 +195,35 @@ namespace ERS.DAL
        
        }
 
+        
+        
+       public List<LineManagersWithDirector> GetLineManagers(int pDirectorID)
+       {
 
+           List<LineManagersWithDirector> ReturnList = new List<LineManagersWithDirector>();
+
+
+           var Result = from a in
+                            (
+                               from aa in context.Employees
+                               join bb in context.EmployeeRoles on aa.EmpID equals bb.EmpID
+                               where bb.RoleID == (from x in context.Roles1 where x.RoleName == "Line Manager" select x).FirstOrDefault().ID
+                               select aa
+                               )
+                        join b in context.DirectorAllocations on a.EmpID equals b.LMId into lefto
+                        from o in lefto.DefaultIfEmpty()
+                        select new { LMName = a.Name, LMID = a.EmpID, LMDesignation = a.Position.PositionDetails, DirectorID = (o.DirectorID == null) ? 0 : o.DirectorID, DirectorName = (o.Employee1.Name == null) ? "NoOne" : o.Employee1.Name };
+
+
+
+
+           foreach (var temp in Result)
+           {
+               ReturnList.Add(new LineManagersWithDirector() { LMName = temp.LMName, LMDesignation = temp.LMDesignation, LMDirector = temp.DirectorName, LMID = temp.LMID, DirectorID = temp.DirectorID });
+           }
+
+           return ReturnList;
+       }
        public List<PeersWithReviews> GetPeersWithReviewStats(int pManageeID , int pLMID)
        {
 
@@ -202,13 +242,13 @@ namespace ERS.DAL
                         {
                             Employee = a.Employee1,
                             ReviewId = (System.Int32?)fgi.ReviewId,
-                            ReviewStatus = (System.Int32?)fgi.Status
+                            ReviewStatus = fgi.Status1.StatusName
                         };
 
            foreach (var b in Result)
            {
                if(b.ReviewId !=null)
-               ReturnList.Add(new PeersWithReviews((Int32)b.ReviewId, b.ReviewStatus.ToString(), b.Employee , pManageeID));
+               ReturnList.Add(new PeersWithReviews((Int32)b.ReviewId, b.ReviewStatus, b.Employee , pManageeID));
                else
                    ReturnList.Add(new PeersWithReviews(0, "0", b.Employee ,pManageeID));
 
@@ -227,7 +267,7 @@ namespace ERS.DAL
                         {
                             Employee = a.Employee,
                             ReviewId = (System.Int32?)fgi.ReviewId,
-                            ReviewStatus = (System.Int32?)fgi.Status
+                            ReviewStatus = fgi.Status1.StatusName
                         };
 
            foreach (var b in Result2)
@@ -288,9 +328,14 @@ namespace ERS.DAL
 
        public List<ReviewCategory> GetCategories()
        {
-           return (from a in context.ReviewCategories  where a.CategoryName != "LineManager" select a ).ToList<ReviewCategory>();
+           return (from a in context.ReviewCategories where a.CategoryName != "LineManager" && a.CategoryName != "Director" select a).ToList<ReviewCategory>();
        }
 
+
+       public List<ReviewCategory> GetAllCategories()
+       {
+           return (from a in context.ReviewCategories select a).ToList<ReviewCategory>();
+       }
        public EmployeeWithLM GetEmployee(int pEmpID)
        {
 
@@ -347,7 +392,39 @@ namespace ERS.DAL
        }
 
 
+       public bool InsertReviewInfo(ReviewInfo r)
+       {
 
+           try
+           {
+               
+                   if (context.ReviewInfoes.Any(e => (e.ReviewId == r.ReviewId && e.CategoryID == r.CategoryID)))
+                   {
+                       context.ReviewInfoes.Attach(r);
+                       context.ObjectStateManager.ChangeObjectState(r, EntityState.Modified);
+                   }
+                   else
+                   {
+                       context.ReviewInfoes.AddObject(r);
+                   }
+
+
+               
+               context.SaveChanges();
+               return true;
+           }
+           catch (Exception ex)
+           {
+
+               //Include catch blocks for specific exceptions first,
+               //and handle or log the error as appropriate in each.
+               //Include a generic catch block like this one last.
+               throw ex;
+               return false;
+           }
+
+
+       }
 
        private bool disposedValue = false;
 
@@ -383,22 +460,37 @@ namespace ERS.DAL
        {
            return (from a in context.Reviews
                    where a.ReviewId == ReviewID
-                   select a.Status).FirstOrDefault() == 3;
+                   select a.Status1.StatusName).FirstOrDefault() == "Drafted";
+       }
+
+       public string GetType(int LMID, int EmpID)
+       {
+           try
+           {
+               return (from a in context.Reviews
+                       where a.LMID == LMID && a.ReviewerID == EmpID && a.EmpID == EmpID
+                       select a.Status1.StatusName).First();
+           }
+           catch
+           {
+               return "Pending";
+           }
        }
 
        public string GetType(int ReviewID)
        {
            switch ((from a in context.Reviews
                     where a.ReviewId == ReviewID
-                    select a.Status).FirstOrDefault())
+                    select a.Status1.StatusName).FirstOrDefault())
            {
-               case 1:
+               case "Completed":
+               case "Consolidated" :
                    return "Complete";
                //break;
-               case 2:
+               case "Pending":
                    return "Pending";
                //break;
-               case 3:
+               case "Drafted":
                    return "Draft";
                    break;
                default:
@@ -422,6 +514,20 @@ namespace ERS.DAL
          
        }
 
+       public bool isConsolidated(int EmpID, int LMID)
+       {
+           try
+           {
+               return (from a in context.Reviews
+                       where a.LMID == LMID && a.ReviewerID == LMID && a.EmpID == EmpID
+                       select a.Status1.StatusName).First() == "Consolidated";
+           }
+           catch {
+               return false;
+           }
+       
+       }
+
        public bool isLMOfReview(int UserID ,int ReviewID)
        {
            return (from a in context.Reviews
@@ -438,7 +544,7 @@ namespace ERS.DAL
 
         //CONDITION FOR MAKING PEERS
         //(from b in Peers where (b.EmpID == PEER1 && b.PeerID == PEER2) || ( b.EmpID == PEER2 && b.PeerID == PEER1) select b).Count() == 0
-       public int AddReview(int EmpID, int LMID ,int PeerID , String feedback)
+       public int AddReview(int EmpID, int LMID ,int Reviewee , String feedback)
        {
 
            try
@@ -448,15 +554,11 @@ namespace ERS.DAL
                temp.EmpID = EmpID;
                temp.LMID = LMID;
                temp.IsActive = 0;
-               temp.Status = 2;
+               temp.Status = 2;   // Review Status For Pending 
                temp.version = 1;
                temp.ReviewTypeID = 0;
                temp.feedback = feedback;
-               temp.ReviewerID = PeerID;
-
-
-
-
+               temp.ReviewerID = Reviewee;
                return InsertReview(temp); 
            }
            catch
@@ -495,6 +597,26 @@ namespace ERS.DAL
        {
            int ReviewID =  AddReview(EmpID, LMID);
            return ReviewID;
+       }
+
+       public bool AreReviewsPending(int LMID)
+       {
+           return (from a in context.Reviews
+                   where (a.Status1.StatusName != "Completed" && a.Status1.StatusName != "Consolidated")
+                   && a.LMID == LMID
+                   select a).Count() == 0
+                   && ( from b in context.Reviews where b.LMID == LMID select b).Count() != 0
+                   ;
+       
+       }
+
+
+       public int GetCategoryID(string CatName)
+       {
+           return (from a in context.ReviewCategories
+                   where a.CategoryName == CatName
+                   select a.CategoryID).First() ;
+           
        }
     }
 

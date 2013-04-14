@@ -38,7 +38,7 @@ namespace ERSv1._2
 
                     int EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);  // He is the Person i.e LM's Managee whose review will be Opened
                     int peerID = Int32.Parse((row.FindControl("PeerID") as HiddenField).Value);
-                    Response.Redirect("ReviewForm.aspx?type=show&ROE=" + EmpID + "&SRI=" + ReviewID);
+                    Response.Redirect("ReviewForm.aspx?OpenedFor=show&ROE=" + EmpID + "&SRI=" + ReviewID);
 
                     break;
 
@@ -47,21 +47,9 @@ namespace ERSv1._2
                        // ERS.DAL.ERSRepository Rep = new ERS.DAL.ERSRepository();
                        // ERS.Review temp = new ERS.Review();
                        // temp.Date =  DateTime.Now;
-                    Reviews rev = new Reviews();
-                       EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);
+                        Reviews rev = new Reviews();
+                        EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);
                         peerID = Int32.Parse((row.FindControl("PeerID") as HiddenField).Value);
-                       // temp.EmpID = EmpID;
-                       // temp.LMID = Int32.Parse( Session["UserID"].ToString() );
-                       // temp.IsActive = 0;
-                       // temp.Status = 2;
-                       // temp.version = 1;
-                       // temp.ReviewTypeID = 0;
-                       // temp.feedback = "None";
-                       // temp.ReviewerID = peerID;
-                     
-
-
-                        //Rep.InsertReview(temp);
                         rev.AddReview(EmpID, (int)Session["UserID"], peerID, "None");
                         string script = "alert('" + "A Request Has Been Sent" + "')";
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "UserSecurity", script, true);
@@ -84,36 +72,32 @@ namespace ERSv1._2
               case "ShowPeers":
 
                     int rowIndex = int.Parse(e.CommandArgument.ToString());
-                    // Which is one of LM's ManageeID
+                    
+                // Which is one of LM's ManageeID
                     int EmpID = (int)((GridView)sender).DataKeys[rowIndex]["EmpID"];
                     GridViewRow row = ((GridView)sender).Rows[rowIndex];
-                  
                     Managees BManagees = new Managees();
                     GridView Peers = (GridView) row.FindControl("ManageePeers");
                     Peers.DataSource = null;
                     int LMID = Int32.Parse(Session["UserId"].ToString());
-                    
-
                     Peers.DataSource = BManagees.GetPeerList(EmpID,LMID);
                     Peers.DataBind();
                     Reviews rev = new Reviews();
-
                     rev.AddReview(EmpID, LMID, EmpID, "Self");
-
-                    break;
+                    
+                    // Label Fail = (row.FindControl("Fail") as Label);
+                    // Fail.Text = rev.GetType(SelfId);
+                    
+                     break;
 
                 case "Consolidate":
 
                     rev = new Reviews();
-                  rowIndex = int.Parse(e.CommandArgument.ToString());
-                  
+                    rowIndex = int.Parse(e.CommandArgument.ToString());
                     row = ((GridView)sender).Rows[rowIndex];
-
-
                     EmpID = (int)((GridView)sender).DataKeys[rowIndex]["EmpID"];
-                    
                     int ReviewID = rev.CreateReviewForConsolidate(EmpID, (int)Session["UserID"]);
-                    Response.Redirect("ReviewForm.aspx?type=consolidate&ROE=" + EmpID + "&SRI=" + ReviewID);
+                    Response.Redirect("ReviewForm.aspx?OpenedFor=consolidate&ROE=" + EmpID + "&SRI=" + ReviewID);
 
                     
 
@@ -139,19 +123,26 @@ namespace ERSv1._2
 
                     case DataControlRowType.DataRow:
 
-
-                      
-                        
-                       
+                        int LMID = Int32.Parse(Session["UserId"].ToString());
                         Button ConsoBtn = (Button)e.Row.FindControl("ConsoBtn");
-                         int EmpID = (int)((GridView)sender).DataKeys[e.Row.RowIndex]["EmpID"];
+                        int EmpID = (int)((GridView)sender).DataKeys[e.Row.RowIndex]["EmpID"];
                         Managees BALManageeInst = new Managees();
+                        Reviews RevInst = new Reviews();
 
-                    if (BALManageeInst.CanConsolidate(EmpID))
+                        if (BALManageeInst.CanConsolidate(EmpID))
                             ConsoBtn.Enabled = true;
                         else
-                            ConsoBtn.Enabled = false;  
+                            ConsoBtn.Enabled = false;
+
+                        if (BALManageeInst.isConsolidated(EmpID, LMID))
+                            ConsoBtn.Text = "Show Consolidated Review";
                        
+                     Label Fail = (e.Row.FindControl("Fail") as Label);
+                     if (RevInst.GetType(LMID, EmpID) == "Completed")
+                         ConsoBtn.ToolTip = "Self Review Has Been Filled By This Managee";
+                     else
+                         ConsoBtn.ToolTip = "Self Review Has Not Been Filled";
+
                         break;
                 }
             }
@@ -176,23 +167,24 @@ namespace ERSv1._2
 
                         List<ERS.DAL.PeersWithReviews> mylist = (List<ERS.DAL.PeersWithReviews>)((GridView)sender).DataSource;
 
-                        if (mylist[e.Row.RowIndex].Status == "1") //Completed
+                        if (mylist[e.Row.RowIndex].Status == "Completed") //Completed
                         {
                             Button AskButton = (Button)e.Row.FindControl("AskButton");
                             AskButton.Visible = false;
                         }
-                        else if (mylist[e.Row.RowIndex].Status == "2") //Pending 
+                       
+                        else if (mylist[e.Row.RowIndex].Status == "0") //NotAsked // Default Status
+                        {
+                            Button ShowButton = (Button)e.Row.FindControl("ShowButton");
+                            ShowButton.Visible = false;
+
+                        }
+                        else //(mylist[e.Row.RowIndex].Status == "2") //Pending 
                         {
                             Button AskButton = (Button)e.Row.FindControl("AskButton");
                             AskButton.Visible = false;
                             Button ShowButton = (Button)e.Row.FindControl("ShowButton");
                             ShowButton.Visible = false;
-                        }
-                        else if (mylist[e.Row.RowIndex].Status == "0") //NotAsked 
-                        {
-                            Button ShowButton = (Button)e.Row.FindControl("ShowButton");
-                            ShowButton.Visible = false;
-                           
                         }
                         break;
                 }

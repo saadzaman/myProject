@@ -46,7 +46,8 @@
                       </div>
                       <div class="myspan3">
                               <asp:Label ID="Label4" runat="server" ><%# Eval("EmployeeStatus")%></asp:Label>
-                             
+                              <asp:Label ID="Fail" runat="server" ></asp:Label>
+                           
                       </div>
                       
 
@@ -62,7 +63,7 @@
               </asp:UpdateProgress>
         <asp:UpdatePanel ID="UpdatePanel5" class="fright" runat="server">
             <ContentTemplate> 
-
+              
                 <asp:Button class="btn-small btn btn-info" commandname="ShowPeers" text="Show Peers" OnClientClick='<%#string.Format("toggle(\"{0}\");", Eval("EmpID"))%>' CommandArgument='<%# DataBinder.Eval(Container, "RowIndex") %>'  ID="LinkButton1" runat="server"/> 
             </ContentTemplate>  
         </asp:UpdatePanel>

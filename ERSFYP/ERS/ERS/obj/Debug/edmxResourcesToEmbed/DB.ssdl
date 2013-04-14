@@ -65,6 +65,7 @@
     <EntitySet Name="Roles" EntityType="ERS_LMTModel.Store.Roles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SectionOption" EntityType="ERS_LMTModel.Store.SectionOption" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Skill" EntityType="ERS_LMTModel.Store.Skill" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Status" EntityType="ERS_LMTModel.Store.Status" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="sysdiagrams" EntityType="ERS_LMTModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TechSkills" EntityType="ERS_LMTModel.Store.TechSkills" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TemplateSection" EntityType="ERS_LMTModel.Store.TemplateSection" store:Type="Tables" Schema="dbo" />
@@ -226,6 +227,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Review_ReviewType" Association="ERS_LMTModel.Store.FK_Review_ReviewType">
       <End Role="ReviewType" EntitySet="ReviewType" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Status" Association="ERS_LMTModel.Store.FK_Review_Status">
+      <End Role="Status" EntitySet="Status" />
       <End Role="Review" EntitySet="Review" />
     </AssociationSet>
     <AssociationSet Name="FK_ReviewInfo_Review" Association="ERS_LMTModel.Store.FK_ReviewInfo_Review">
@@ -734,7 +739,7 @@
     <Property Name="EmpID" Type="int" />
     <Property Name="ReviewerID" Type="int" />
     <Property Name="Date" Type="datetime" />
-    <Property Name="Status" Type="int" />
+    <Property Name="Status" Type="int" Nullable="false" />
     <Property Name="ReviewTypeID" Type="int" />
     <Property Name="version" Type="int" />
     <Property Name="IsActive" Type="int" />
@@ -796,6 +801,13 @@
     <Property Name="SkillName" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="SkillDetail" Type="nvarchar(max)" />
     <Property Name="RoleID" Type="int" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="varchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -1312,6 +1324,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Review_Status">
+    <End Role="Status" Type="ERS_LMTModel.Store.Status" Multiplicity="1" />
+    <End Role="Review" Type="ERS_LMTModel.Store.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ReviewInfo_Review">
     <End Role="Review" Type="ERS_LMTModel.Store.Review" Multiplicity="1" />
     <End Role="ReviewInfo" Type="ERS_LMTModel.Store.ReviewInfo" Multiplicity="*" />
@@ -1492,4 +1516,35 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <!--Errors Found During Generation:
+      warning 6013: The table/view 'ERS_LMT.dbo.TempAlloc' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="TempAlloc">
+        <Property Name="Name" Type="nvarchar" MaxLength="255" />
+        <Property Name="Role" Type="nvarchar" MaxLength="255" />
+        <Property Name="Project" Type="nvarchar" MaxLength="255" />
+        <Property Name="AllocPerProject" Type="float" />
+        <Property Name="TotalAllocation" Type="float" />
+        <Property Name="Status" Type="nvarchar" MaxLength="255" />
+        <Property Name="FreeingOn" Type="datetime" />
+        <Property Name="Director" Type="nvarchar" MaxLength="255" />
+        <Property Name="ProjectType" Type="nvarchar" MaxLength="255" />
+        <Property Name="RLManager" Type="nvarchar" MaxLength="255" />
+        <Property Name="Projectid" Type="int" />
+        <Property Name="EmpId" Type="int" />
+      </EntityType>
+      Errors Found During Generation:
+      warning 6013: The table/view 'ERS_LMT.dbo.TempHRList2' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="TempHRList2">
+        <Property Name="ID" Type="int" />
+        <Property Name="Name " Type="nvarchar" MaxLength="255" />
+        <Property Name="Desgination" Type="nvarchar" MaxLength="255" />
+      </EntityType>
+      Errors Found During Generation:
+      warning 6013: The table/view 'ERS_LMT.dbo.TempProjList' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="TempProjList">
+        <Property Name="Projects" Type="nvarchar" MaxLength="255" />
+      </EntityType>-->
 </Schema>

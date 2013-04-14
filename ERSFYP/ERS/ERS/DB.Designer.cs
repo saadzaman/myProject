@@ -41,6 +41,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk1_DirectorAllocation", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "DirectorAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.DirectorAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk2_DirectorAllocation", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "DirectorAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.DirectorAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Employee_Position", "Position", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Position), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Employee), true)]
+[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Peers_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "Peers", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Peer), true)]
+[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Peers_Employee1", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "Peers", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Peer), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_requestAllocation_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Employee), "RequestAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.RequestAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Review_Emp", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Employee), "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Review), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Review_LM", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Employee), "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Review), true)]
@@ -49,6 +51,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk1_LMAllocation", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "LMAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.LMAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk2_LMAllocation", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "LMAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.LMAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk2_EmployeeRole", "Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Role1), "EmployeeRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.EmployeeRole), true)]
+[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Permissions_Features", "Features", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Feature), "Permissions", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Permission), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_TechSkills_Level", "Level", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Level), "TechSkills", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.TechSkill), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk_MeetingSchedule", "LMAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.LMAllocation), "MeetingSchedule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.MeetingSchedule), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk_MeetingNotes", "MeetingSchedule", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.MeetingSchedule), "MeetingNotes", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.MeetingNote), true)]
@@ -57,22 +60,20 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk_MeetingTemplate", "MeetingTemplate", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.MeetingTemplate), "MeetingSchedule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.MeetingSchedule), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk_RedFlags", "MeetingSchedule", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.MeetingSchedule), "RedFlags", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.RedFlag), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk_TemplateSection", "MeetingTemplate", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.MeetingTemplate), "TemplateSection", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.TemplateSection), true)]
+[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Permissions_Role", "Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Role1), "Permissions", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Permission), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Questions_Position", "Position", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Position), "Questions", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Question), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_requestAllocation_Position", "Position", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Position), "RequestAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.RequestAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_requestAllocation_priority", "Priority", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Priority), "RequestAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.RequestAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_requestAllocation_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Project), "RequestAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.RequestAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_requestAllocation_requestStatus", "RequestStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.RequestStatu), "RequestAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.RequestAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Review_ReviewType", "ReviewType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.ReviewType), "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Review), true)]
+[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Review_Status", "Status", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Status), "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Review), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_ReviewInfo_Review", "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Review), "ReviewInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.ReviewInfo), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_ReviewInfo_ReviewCategories", "ReviewCategories", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.ReviewCategory), "ReviewInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.ReviewInfo), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Skill_Role", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Role), "Skill", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Skill), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk_SectionOption", "TemplateSection", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.TemplateSection), "SectionOption", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.SectionOption), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_TechSkills_Skill", "Skill", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Skill), "TechSkills", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.TechSkill), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "aspnet_UsersInRoles", "aspnet_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.aspnet_Roles), "aspnet_Users", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.aspnet_Users))]
-[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Peers_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "Peer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Peer), true)]
-[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Peers_Employee1", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "Peer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Peer), true)]
-[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Permissions_Features", "Feature", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Feature), "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Permission), true)]
-[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Permissions_Role", "Role1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Role1), "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Permission), true)]
 
 #endregion
 
@@ -447,6 +448,22 @@ namespace ERS
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<Feature> Features
+        {
+            get
+            {
+                if ((_Features == null))
+                {
+                    _Features = base.CreateObjectSet<Feature>("Features");
+                }
+                return _Features;
+            }
+        }
+        private ObjectSet<Feature> _Features;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Level> Levels
         {
             get
@@ -539,6 +556,38 @@ namespace ERS
             }
         }
         private ObjectSet<MeetingTemplate> _MeetingTemplates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Peer> Peers
+        {
+            get
+            {
+                if ((_Peers == null))
+                {
+                    _Peers = base.CreateObjectSet<Peer>("Peers");
+                }
+                return _Peers;
+            }
+        }
+        private ObjectSet<Peer> _Peers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Permission> Permissions
+        {
+            get
+            {
+                if ((_Permissions == null))
+                {
+                    _Permissions = base.CreateObjectSet<Permission>("Permissions");
+                }
+                return _Permissions;
+            }
+        }
+        private ObjectSet<Permission> _Permissions;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -815,6 +864,22 @@ namespace ERS
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<Status> Status
+        {
+            get
+            {
+                if ((_Status == null))
+                {
+                    _Status = base.CreateObjectSet<Status>("Status");
+                }
+                return _Status;
+            }
+        }
+        private ObjectSet<Status> _Status;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<sysdiagram> sysdiagrams
         {
             get
@@ -859,54 +924,6 @@ namespace ERS
             }
         }
         private ObjectSet<TemplateSection> _TemplateSections;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Peer> Peers
-        {
-            get
-            {
-                if ((_Peers == null))
-                {
-                    _Peers = base.CreateObjectSet<Peer>("Peers");
-                }
-                return _Peers;
-            }
-        }
-        private ObjectSet<Peer> _Peers;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Feature> Features
-        {
-            get
-            {
-                if ((_Features == null))
-                {
-                    _Features = base.CreateObjectSet<Feature>("Features");
-                }
-                return _Features;
-            }
-        }
-        private ObjectSet<Feature> _Features;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Permission> Permissions
-        {
-            get
-            {
-                if ((_Permissions == null))
-                {
-                    _Permissions = base.CreateObjectSet<Permission>("Permissions");
-                }
-                return _Permissions;
-            }
-        }
-        private ObjectSet<Permission> _Permissions;
 
         #endregion
 
@@ -1073,6 +1090,14 @@ namespace ERS
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the Features EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFeatures(Feature feature)
+        {
+            base.AddObject("Features", feature);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the Levels EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToLevels(Level level)
@@ -1118,6 +1143,22 @@ namespace ERS
         public void AddToMeetingTemplates(MeetingTemplate meetingTemplate)
         {
             base.AddObject("MeetingTemplates", meetingTemplate);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Peers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPeers(Peer peer)
+        {
+            base.AddObject("Peers", peer);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Permissions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPermissions(Permission permission)
+        {
+            base.AddObject("Permissions", permission);
         }
     
         /// <summary>
@@ -1257,6 +1298,14 @@ namespace ERS
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the Status EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToStatus(Status status)
+        {
+            base.AddObject("Status", status);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTosysdiagrams(sysdiagram sysdiagram)
@@ -1278,30 +1327,6 @@ namespace ERS
         public void AddToTemplateSections(TemplateSection templateSection)
         {
             base.AddObject("TemplateSections", templateSection);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Peers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPeers(Peer peer)
-        {
-            base.AddObject("Peers", peer);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Features EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToFeatures(Feature feature)
-        {
-            base.AddObject("Features", feature);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Permissions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPermissions(Permission permission)
-        {
-            base.AddObject("Permissions", permission);
         }
 
         #endregion
@@ -6409,6 +6434,50 @@ namespace ERS
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Peers_Employee", "Peers")]
+        public EntityCollection<Peer> Peers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Peer>("ERS_LMTModel.FK_Peers_Employee", "Peers");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Peer>("ERS_LMTModel.FK_Peers_Employee", "Peers", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Peers_Employee1", "Peers")]
+        public EntityCollection<Peer> Peers1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Peer>("ERS_LMTModel.FK_Peers_Employee1", "Peers");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Peer>("ERS_LMTModel.FK_Peers_Employee1", "Peers", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_requestAllocation_Employee", "RequestAllocation")]
         public EntityCollection<RequestAllocation> RequestAllocations
         {
@@ -6553,50 +6622,6 @@ namespace ERS
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LMAllocation>("ERS_LMTModel.fk2_LMAllocation", "LMAllocation", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Peers_Employee", "Peer")]
-        public EntityCollection<Peer> Peers
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Peer>("ERS_LMTModel.FK_Peers_Employee", "Peer");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Peer>("ERS_LMTModel.FK_Peers_Employee", "Peer", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Peers_Employee1", "Peer")]
-        public EntityCollection<Peer> Peers1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Peer>("ERS_LMTModel.FK_Peers_Employee1", "Peer");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Peer>("ERS_LMTModel.FK_Peers_Employee1", "Peer", value);
                 }
             }
         }
@@ -6907,18 +6932,18 @@ namespace ERS
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Permissions_Features", "Permission")]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Permissions_Features", "Permissions")]
         public EntityCollection<Permission> Permissions
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Permission>("ERS_LMTModel.FK_Permissions_Features", "Permission");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Permission>("ERS_LMTModel.FK_Permissions_Features", "Permissions");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Permission>("ERS_LMTModel.FK_Permissions_Features", "Permission", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Permission>("ERS_LMTModel.FK_Permissions_Features", "Permissions", value);
                 }
             }
         }
@@ -8726,16 +8751,16 @@ namespace ERS
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Permissions_Features", "Feature")]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Permissions_Features", "Features")]
         public Feature Feature
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("ERS_LMTModel.FK_Permissions_Features", "Feature").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("ERS_LMTModel.FK_Permissions_Features", "Features").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("ERS_LMTModel.FK_Permissions_Features", "Feature").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("ERS_LMTModel.FK_Permissions_Features", "Features").Value = value;
             }
         }
         /// <summary>
@@ -8747,13 +8772,13 @@ namespace ERS
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("ERS_LMTModel.FK_Permissions_Features", "Feature");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("ERS_LMTModel.FK_Permissions_Features", "Features");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Feature>("ERS_LMTModel.FK_Permissions_Features", "Feature", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Feature>("ERS_LMTModel.FK_Permissions_Features", "Features", value);
                 }
             }
         }
@@ -8764,16 +8789,16 @@ namespace ERS
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Permissions_Role", "Role1")]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Permissions_Role", "Roles")]
         public Role1 Role
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role1>("ERS_LMTModel.FK_Permissions_Role", "Role1").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role1>("ERS_LMTModel.FK_Permissions_Role", "Roles").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role1>("ERS_LMTModel.FK_Permissions_Role", "Role1").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role1>("ERS_LMTModel.FK_Permissions_Role", "Roles").Value = value;
             }
         }
         /// <summary>
@@ -8785,13 +8810,13 @@ namespace ERS
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role1>("ERS_LMTModel.FK_Permissions_Role", "Role1");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role1>("ERS_LMTModel.FK_Permissions_Role", "Roles");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Role1>("ERS_LMTModel.FK_Permissions_Role", "Role1", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Role1>("ERS_LMTModel.FK_Permissions_Role", "Roles", value);
                 }
             }
         }
@@ -10910,11 +10935,13 @@ namespace ERS
         /// Create a new Review object.
         /// </summary>
         /// <param name="reviewId">Initial value of the ReviewId property.</param>
+        /// <param name="status">Initial value of the Status property.</param>
         /// <param name="feedback">Initial value of the feedback property.</param>
-        public static Review CreateReview(global::System.Int32 reviewId, global::System.String feedback)
+        public static Review CreateReview(global::System.Int32 reviewId, global::System.Int32 status, global::System.String feedback)
         {
             Review review = new Review();
             review.ReviewId = reviewId;
+            review.Status = status;
             review.feedback = feedback;
             return review;
         }
@@ -11049,9 +11076,9 @@ namespace ERS
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Status
+        public global::System.Int32 Status
         {
             get
             {
@@ -11066,8 +11093,8 @@ namespace ERS
                 OnStatusChanged();
             }
         }
-        private Nullable<global::System.Int32> _Status;
-        partial void OnStatusChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _Status;
+        partial void OnStatusChanging(global::System.Int32 value);
         partial void OnStatusChanged();
     
         /// <summary>
@@ -11319,6 +11346,44 @@ namespace ERS
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ReviewType>("ERS_LMTModel.FK_Review_ReviewType", "ReviewType", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Review_Status", "Status")]
+        public Status Status1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Status>("ERS_LMTModel.FK_Review_Status", "Status").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Status>("ERS_LMTModel.FK_Review_Status", "Status").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Status> Status1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Status>("ERS_LMTModel.FK_Review_Status", "Status");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Status>("ERS_LMTModel.FK_Review_Status", "Status", value);
                 }
             }
         }
@@ -12043,18 +12108,18 @@ namespace ERS
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Permissions_Role", "Permission")]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Permissions_Role", "Permissions")]
         public EntityCollection<Permission> Permissions
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Permission>("ERS_LMTModel.FK_Permissions_Role", "Permission");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Permission>("ERS_LMTModel.FK_Permissions_Role", "Permissions");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Permission>("ERS_LMTModel.FK_Permissions_Role", "Permission", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Permission>("ERS_LMTModel.FK_Permissions_Role", "Permissions", value);
                 }
             }
         }
@@ -12425,6 +12490,115 @@ namespace ERS
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TechSkill>("ERS_LMTModel.FK_TechSkills_Skill", "TechSkills", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ERS_LMTModel", Name="Status")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Status : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Status object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="statusName">Initial value of the StatusName property.</param>
+        public static Status CreateStatus(global::System.Int32 id, global::System.String statusName)
+        {
+            Status status = new Status();
+            status.ID = id;
+            status.StatusName = statusName;
+            return status;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String StatusName
+        {
+            get
+            {
+                return _StatusName;
+            }
+            set
+            {
+                OnStatusNameChanging(value);
+                ReportPropertyChanging("StatusName");
+                _StatusName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("StatusName");
+                OnStatusNameChanged();
+            }
+        }
+        private global::System.String _StatusName;
+        partial void OnStatusNameChanging(global::System.String value);
+        partial void OnStatusNameChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Review_Status", "Review")]
+        public EntityCollection<Review> Reviews
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Review>("ERS_LMTModel.FK_Review_Status", "Review");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Review>("ERS_LMTModel.FK_Review_Status", "Review", value);
                 }
             }
         }
