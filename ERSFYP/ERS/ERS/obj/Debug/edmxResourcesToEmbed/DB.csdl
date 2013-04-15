@@ -792,6 +792,7 @@
     <Property Name="version" Type="Int32" />
     <Property Name="IsActive" Type="Int32" />
     <Property Name="feedback" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="AReviewID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.FK_Review_Emp" FromRole="Review" ToRole="Employee" />
     <NavigationProperty Name="Employee1" Relationship="ERS_LMTModel.FK_Review_LM" FromRole="Review" ToRole="Employee" />
     <NavigationProperty Name="Employee2" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Review" ToRole="Employee" />

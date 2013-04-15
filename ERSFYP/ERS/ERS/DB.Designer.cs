@@ -10937,12 +10937,14 @@ namespace ERS
         /// <param name="reviewId">Initial value of the ReviewId property.</param>
         /// <param name="status">Initial value of the Status property.</param>
         /// <param name="feedback">Initial value of the feedback property.</param>
-        public static Review CreateReview(global::System.Int32 reviewId, global::System.Int32 status, global::System.String feedback)
+        /// <param name="aReviewID">Initial value of the AReviewID property.</param>
+        public static Review CreateReview(global::System.Int32 reviewId, global::System.Int32 status, global::System.String feedback, global::System.Int32 aReviewID)
         {
             Review review = new Review();
             review.ReviewId = reviewId;
             review.Status = status;
             review.feedback = feedback;
+            review.AReviewID = aReviewID;
             return review;
         }
 
@@ -11192,6 +11194,30 @@ namespace ERS
         private global::System.String _feedback;
         partial void OnfeedbackChanging(global::System.String value);
         partial void OnfeedbackChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AReviewID
+        {
+            get
+            {
+                return _AReviewID;
+            }
+            set
+            {
+                OnAReviewIDChanging(value);
+                ReportPropertyChanging("AReviewID");
+                _AReviewID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AReviewID");
+                OnAReviewIDChanged();
+            }
+        }
+        private global::System.Int32 _AReviewID;
+        partial void OnAReviewIDChanging(global::System.Int32 value);
+        partial void OnAReviewIDChanged();
 
         #endregion
 

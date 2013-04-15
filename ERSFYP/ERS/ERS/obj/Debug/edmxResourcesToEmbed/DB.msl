@@ -465,6 +465,7 @@
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="feedback" ColumnName="feedback" />
+          <ScalarProperty Name="AReviewID" ColumnName="AReviewID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

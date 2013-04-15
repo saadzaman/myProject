@@ -744,6 +744,7 @@
     <Property Name="version" Type="int" />
     <Property Name="IsActive" Type="int" />
     <Property Name="feedback" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="AReviewID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ReviewCategories">
     <Key>

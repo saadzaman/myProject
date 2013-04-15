@@ -41,17 +41,25 @@ namespace ERSv1._2
 
                         List<ERS.DAL.EmployeeReviews> mylist = (List<ERS.DAL.EmployeeReviews>)ReviewList.DataSource;
 
-                                if (mylist[e.Row.RowIndex].Status == "Completed")
+                        if (mylist[e.Row.RowIndex].Status == "Completed" || mylist[e.Row.RowIndex].Status == "Consolidated")
                                 {
                                     Button FillButton = (Button)e.Row.FindControl("FillButton");
                                     FillButton.Visible = false;
+                                }
+                                else if (mylist[e.Row.RowIndex].Status == "Rejected")
+                                {
+
+                                    Button FillButton = (Button)e.Row.FindControl("FillButton");
+                                    FillButton.Visible = false;
+                                    Button ShowButton = (Button)e.Row.FindControl("ShowButton");
+                                    ShowButton.Text = " View Rejected Review";
                                 }
                                 else
                                 {
                                     Button ShowButton = (Button)e.Row.FindControl("ShowButton");
                                     ShowButton.Visible = false;
                                 }
-                                break;
+                                        break;
                 }
             }
             catch

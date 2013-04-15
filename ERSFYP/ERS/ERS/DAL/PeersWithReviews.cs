@@ -15,6 +15,7 @@ namespace ERS.DAL
         public String EmployeeStatus { get; set; }
         public int PeerID { get; set; }
         public int ImPeerOfID { get; set; }
+     
 
         public PeersWithReviews(int ParamReviewID , String ParamStatus , Employee e ,int ManageeID)
         {

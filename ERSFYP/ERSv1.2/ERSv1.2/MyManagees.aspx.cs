@@ -125,6 +125,7 @@ namespace ERSv1._2
 
                         int LMID = Int32.Parse(Session["UserId"].ToString());
                         Button ConsoBtn = (Button)e.Row.FindControl("ConsoBtn");
+                        List<ERS.DAL.Managees> mylist = (List<ERS.DAL.Managees>)((GridView)sender).DataSource;
                         int EmpID = (int)((GridView)sender).DataKeys[e.Row.RowIndex]["EmpID"];
                         Managees BALManageeInst = new Managees();
                         Reviews RevInst = new Reviews();
@@ -138,7 +139,8 @@ namespace ERSv1._2
                             ConsoBtn.Text = "Show Consolidated Review";
                        
                      Label Fail = (e.Row.FindControl("Fail") as Label);
-                     if (RevInst.GetType(LMID, EmpID) == "Completed")
+
+                     if (RevInst.GetStatus(LMID, EmpID) == "Completed")
                          ConsoBtn.ToolTip = "Self Review Has Been Filled By This Managee";
                      else
                          ConsoBtn.ToolTip = "Self Review Has Not Been Filled";
@@ -172,7 +174,15 @@ namespace ERSv1._2
                             Button AskButton = (Button)e.Row.FindControl("AskButton");
                             AskButton.Visible = false;
                         }
-                       
+                        else if (mylist[e.Row.RowIndex].Status == "Rejected") 
+                        {
+                            Button AskButton = (Button)e.Row.FindControl("AskButton");
+                            AskButton.Visible = false;
+                            Button ShowButton = (Button)e.Row.FindControl("ShowButton");
+                            ShowButton.Visible = true;
+                            ShowButton.Text = "See Rejected Review";
+                        }
+
                         else if (mylist[e.Row.RowIndex].Status == "0") //NotAsked // Default Status
                         {
                             Button ShowButton = (Button)e.Row.FindControl("ShowButton");

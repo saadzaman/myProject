@@ -217,8 +217,10 @@
                 <div class="pagination-centered">
                 <asp:Button ID="submit" runat="server" ValidationGroup="FillReview" class="btn btn-success" Text="Submit Review" 
                         onclick="submit_Click" />
-                <asp:Button ID="save" runat="server" ValidationGroup="FillReview" class="btn btn-danger" Text="Draft Review" 
+                <asp:Button ID="save" runat="server"  class="btn btn-info" Text="Draft Review" 
                         onclick="save_Click" />
+                <asp:Button ID="Reject" runat="server"  class="btn btn-danger" Text="Reject Review" 
+                        onclick="Reject_Click" />
              
                 </div>
                </div>

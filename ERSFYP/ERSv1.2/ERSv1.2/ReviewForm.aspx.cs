@@ -49,6 +49,7 @@ namespace ERSv1._2
                         CalcRating.Visible = false;
                         submit.Visible = false;
                         save.Visible = false;
+                        Reject.Visible = true;
                     }
                     else if (isLMOfReview && Request.QueryString["OpenedFor"] == "consolidate")
                     {
@@ -57,7 +58,20 @@ namespace ERSv1._2
                         DirectorRating.Visible = false;
                         CalcRating.Visible = false;
                         submit.Visible = true;
-
+                        save.Visible = true;
+                        Reject.Visible = true;
+                    }
+                    else if (isLMOfReview)
+                    
+                     {
+                        PeerPanel.Visible = true;
+                        LineManagerRating.Visible = true;
+                        DirectorRating.Visible = false;
+                        CalcRating.Visible = false;
+                        submit.Visible = true;
+                        save.Visible = true;
+                        Reject.Visible = true;
+                    
                     }
                     else
                     {   // Review is opened by an Employee
@@ -67,6 +81,7 @@ namespace ERSv1._2
                         CalcRating.Visible = false;
                         submit.Visible = false;   // Disabling , will enable after querying and gettiing actual status of review
                         save.Visible = false;
+                        Reject.Visible = false;
                     }
 
                
@@ -78,21 +93,23 @@ namespace ERSv1._2
                 Categories.DataSource = rev.GetCategories();
                 Categories.DataBind();
                 bool toShowOrNot = true;
-                String Type = rev.GetType(ReviewID);
+                String Type = rev.GetStatus(ReviewID);
 
                 if (Type != null)
                 {
-                    if (Type == "Complete")
+                    if (Type == "Complete" )
                     {
                         toShowOrNot = false;
                         submit.Visible = false;
                         save.Visible = false;
+                      
                     }
                     else if (Type == "Draft" || Type == "Pending" )
                     {
                         toShowOrNot = true;
                         submit.Visible = true;
                         save.Visible = true;
+                        Reject.Visible = true;
                     }
                 }
 
@@ -102,7 +119,7 @@ namespace ERSv1._2
                     {
                          int pReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
                          int pCategoryID = Int32.Parse((a.FindControl("CatID") as HiddenField).Value);
-                         String str = rev.GetType(ReviewID);
+                         String str = rev.GetStatus(ReviewID);
                         
                              ERS.ReviewInfo RevInfo = rev.GetReviewInfo(ReviewID, pCategoryID);
                              if(RevInfo != null )
@@ -127,6 +144,8 @@ namespace ERSv1._2
                              {
                                  LMCommentsTxt.Text = RevInfo.Comments;
                                  LMRatingsTxt.Text = RevInfo.Rating.ToString();
+                                 LMCommentsTxt.Enabled = toShowOrNot;
+                                 LMRatingsTxt.Enabled = toShowOrNot;
                             }
                     }
 
@@ -166,7 +185,7 @@ namespace ERSv1._2
                 String pComments = (a.FindControl("CommentsTxt") as TextBox).Text;
 
                 // THe statement Below should be done by rev.AddReviewInfo 
-                Result.Add(new ERS.ReviewInfo() { CategoryID = pCategoryID, Comments = pComments, Rating = (decimal)pRating, ReviewId = pReviewID });
+                Result.Add(new ERS.ReviewInfo() { CategoryID = pCategoryID, Comments = pComments, Rating = (decimal)pRating, ReviewId = rev.GetAReviewID(pReviewID) });
             
             }
             // FOR LM 
@@ -179,10 +198,10 @@ namespace ERSv1._2
                 String lComments = LMCommentsTxt.Text;
 
                 // THe statement Below should be done by rev.AddReviewInfo 
-                Result.Add(new ERS.ReviewInfo() { CategoryID = lCategoryID, Comments = lComments, Rating = (decimal)lRating, ReviewId = lReviewID });
+                Result.Add(new ERS.ReviewInfo() { CategoryID = lCategoryID, Comments = lComments, Rating = (decimal)lRating, ReviewId = rev.GetAReviewID(lReviewID) });
             }
             
-            if( Request.QueryString["OpenedFor"] == "consolidate" && isLMOfReview)
+            if( isLMOfReview)
                 rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result, "Consolidated");
             else
                 rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result, "Completed");
@@ -191,7 +210,7 @@ namespace ERSv1._2
 
         protected void save_Click(object sender, EventArgs e)
         {
-
+            Reviews rev = new Reviews();
             List<ERS.ReviewInfo> Result = new List<ERS.ReviewInfo>();
             foreach (RepeaterItem a in Categories.Items)
             {
@@ -204,17 +223,29 @@ namespace ERSv1._2
                 pRating = (Double.Parse(RatingTxt.Text));
                     String pComments = CommentsTxt.Text;
                 
-
-                Result.Add(new ERS.ReviewInfo() { CategoryID = pCategoryID, Comments = pComments, Rating = (decimal)pRating, ReviewId = pReviewID });
+                // DO IT VIA ADD REVIEW bitch
+                Result.Add(new ERS.ReviewInfo() { CategoryID = pCategoryID, Comments = pComments, Rating = (decimal)pRating, ReviewId = rev.GetAReviewID(pReviewID) });
 
             }
-            Reviews rev = new Reviews();
+           
             int ReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
             bool isLMOfReview = rev.isLMOfReview(Int32.Parse(Session["UserID"].ToString()), ReviewID);
             //if(isLMOfReview)
                
             rev.FillReviews(Int32.Parse(Request.QueryString["SRI"].ToString()), Result, "Drafted");
             Response.Redirect(ViewState["PreviousPageUrl"].ToString());
+        }
+
+
+        protected void Reject_Click(object sender, EventArgs e)
+        {
+            Reviews rev = new Reviews();
+            int ReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
+            rev.RejectReview(ReviewID);
+            Response.Redirect(ViewState["PreviousPageUrl"].ToString());
+            // to reject 
+            //    Copy Old Column of AReviewID to New Review's AReviewID
+            //    Increment Version
         }
     }
 }

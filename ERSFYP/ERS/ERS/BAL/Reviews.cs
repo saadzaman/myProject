@@ -15,7 +15,13 @@ namespace ERS.BAL
             return ersRep.GetMyReviews(EmpID);
         }
 
+        public bool RejectReview(int ReviewID)
+        {
+
+            return ersRep.RejectReview(ReviewID);
         
+        }
+
 
         public List<ReviewCategory> GetCategories()
         {
@@ -79,9 +85,16 @@ namespace ERS.BAL
         
         }
 
+        public int GetAReviewID(int ReviewID)
+        {
+            return ersRep.GetAReviewID(ReviewID);
+
+        }
+
         public bool InsertReviewInfo(int lCategoryID, String lComments, decimal lRating, int lReviewId)
         {
-            ReviewInfo NewRevInfo = new ERS.ReviewInfo() { CategoryID = lCategoryID, Comments = lComments, Rating = (decimal)lRating, ReviewId = lReviewId };
+
+            ReviewInfo NewRevInfo = new ERS.ReviewInfo() { CategoryID = lCategoryID, Comments = lComments, Rating = (decimal)lRating, ReviewId = GetAReviewID(lReviewId) };
             return ersRep.InsertReviewInfo(NewRevInfo); 
         }
         public ReviewInfo GetReviewInfo(int pReviewID, int pCategoryID)
@@ -96,16 +109,16 @@ namespace ERS.BAL
             return ersRep.isReviewDraft(ReviewID);
         
         }
-        public string GetType(int ReviewID)
+        public string GetStatus(int ReviewID)
         {
-            return ersRep.GetType(ReviewID);
+            return ersRep.GetStatus(ReviewID);
         
         }
 
-        public string GetType(int LMID, int EmpID)
+        public string GetStatus(int LMID, int EmpID)
         {
 
-            return ersRep.GetType(LMID, EmpID);
+            return ersRep.GetStatus(LMID, EmpID);
         }
        
         public List<EmpWithRevInfo_Cat> GetAllReviewsOf_Peer_GivenCategory(int EmpID, int CatID)
