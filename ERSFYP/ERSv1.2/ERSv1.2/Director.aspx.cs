@@ -12,6 +12,7 @@ namespace ERSv1._2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             MenuItemDirector = "active";
             int DirectorID = -1;
             if(Session["UserId"]!=null)

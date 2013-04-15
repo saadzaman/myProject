@@ -22,7 +22,7 @@ namespace ERSv1._2
                 userName.InnerText = Session["UserName"].ToString();
             if (Session["isLM"] != null)
                 if(Session["isLM"].Equals(false))
-                MyManagees.Visible = false;
+                   MyManagees.Visible = false;
             
           //  if(current!=null)
           //  if(current.Name != null )

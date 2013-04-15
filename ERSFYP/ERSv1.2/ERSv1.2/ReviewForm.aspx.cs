@@ -109,7 +109,7 @@ namespace ERSv1._2
                         toShowOrNot = true;
                         submit.Visible = true;
                         save.Visible = true;
-                        Reject.Visible = true;
+                     //   Reject.Visible = true;
                     }
                 }
 
