@@ -133,5 +133,11 @@ namespace ERS.BAL
 
             return ersRep.GetCategoryID(CatName);
         }
+
+        public int GetLatestReviewID(int LMID, int EmpID)
+        {
+            return ersRep.GetLatestReviewID(LMID, EmpID);
+        
+        }
     }
 }

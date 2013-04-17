@@ -692,6 +692,11 @@ namespace ERS.DAL
            return ( from a in context.Reviews where a.ReviewId == ReviewID select a.AReviewID).First();
 
        }
+
+       public int GetLatestReviewID(int LMID, int EmpID)
+       {
+           return (from a in context.Reviews where a.EmpID == EmpID && a.LMID == LMID && a.ReviewerID == LMID select a).OrderByDescending(e => e.version).First().ReviewId;
+       }
     }
 
 }

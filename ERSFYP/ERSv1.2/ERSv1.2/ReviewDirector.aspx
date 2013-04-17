@@ -7,7 +7,8 @@
  
  <h4 style = " display: inline;">Select An Employee Under LineManager </h4> <pstyle = " display: inline;" ><small> &nbsp;( Line Managers Review Will Be Highlighted )</small> </p>
 
-  
+  <div class="row">
+  <div class="span"> 
   <asp:UpdatePanel ID="UpdatePanel2" runat="server">           
   <ContentTemplate>
   
@@ -17,8 +18,14 @@
   
     </ContentTemplate>
     </asp:UpdatePanel>
+    </div>
 
- 
+    <div class="span">
+    <asp:Button ID="Reject" runat="server"  class="btn btn-danger" Text="Reject Review" 
+                        onclick="Reject_Click" />
+    
+    </div>
+ </div>
                 
 <div class = "row">
 

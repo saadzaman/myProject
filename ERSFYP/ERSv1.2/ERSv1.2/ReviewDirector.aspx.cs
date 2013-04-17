@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using ERS.BAL;
 
 namespace ERSv1._2
 {
@@ -14,10 +15,12 @@ namespace ERSv1._2
         {
 
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
-         //   if (Session["UserId"] == null)
-          //      Response.Redirect("Default.aspx");
+           
+            if (Session["UserId"] == null)
+               Response.Redirect("Default.aspx");
             if (!IsPostBack)
             {
+                ViewState["PreviousPageUrl"] = Request.UrlReferrer.ToString();
                 int DirectorID;
                 if (Session["UserId"] != null)
                     DirectorID = Int32.Parse(Session["UserId"].ToString());
@@ -174,6 +177,21 @@ namespace ERSv1._2
            
 
 
+        }
+
+
+
+        protected void Reject_Click(object sender, EventArgs e)
+        {
+            Reviews rev = new Reviews();
+            int LMIDWhoisOn = Int32.Parse(Request.QueryString["LMID"]);
+            int EmpID = Int32.Parse(LineManagees.SelectedValue);
+            int ReviewID = rev.GetLatestReviewID(LMIDWhoisOn, EmpID);
+            rev.RejectReview(ReviewID);
+            Response.Redirect(ViewState["PreviousPageUrl"].ToString());
+            // to reject 
+            //    Copy Old Column of AReviewID to New Review's AReviewID
+            //    Increment Version
         }
     }
 }
