@@ -21,12 +21,20 @@ namespace ERSv1._2
             else
                 userName.InnerText = Session["UserName"].ToString();
             if (Session["isLM"] != null)
-                if(Session["isLM"].Equals(false))
-                   MyManagees.Visible = false;
-            
+                if (Session["isLM"].Equals(false))
+                {
+                    MyManagees.Visible = false;
+                        
+                }
           //  if(current!=null)
           //  if(current.Name != null )
           //  userName.InnerText = current.Name;
+
+            if (current != null && !string.IsNullOrEmpty(current.MenuItemDirector))
+            {
+                MyDirector.Attributes["class"] = current.MenuItemDirector;
+            }
+            
             if (current != null && !string.IsNullOrEmpty(current.MenuItemMyReviews))
             {
                 

@@ -21,8 +21,8 @@
     </div>
 
     <div class="span">
-    <asp:Button ID="Reject" runat="server"  class="btn btn-danger" Text="Reject Review" 
-                        onclick="Reject_Click" />
+     <asp:Button ID="Reject" runat="server"  data-toggle="modal" data-target="#GetFeedBack" class="btn btn-danger" Text="Reject LM's Consolidation" 
+                        />
     
     </div>
  </div>
@@ -133,6 +133,29 @@
 </asp:UpdatePanel>
                 
             
+
+
+            
+<!-- Modal -->
+<div id="GetFeedBack" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Please Identify The Reason For Rejecting</h3>
+  </div>
+
+  <div class="modal-body">
+    <asp:TextBox ID="FeedbackTxt" runat="server"  Width="450" 
+          TextMode="MultiLine" MaxLength="100" ></asp:TextBox>
+  </div>
+
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+     <asp:Button ID="Button1" runat="server"  class="btn btn-danger" Text="Reject" 
+                        onclick="Reject_Click" />
+             
+  </div>
+</div>
         
 
 </asp:Content>

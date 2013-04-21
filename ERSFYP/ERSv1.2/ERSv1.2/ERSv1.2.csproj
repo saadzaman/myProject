@@ -135,6 +135,14 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="ajax-loader.gif" />
+    <Content Include="assets\css\bootstrap-responsive.css" />
+    <Content Include="assets\css\bootstrap-responsive.min.css" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\img\glyphicons-halflings-white.png" />
+    <Content Include="assets\img\glyphicons-halflings.png" />
+    <Content Include="assets\js\bootstrap.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="Default.aspx" />
     <Content Include="Director.aspx" />
     <Content Include="MyManagees.aspx" />
@@ -220,7 +228,9 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="assets\img\Thumbs.db" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Site.Master" />
   </ItemGroup>

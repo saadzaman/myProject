@@ -39,9 +39,12 @@ namespace ERSv1._2
                 
                     bool isLMOfReview = rev.isLMOfReview(Int32.Parse(Session["UserID"].ToString()), ReviewID);
                     bool isEmpOfReview = rev.isEmpOfReview(Int32.Parse(Session["UserID"].ToString()), ReviewID);
-                    if (!(isLMOfReview || isEmpOfReview))
+                    bool LMSConsolidation = rev.isLMSConsolidation(ReviewID);
+                    
+                
+                   if (!(isLMOfReview || isEmpOfReview))
                         Response.Redirect("Default.aspx");
-                    if (isLMOfReview && Request.QueryString["OpenedFor"] == "show")
+                    if (isLMOfReview && Request.QueryString["OpenedFor"] == "show" )
                     {
                         PeerPanel.Visible = false;
                         LineManagerRating.Visible = false;
@@ -51,7 +54,7 @@ namespace ERSv1._2
                         save.Visible = false;
                         Reject.Visible = true;
                     }
-                    else if (isLMOfReview && Request.QueryString["OpenedFor"] == "consolidate")
+                    else if (isLMOfReview && Request.QueryString["OpenedFor"] == "consolidate" )
                     {
                         PeerPanel.Visible = true;
                         LineManagerRating.Visible = true;
@@ -61,7 +64,7 @@ namespace ERSv1._2
                         save.Visible = true;
                         Reject.Visible = true;
                     }
-                    else if (isLMOfReview)
+                    else if (isLMOfReview )
                     
                      {
                         PeerPanel.Visible = true;
@@ -241,7 +244,7 @@ namespace ERSv1._2
         {
             Reviews rev = new Reviews();
             int ReviewID = Int32.Parse(Request.QueryString["SRI"].ToString());
-            rev.RejectReview(ReviewID);
+            rev.RejectReview(ReviewID,FeedbackTxt.Text.ToString());
             Response.Redirect(ViewState["PreviousPageUrl"].ToString());
             // to reject 
             //    Copy Old Column of AReviewID to New Review's AReviewID

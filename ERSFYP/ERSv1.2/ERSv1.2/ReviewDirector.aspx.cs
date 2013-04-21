@@ -187,7 +187,7 @@ namespace ERSv1._2
             int LMIDWhoisOn = Int32.Parse(Request.QueryString["LMID"]);
             int EmpID = Int32.Parse(LineManagees.SelectedValue);
             int ReviewID = rev.GetLatestReviewID(LMIDWhoisOn, EmpID);
-            rev.RejectReview(ReviewID);
+            rev.RejectReview(ReviewID,FeedbackTxt.Text.ToString());
             Response.Redirect(ViewState["PreviousPageUrl"].ToString());
             // to reject 
             //    Copy Old Column of AReviewID to New Review's AReviewID

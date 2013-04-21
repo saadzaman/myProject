@@ -51,9 +51,15 @@ namespace ERSv1._2
                         EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);
                         peerID = Int32.Parse((row.FindControl("PeerID") as HiddenField).Value);
                         rev.AddReview(EmpID, (int)Session["UserID"], peerID, "None");
-                        string script = "alert('" + "A Request Has Been Sent" + "')";
+                        
+                        string script = "$('#req').show();";
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "UserSecurity", script, true);
-                        ((GridView)sender).DataBind();
+                        GridView Peers = ((GridView)sender);
+                            Managees BManagees = new Managees();
+                            int LMID = Int32.Parse(Session["UserId"].ToString());
+                            Peers.DataSource = BManagees.GetPeerList(EmpID,LMID);
+                            Peers.DataBind();
+                           
 
                     break;
 

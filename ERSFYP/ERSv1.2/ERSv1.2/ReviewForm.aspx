@@ -170,6 +170,7 @@
                                 <label class="control-label" for="Comments">Comment</label>
                                 <div class="controls">
                                   <asp:TextBox ID="LMCommentsTxt" runat="server" TextMode="MultiLine" Width="250px" ValidationGroup="FillReview" Rows="4"></asp:TextBox>
+                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ValidationGroup="FillReview" runat="server" ControlToValidate="LMCommentsTxt" ErrorMessage="Please Insert Comment"></asp:RequiredFieldValidator>
                                   
                              </div>
                              </div>
@@ -177,7 +178,8 @@
                             <div class="span3 control-group"  >
                                 <label class="control-label" for="Rating">Ratings</label>
                                 <div class="controls">
-                                   <asp:TextBox ID="LMRatingsTxt" Columns="70" Rows="3" runat="server"></asp:TextBox>
+                                   <asp:TextBox ID="LMRatingsTxt" Columns="70" Rows="3" runat="server" ValidationGroup="FillReview"></asp:TextBox>
+                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorlm" ValidationGroup="FillReview" runat="server" ControlToValidate="LMRatingsTxt" ErrorMessage="Please Insert Ratings"></asp:RequiredFieldValidator>
                                  </div>
                              </div>
                              </div>
@@ -219,8 +221,8 @@
                         onclick="submit_Click" />
                 <asp:Button ID="save" runat="server"  class="btn btn-info" Text="Draft Review" 
                         onclick="save_Click" />
-                <asp:Button ID="Reject" runat="server"  class="btn btn-danger" Text="Reject Review" 
-                        onclick="Reject_Click" />
+                <asp:Button ID="Reject" runat="server"  data-toggle="modal" data-target="#GetFeedBack" class="btn btn-danger" Text="Reject Review" 
+                        />
              
                 </div>
                </div>
@@ -233,4 +235,32 @@
 
     </div>
  </fieldset> 
+
+
+
+ 
+
+
+<!-- Modal -->
+<div id="GetFeedBack" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Please Identify The Reason For Rejecting</h3>
+  </div>
+
+  <div class="modal-body">
+    <asp:TextBox ID="FeedbackTxt" runat="server"  Width="450" 
+          TextMode="MultiLine" MaxLength="100" ></asp:TextBox>
+  </div>
+
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+     <asp:Button ID="Button1" runat="server"  class="btn btn-danger" Text="Reject" 
+                        onclick="Reject_Click" />
+             
+  </div>
+</div>
+
+
 </asp:Content>

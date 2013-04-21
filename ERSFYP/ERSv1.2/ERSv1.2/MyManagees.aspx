@@ -5,7 +5,14 @@
  <asp:ScriptManager ID="MainScriptManager" runat="server" />
 
 <h4>My Managees</h4>
-
+<div class="row dontShow" id="req">
+<div class="span9">
+<div class="alert">  
+<a class="close" data-dismiss="alert">×</a>  
+<strong>Request Sent!</strong> The Peer Will Recieve The Request On His Next Login. 
+</div>  
+</div>
+</div>
 <asp:GridView ID="ManageeList" runat="server" 
     CssClass="table" GridLines="None" DataKeyNames="EmpID"
     UseAccessibleHeader=true AutoGenerateColumns=false 
@@ -136,4 +143,18 @@
 
   </Columns>
 </asp:GridView>
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" data-keyboard="true"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 
+  <div class="modal-body">
+    <p>Request Sent !!</p>
+  </div>
+
+
+</div>
+
+
 </asp:Content>

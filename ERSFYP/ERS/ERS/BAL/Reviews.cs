@@ -22,7 +22,14 @@ namespace ERS.BAL
         
         }
 
+        public bool RejectReview(int ReviewID ,string Feedback)
+        {
+            if (Feedback.Length != 0)
+                return ersRep.RejectReview(ReviewID, Feedback);
+            else
+               return ersRep.RejectReview(ReviewID);
 
+        }
         public List<ReviewCategory> GetCategories()
         {
             return ersRep.GetCategories();
@@ -137,6 +144,13 @@ namespace ERS.BAL
         public int GetLatestReviewID(int LMID, int EmpID)
         {
             return ersRep.GetLatestReviewID(LMID, EmpID);
+        
+        }
+
+        public bool isLMSConsolidation(int ReviewID)
+        {
+
+            return ersRep.isLMSConsolidation(ReviewID);
         
         }
     }

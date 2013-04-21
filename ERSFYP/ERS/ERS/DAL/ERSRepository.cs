@@ -640,6 +640,46 @@ namespace ERS.DAL
        }
 
 
+       public bool RejectReview(int ReviewID,String Feedback)
+       {
+
+           try
+           {
+
+               Review Orignal = (from a in context.Reviews where a.ReviewId == ReviewID select a).ToList<Review>()[0];
+               if (Orignal.Status1.StatusName != "Rejected")
+               {
+                   //context.Reviews.Attach(Orignal);
+                   Review New = new Review()
+                   {
+                       version = Orignal.version + 1,
+                       Status = (from a in context.Status where a.StatusName == "Pending" select a.ID).First(),
+                       EmpID = Orignal.EmpID,
+                       LMID = Orignal.LMID,
+                       ReviewerID = Orignal.ReviewerID,
+                       Date = DateTime.Now,
+                       AReviewID = Orignal.AReviewID,
+                       IsActive = 0,
+                       ReviewTypeID = 0,
+                       feedback = Feedback
+                   };
+                   InsertReview(New);
+                   UpdateReviewStatus(ReviewID, "Rejected");
+
+               }
+
+               return true;
+
+
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+               return false;
+           }
+       }
+
+
        public bool RejectReview(int ReviewID)
        {
 
@@ -696,6 +736,13 @@ namespace ERS.DAL
        public int GetLatestReviewID(int LMID, int EmpID)
        {
            return (from a in context.Reviews where a.EmpID == EmpID && a.LMID == LMID && a.ReviewerID == LMID select a).OrderByDescending(e => e.version).First().ReviewId;
+       }
+
+
+
+       public bool isLMSConsolidation(int ReviewID)
+       {
+          return ( ( from a in context.Reviews where a.ReviewId == ReviewID && a.LMID == a.ReviewerID select a.ReviewId ).Count() > 0 );
        }
     }
 
