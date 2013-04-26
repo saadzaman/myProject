@@ -5,30 +5,6 @@
 
 <h4>My Reviews</h4>
    
-  
-  <div class=row>
-        <label class="span2">
-                <input type="checkbox" id="cb" runat="server" value=""/>All
-        </label>
-
-        <label class="span2">
-                <input type="checkbox" id="cb2" runat="server" value=""/>Remaining
-        </label>
-
-         <div class="span3">
-                    <div class="span2">
-                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-                 </div>
-     
-                 <div class="span">  
-                        <a href="#" class="btn" ><i class="icon-search"></i></a>
-                 </div>
-                                                       
-         </div>
-
-      
-      
-      </div>
 
         
            <div>
