@@ -1,7 +1,0 @@
-C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\ERSv1.2.dll
-C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\ERSv1.2.pdb
-C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\ERS.dll
-C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\bin\ERS.pdb
-C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\obj\Release\ERSv1.2.csprojResolveAssemblyReference.cache
-C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\obj\Release\ERSv1.2.dll
-C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSv1.2\ERSv1.2\obj\Release\ERSv1.2.pdb
