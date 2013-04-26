@@ -466,6 +466,7 @@
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="feedback" ColumnName="feedback" />
           <ScalarProperty Name="AReviewID" ColumnName="AReviewID" />
+          <ScalarProperty Name="RejectedBy" ColumnName="RejectedBy" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

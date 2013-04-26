@@ -226,6 +226,10 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Review" EntitySet="Review" />
           </AssociationSet>
+          <AssociationSet Name="FK_Review_RejectedBy" Association="ERS_LMTModel.Store.FK_Review_RejectedBy">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
           <AssociationSet Name="FK_Review_Reviewer" Association="ERS_LMTModel.Store.FK_Review_Reviewer">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Review" EntitySet="Review" />
@@ -750,6 +754,7 @@
           <Property Name="IsActive" Type="int" />
           <Property Name="feedback" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="AReviewID" Type="int" Nullable="false" />
+          <Property Name="RejectedBy" Type="int" />
         </EntityType>
         <EntityType Name="ReviewCategories">
           <Key>
@@ -1306,6 +1311,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Review_RejectedBy">
+          <End Role="Employee" Type="ERS_LMTModel.Store.Employee" Multiplicity="0..1" />
+          <End Role="Review" Type="ERS_LMTModel.Store.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="RejectedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Review_Reviewer">
           <End Role="Employee" Type="ERS_LMTModel.Store.Employee" Multiplicity="0..1" />
           <End Role="Review" Type="ERS_LMTModel.Store.Review" Multiplicity="*" />
@@ -1717,6 +1734,10 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
+          <AssociationSet Name="FK_Review_RejectedBy" Association="ERS_LMTModel.FK_Review_RejectedBy">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
           <AssociationSet Name="FK_Review_Reviewer" Association="ERS_LMTModel.FK_Review_Reviewer">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Review" EntitySet="Reviews" />
@@ -2098,7 +2119,8 @@
           <NavigationProperty Name="RequestAllocations" Relationship="ERS_LMTModel.FK_requestAllocation_Employee" FromRole="Employee" ToRole="RequestAllocation" />
           <NavigationProperty Name="Reviews" Relationship="ERS_LMTModel.FK_Review_Emp" FromRole="Employee" ToRole="Review" />
           <NavigationProperty Name="Reviews1" Relationship="ERS_LMTModel.FK_Review_LM" FromRole="Employee" ToRole="Review" />
-          <NavigationProperty Name="Reviews2" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Employee" ToRole="Review" />
+          <NavigationProperty Name="Reviews2" Relationship="ERS_LMTModel.FK_Review_RejectedBy" FromRole="Employee" ToRole="Review" />
+          <NavigationProperty Name="Reviews3" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Employee" ToRole="Review" />
           <NavigationProperty Name="EmployeeRoles" Relationship="ERS_LMTModel.fk1_EmployeeRole" FromRole="Employee" ToRole="EmployeeRole" />
           <NavigationProperty Name="LMAllocations" Relationship="ERS_LMTModel.fk1_LMAllocation" FromRole="Employee" ToRole="LMAllocation" />
           <NavigationProperty Name="LMAllocations1" Relationship="ERS_LMTModel.fk2_LMAllocation" FromRole="Employee" ToRole="LMAllocation" />
@@ -2351,9 +2373,11 @@
           <Property Name="IsActive" Type="Int32" />
           <Property Name="feedback" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="AReviewID" Type="Int32" Nullable="false" />
+          <Property Name="RejectedBy" Type="Int32" />
           <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.FK_Review_Emp" FromRole="Review" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="ERS_LMTModel.FK_Review_LM" FromRole="Review" ToRole="Employee" />
-          <NavigationProperty Name="Employee2" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Review" ToRole="Employee" />
+          <NavigationProperty Name="Employee2" Relationship="ERS_LMTModel.FK_Review_RejectedBy" FromRole="Review" ToRole="Employee" />
+          <NavigationProperty Name="Employee3" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Review" ToRole="Employee" />
           <NavigationProperty Name="ReviewType" Relationship="ERS_LMTModel.FK_Review_ReviewType" FromRole="Review" ToRole="ReviewType" />
           <NavigationProperty Name="Status1" Relationship="ERS_LMTModel.FK_Review_Status" FromRole="Review" ToRole="Status" />
           <NavigationProperty Name="ReviewInfoes" Relationship="ERS_LMTModel.FK_ReviewInfo_Review" FromRole="Review" ToRole="ReviewInfo" />
@@ -2795,6 +2819,18 @@
             </Principal>
             <Dependent Role="Review">
               <PropertyRef Name="LMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_RejectedBy">
+          <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="0..1" />
+          <End Role="Review" Type="ERS_LMTModel.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="RejectedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3597,6 +3633,7 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="feedback" ColumnName="feedback" />
                 <ScalarProperty Name="AReviewID" ColumnName="AReviewID" />
+                <ScalarProperty Name="RejectedBy" ColumnName="RejectedBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3738,405 +3775,420 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="DB">
-        <EntityTypeShape EntityType="ERS_LMTModel.Allocation" Width="1.5" PointX="5.25" PointY="18.75" Height="4.0956022135416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.AllocationActivity" Width="1.5" PointX="7.75" PointY="0.75" Height="4.0956022135416656" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.AllocationType" Width="1.5" PointX="3" PointY="14.875" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Answer" Width="1.5" PointX="9.75" PointY="33.5" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Applications" Width="1.5" PointX="12.75" PointY="7.875" Height="2.5571907552083326" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Membership" Width="1.5" PointX="18" PointY="9.5" Height="5.4417122395833317" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Paths" Width="1.5" PointX="15" PointY="6.375" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="17.25" PointY="6.75" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="17.25" PointY="3.375" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Profile" Width="1.5" PointX="22.5" PointY="11.875" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Roles" Width="1.5" PointX="15" PointY="15.75" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_SchemaVersions" Width="1.5" PointX="0.75" PointY="8.75" Height="1.5956835937500031" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Users" Width="1.5" PointX="20.25" PointY="11.375" Height="3.326396484374996" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_WebEvent_Events" Width="1.5" PointX="2.75" PointY="8.75" Height="3.9033007812500031" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.CategoryWeightage" Width="1.5" PointX="3" PointY="18.5" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Choice" Width="1.5" PointX="5.25" PointY="37" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Department" Width="1.5" PointX="8.75" PointY="5.75" Height="1.5956835937500031" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.DirectorAllocation" Width="1.5" PointX="5.25" PointY="24.375" Height="2.5571907552083388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Employee" Width="1.5" PointX="3" PointY="21.375" Height="4.8648079427083388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.EmployeeRole" Width="1.5" PointX="8.25" PointY="20.75" Height="2.172587890624996" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Feature" Width="1.5" PointX="6" PointY="7" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Allocation" Width="1.5" PointX="5.25" PointY="19" Height="4.0956022135416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.AllocationActivity" Width="1.5" PointX="5.75" PointY="4.75" Height="4.0956022135416656" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.AllocationType" Width="1.5" PointX="3" PointY="15.125" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Answer" Width="1.5" PointX="9.75" PointY="33.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Applications" Width="1.5" PointX="11.75" PointY="7.875" Height="2.5571907552083326" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Membership" Width="1.5" PointX="17" PointY="9.5" Height="5.4417122395833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Paths" Width="1.5" PointX="14" PointY="6.375" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="16.25" PointY="6.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="16.25" PointY="3.375" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Profile" Width="1.5" PointX="21.5" PointY="11.875" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Roles" Width="1.5" PointX="14" PointY="15.75" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_SchemaVersions" Width="1.5" PointX="7.75" PointY="0.75" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_Users" Width="1.5" PointX="19.25" PointY="11.375" Height="3.326396484374996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.aspnet_WebEvent_Events" Width="1.5" PointX="7.75" PointY="3.75" Height="3.9033007812500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.CategoryWeightage" Width="1.5" PointX="3" PointY="18.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Choice" Width="1.5" PointX="5.25" PointY="37.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Department" Width="1.5" PointX="0.75" PointY="8.75" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.DirectorAllocation" Width="1.5" PointX="5.25" PointY="24.625" Height="2.5571907552083388" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Employee" Width="1.5" PointX="3" PointY="21.5" Height="5.057109374999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.EmployeeRole" Width="1.5" PointX="8.25" PointY="20.875" Height="2.172587890624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Feature" Width="1.5" PointX="9" PointY="10.25" Height="1.5956835937500031" IsExpanded="true" />
         <EntityTypeShape EntityType="ERS_LMTModel.Level" Width="1.5" PointX="3" PointY="5.375" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.LMAllocation" Width="1.5" PointX="5.25" PointY="30.625" Height="2.5571907552083246" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.MeetingNote" Width="1.5" PointX="12.75" PointY="30.375" Height="2.9417936197916674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.MeetingNotification" Width="1.5" PointX="9.75" PointY="37.25" Height="2.172587890624996" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.MeetingSchedule" Width="1.5" PointX="7.5" PointY="30" Height="3.7109993489583246" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.MeetingTemplate" Width="1.5" PointX="5.25" PointY="39.75" Height="2.1725878906250102" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Peer" Width="1.5" PointX="5.25" PointY="33.875" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Permission" Width="1.5" PointX="8.25" PointY="9.875" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Position" Width="1.5" PointX="0.75" PointY="21.375" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Priority" Width="1.5" PointX="8" PointY="40.625" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Project" Width="1.5" PointX="3" PointY="27.625" Height="3.1340950520833388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.ProjectStatu" Width="1.5" PointX="9.75" PointY="0.75" Height="1.5956835937500102" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Question" Width="1.5" PointX="3" PointY="36.875" Height="2.1725878906250102" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.RedFlag" Width="1.5" PointX="7.5" PointY="23.75" Height="3.7109993489583388" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.RequestAllocation" Width="1.5" PointX="10.25" PointY="24.5" Height="4.48020507812501" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.RequestStatu" Width="1.5" PointX="8" PointY="43.125" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.ResourceAllocationChron" Width="1.5" PointX="10.75" PointY="3.75" Height="1.4033821614583246" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Review" Width="1.5" PointX="8.25" PointY="15.625" Height="4.2879036458333246" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.ReviewCategory" Width="1.5" PointX="0.75" PointY="18.625" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.ReviewInfo" Width="1.5" PointX="10.5" PointY="16.75" Height="2.1725878906250102" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.ReviewType" Width="1.5" PointX="6" PointY="15.875" Height="1.595683593749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.LMAllocation" Width="1.5" PointX="5.25" PointY="30.75" Height="2.5571907552083246" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.MeetingNote" Width="1.5" PointX="12.75" PointY="30.625" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.MeetingNotification" Width="1.5" PointX="9.75" PointY="37.375" Height="2.172587890624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.MeetingSchedule" Width="1.5" PointX="7.5" PointY="30.25" Height="3.7109993489583246" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.MeetingTemplate" Width="1.5" PointX="5.25" PointY="40" Height="2.1725878906250102" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Peer" Width="1.5" PointX="5.25" PointY="34.125" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Permission" Width="1.5" PointX="11.25" PointY="15" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Position" Width="1.5" PointX="0.75" PointY="21.625" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Priority" Width="1.5" PointX="8" PointY="12.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Project" Width="1.5" PointX="3" PointY="27.875" Height="3.1340950520833388" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.ProjectStatu" Width="1.5" PointX="2.75" PointY="8.75" Height="1.5956835937500102" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Question" Width="1.5" PointX="3" PointY="37.125" Height="2.1725878906250102" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.RedFlag" Width="1.5" PointX="7.5" PointY="24" Height="3.7109993489583388" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.RequestAllocation" Width="1.5" PointX="10.25" PointY="24.75" Height="4.48020507812501" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.RequestStatu" Width="1.5" PointX="8" PointY="40.375" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.ResourceAllocationChron" Width="1.5" PointX="9.75" PointY="0.75" Height="1.4033821614583246" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Review" Width="1.5" PointX="11.25" PointY="18.625" Height="4.6725065104166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.ReviewCategory" Width="1.5" PointX="0.75" PointY="18.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.ReviewInfo" Width="1.5" PointX="13.5" PointY="19.875" Height="2.1725878906250102" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.ReviewType" Width="1.5" PointX="9" PointY="18" Height="1.595683593749996" IsExpanded="true" />
         <EntityTypeShape EntityType="ERS_LMTModel.Role" Width="1.5" PointX="0.75" PointY="1.375" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Role1" Width="1.5" PointX="6" PointY="9.875" Height="1.787985026041639" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.SectionOption" Width="1.5" PointX="12.75" PointY="20.875" Height="1.980286458333353" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Role1" Width="1.5" PointX="6" PointY="16.125" Height="1.787985026041639" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.SectionOption" Width="1.5" PointX="12.75" PointY="41.125" Height="1.980286458333353" IsExpanded="true" />
         <EntityTypeShape EntityType="ERS_LMTModel.Skill" Width="1.5" PointX="3" PointY="1.125" Height="2.1725878906249818" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.Status" Width="1.5" PointX="6" PointY="13.125" Height="1.5956835937499818" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.sysdiagram" Width="1.5" PointX="11.75" PointY="0.75" Height="1.9802864583333246" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.Status" Width="1.5" PointX="9" PointY="15.375" Height="1.5956835937499818" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.sysdiagram" Width="1.5" PointX="9.75" PointY="3.75" Height="1.9802864583333246" IsExpanded="true" />
         <EntityTypeShape EntityType="ERS_LMTModel.TechSkill" Width="1.5" PointX="5.25" PointY="1" Height="2.5571907552083246" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERS_LMTModel.TemplateSection" Width="1.5" PointX="10.5" PointY="20.25" Height="3.3263964843749818" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERS_LMTModel.TemplateSection" Width="1.5" PointX="10.5" PointY="40.375" Height="3.3263964843749818" IsExpanded="true" />
         <AssociationConnector Association="ERS_LMTModel.FK_Allocation_AllocationType" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="15.34375" />
-          <ConnectorPoint PointX="5.59375" PointY="15.34375" />
-          <ConnectorPoint PointX="5.59375" PointY="18.75" />
+          <ConnectorPoint PointX="4.5" PointY="15.59375" />
+          <ConnectorPoint PointX="5.59375" PointY="15.59375" />
+          <ConnectorPoint PointX="5.59375" PointY="19" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk1_Allocation" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="22.110301106770834" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="22.110301106770834" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="22.110301106770834" />
-          <ConnectorPoint PointX="5.25" PointY="22.110301106770834" />
+          <ConnectorPoint PointX="4.5" PointY="22.297801106770834" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="22.297801106770834" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="22.297801106770834" />
+          <ConnectorPoint PointX="5.25" PointY="22.297801106770834" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk2_Allocation" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="27.626152846153843" />
-          <ConnectorPoint PointX="4.875" PointY="27.251152846153843" />
-          <ConnectorPoint PointX="4.875" PointY="20.398898553385415" />
-          <ConnectorPoint PointX="4.947916666666667" PointY="20.398898553385415" />
-          <ConnectorPoint PointX="5.177083333333333" PointY="20.398898553385415" />
-          <ConnectorPoint PointX="5.25" PointY="20.398898553385415" />
+          <ConnectorPoint PointX="4.5" PointY="27.876152846153843" />
+          <ConnectorPoint PointX="4.875" PointY="27.501152846153843" />
+          <ConnectorPoint PointX="4.875" PointY="20.617648553385415" />
+          <ConnectorPoint PointX="5.25" PointY="20.617648553385415" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_AllocationType_AllocationType" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.5319230769230767" PointY="16.855286458333332" />
           <ConnectorPoint PointX="3.5319230769230767" PointY="17.105286458333332" />
+          <ConnectorPoint PointX="3.5319230769230767" PointY="17.355286458333332" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="17.355286458333332" />
           <ConnectorPoint PointX="3.9784615384615383" PointY="17.105286458333332" />
-          <ConnectorPoint PointX="3.9784615384615383" PointY="16.855286458333332" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Answers_Meeting" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="31.7499995" />
-          <ConnectorPoint PointX="9.1979166666666661" PointY="31.7499995" />
-          <ConnectorPoint PointX="9.3645833333333339" PointY="31.7499995" />
-          <ConnectorPoint PointX="10.5" PointY="31.7499995" />
-          <ConnectorPoint PointX="10.5" PointY="33.5" />
+          <ConnectorPoint PointX="9" PointY="31.9999995" />
+          <ConnectorPoint PointX="9.1979166666666661" PointY="31.9999995" />
+          <ConnectorPoint PointX="9.3645833333333339" PointY="31.9999995" />
+          <ConnectorPoint PointX="10.5" PointY="31.9999995" />
+          <ConnectorPoint PointX="10.5" PointY="33.75" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Answers_Question" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="36.875" />
-          <ConnectorPoint PointX="3.75" PointY="33.792999674479162" />
-          <ConnectorPoint PointX="4.885416666666667" PointY="33.792999674479162" />
-          <ConnectorPoint PointX="5.145833333333333" PointY="33.792999674479162" />
-          <ConnectorPoint PointX="9.1979166666666661" PointY="33.792999674479162" />
-          <ConnectorPoint PointX="9.3645833333333339" PointY="33.792999674479162" />
-          <ConnectorPoint PointX="9.75" PointY="33.792999674479162" />
+          <ConnectorPoint PointX="3.75" PointY="37.125" />
+          <ConnectorPoint PointX="3.75" PointY="34.042999674479162" />
+          <ConnectorPoint PointX="4.885416666666667" PointY="34.042999674479162" />
+          <ConnectorPoint PointX="5.145833333333333" PointY="34.042999674479162" />
+          <ConnectorPoint PointX="9.1979166666666661" PointY="34.042999674479162" />
+          <ConnectorPoint PointX="9.3645833333333339" PointY="34.042999674479162" />
+          <ConnectorPoint PointX="9.75" PointY="34.042999674479162" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Me__Appli__7C4F7684" ManuallyRouted="false">
-          <ConnectorPoint PointX="14.25" PointY="9.9660953776041659" />
-          <ConnectorPoint PointX="18" PointY="9.9660953776041659" />
+          <ConnectorPoint PointX="13.25" PointY="9.9660953776041659" />
+          <ConnectorPoint PointX="17" PointY="9.9660953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Pa__Appli__07C12930" ManuallyRouted="false">
-          <ConnectorPoint PointX="14.25" PointY="8.3074446614583337" />
-          <ConnectorPoint PointX="15" PointY="8.3074446614583337" />
+          <ConnectorPoint PointX="13.25" PointY="8.3074446614583337" />
+          <ConnectorPoint PointX="14" PointY="8.3074446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Ro__Appli__08B54D69" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.5" PointY="10.432190755208332" />
-          <ConnectorPoint PointX="13.5" PointY="16.932444661458334" />
-          <ConnectorPoint PointX="15" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="13.03125" PointY="10.432190755208332" />
+          <ConnectorPoint PointX="13.03125" PointY="17.578837890625003" />
+          <ConnectorPoint PointX="14" PointY="17.578837890625003" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Us__Appli__09A971A2" ManuallyRouted="false">
-          <ConnectorPoint PointX="14.25" PointY="9.1199446614583337" />
-          <ConnectorPoint PointX="20.510414166666667" PointY="9.1199446614583337" />
-          <ConnectorPoint PointX="20.677080833333331" PointY="9.1199446614583337" />
-          <ConnectorPoint PointX="21" PointY="9.1199446614583337" />
-          <ConnectorPoint PointX="21" PointY="11.375" />
+          <ConnectorPoint PointX="13.25" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="19.510414166666667" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="19.677080833333331" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="20" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="20" PointY="11.375" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Me__UserI__7D439ABD" ManuallyRouted="false">
-          <ConnectorPoint PointX="20.25" PointY="13.038198242187498" />
-          <ConnectorPoint PointX="19.5" PointY="13.038198242187498" />
+          <ConnectorPoint PointX="19.25" PointY="13.038198242187498" />
+          <ConnectorPoint PointX="18.5" PointY="13.038198242187498" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Pe__PathI__76969D2E" ManuallyRouted="false">
-          <ConnectorPoint PointX="15.75" PointY="6.375" />
-          <ConnectorPoint PointX="15.75" PointY="4.5574446614583337" />
-          <ConnectorPoint PointX="17.25" PointY="4.5574446614583337" />
+          <ConnectorPoint PointX="14.75" PointY="6.375" />
+          <ConnectorPoint PointX="14.75" PointY="4.5574446614583337" />
+          <ConnectorPoint PointX="16.25" PointY="4.5574446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Pe__PathI__787EE5A0" ManuallyRouted="false">
-          <ConnectorPoint PointX="16.5" PointY="7.6439925130208337" />
-          <ConnectorPoint PointX="17.25" PointY="7.6439925130208337" />
+          <ConnectorPoint PointX="15.5" PointY="7.6439925130208337" />
+          <ConnectorPoint PointX="16.25" PointY="7.6439925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Pe__UserI__778AC167" ManuallyRouted="false">
-          <ConnectorPoint PointX="20.5937475" PointY="11.375" />
-          <ConnectorPoint PointX="20.5937475" PointY="4.5574446614583337" />
-          <ConnectorPoint PointX="18.75" PointY="4.5574446614583337" />
+          <ConnectorPoint PointX="19.5937475" PointY="11.375" />
+          <ConnectorPoint PointX="19.5937475" PointY="4.5574446614583337" />
+          <ConnectorPoint PointX="17.75" PointY="4.5574446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK__aspnet_Pr__UserI__7B5B524B" ManuallyRouted="false">
-          <ConnectorPoint PointX="21.75" PointY="12.9612939453125" />
-          <ConnectorPoint PointX="22.5" PointY="12.9612939453125" />
+          <ConnectorPoint PointX="20.75" PointY="12.9612939453125" />
+          <ConnectorPoint PointX="21.5" PointY="12.9612939453125" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Category" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="19.518992513020834" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="19.518992513020834" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="19.518992513020834" />
-          <ConnectorPoint PointX="3" PointY="19.518992513020834" />
+          <ConnectorPoint PointX="2.25" PointY="19.768992513020834" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="19.768992513020834" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="19.768992513020834" />
+          <ConnectorPoint PointX="3" PointY="19.768992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Position" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="21.376152846153843" />
-          <ConnectorPoint PointX="2.625" PointY="21.001152846153843" />
-          <ConnectorPoint PointX="2.625" PointY="18.978244256510415" />
-          <ConnectorPoint PointX="3" PointY="18.978244256510415" />
+          <ConnectorPoint PointX="2.25" PointY="21.626152846153843" />
+          <ConnectorPoint PointX="2.625" PointY="21.251152846153843" />
+          <ConnectorPoint PointX="2.625" PointY="19.228244256510415" />
+          <ConnectorPoint PointX="3" PointY="19.228244256510415" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Choices_Question" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="37.893992513020834" />
-          <ConnectorPoint PointX="5.25" PointY="37.893992513020834" />
+          <ConnectorPoint PointX="4.5" PointY="38.143992513020834" />
+          <ConnectorPoint PointX="5.25" PointY="38.143992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_Red_DirectorAllocation" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="25.653595377604169" />
-          <ConnectorPoint PointX="7.5" PointY="25.653595377604169" />
+          <ConnectorPoint PointX="6.75" PointY="25.903595377604169" />
+          <ConnectorPoint PointX="7.5" PointY="25.903595377604169" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk1_DirectorAllocation" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="25.307403971354169" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="25.307403971354169" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="25.307403971354169" />
-          <ConnectorPoint PointX="5.25" PointY="25.307403971354169" />
+          <ConnectorPoint PointX="4.5" PointY="25.591054687499998" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="25.591054687499998" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="25.591054687499998" />
+          <ConnectorPoint PointX="5.25" PointY="25.591054687499998" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk2_DirectorAllocation" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="24.778701985677085" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="24.778701985677085" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="24.778701985677085" />
-          <ConnectorPoint PointX="5.25" PointY="24.778701985677085" />
+          <ConnectorPoint PointX="4.5" PointY="25.04552734375" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="25.04552734375" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="25.04552734375" />
+          <ConnectorPoint PointX="5.25" PointY="25.04552734375" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Employee_Position" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="22.589273584535249" />
-          <ConnectorPoint PointX="3" PointY="22.589273584535249" />
+          <ConnectorPoint PointX="2.25" PointY="22.839273584535249" />
+          <ConnectorPoint PointX="3" PointY="22.839273584535249" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Peers_Employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.455" PointY="26.239807942708339" />
-          <ConnectorPoint PointX="4.8160744349011217" PointY="26.600882377609462" />
-          <ConnectorPoint PointX="4.9651755650988791" PointY="26.749983507807219" />
-          <ConnectorPoint PointX="5.0625" PointY="26.847307942708341" />
-          <ConnectorPoint PointX="5.0625" PointY="34.865143229166669" />
-          <ConnectorPoint PointX="5.25" PointY="34.865143229166669" />
+          <ConnectorPoint PointX="4.455" PointY="26.557109374999996" />
+          <ConnectorPoint PointX="4.8160744349011217" PointY="26.918183809901119" />
+          <ConnectorPoint PointX="4.9651755650988791" PointY="27.067284940098876" />
+          <ConnectorPoint PointX="5.0625" PointY="27.164609374999998" />
+          <ConnectorPoint PointX="5.0625" PointY="35.115143229166669" />
+          <ConnectorPoint PointX="5.25" PointY="35.115143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Peers_Employee1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.4838461538461534" PointY="26.239807942708339" />
-          <ConnectorPoint PointX="4.8160744349011217" PointY="26.572036223763309" />
-          <ConnectorPoint PointX="4.9651755650988791" PointY="26.721137353961065" />
-          <ConnectorPoint PointX="4.96875" PointY="26.724711788862187" />
-          <ConnectorPoint PointX="4.96875" PointY="34.865143229166669" />
-          <ConnectorPoint PointX="5.25" PointY="34.865143229166669" />
+          <ConnectorPoint PointX="4.4838461538461534" PointY="26.557109374999996" />
+          <ConnectorPoint PointX="4.8160744349011217" PointY="26.889337656054966" />
+          <ConnectorPoint PointX="4.9651755650988791" PointY="27.038438786252723" />
+          <ConnectorPoint PointX="4.96875" PointY="27.042013221153844" />
+          <ConnectorPoint PointX="4.96875" PointY="35.115143229166669" />
+          <ConnectorPoint PointX="5.25" PointY="35.115143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_requestAllocation_Employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="23.663198242187491" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="23.663198242187491" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="23.663198242187491" />
-          <ConnectorPoint PointX="10.34375" PointY="23.663198242187491" />
-          <ConnectorPoint PointX="10.34375" PointY="24.5" />
+          <ConnectorPoint PointX="4.5" PointY="23.648753255208334" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="23.648753255208334" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="23.648753255208334" />
+          <ConnectorPoint PointX="10.71875" PointY="23.648753255208334" />
+          <ConnectorPoint PointX="10.71875" PointY="24.75" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Review_Emp" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="21.413075923076921" />
-          <ConnectorPoint PointX="4.8160744349011209" PointY="21.0970014881758" />
-          <ConnectorPoint PointX="4.9339255650988791" PointY="20.979150357978043" />
-          <ConnectorPoint PointX="5.1875" PointY="20.725575923076921" />
-          <ConnectorPoint PointX="5.1875" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="5.510416666666667" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="5.677083333333333" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="8.25" PointY="18.110341796874998" />
+          <ConnectorPoint PointX="4.5" PointY="23.227804361979167" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="23.227804361979167" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="23.227804361979167" />
+          <ConnectorPoint PointX="9.3229166666666661" PointY="23.227804361979167" />
+          <ConnectorPoint PointX="9.4895833333333339" PointY="23.227804361979167" />
+          <ConnectorPoint PointX="10.901044166666667" PointY="23.227804361979167" />
+          <ConnectorPoint PointX="11.067710833333335" PointY="23.227804361979167" />
+          <ConnectorPoint PointX="11.25" PointY="23.227804361979167" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Review_LM" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="21.376152846153843" />
-          <ConnectorPoint PointX="4.8160744349011209" PointY="21.060078411252722" />
-          <ConnectorPoint PointX="4.9339255650988791" PointY="20.942227281054965" />
-          <ConnectorPoint PointX="5.09375" PointY="20.782402846153843" />
-          <ConnectorPoint PointX="5.09375" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="5.510416666666667" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="5.677083333333333" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="8.25" PointY="18.110341796874998" />
+          <ConnectorPoint PointX="4.5" PointY="23.824379127604161" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="23.824379127604161" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="23.824379127604161" />
+          <ConnectorPoint PointX="10.635416666666666" PointY="23.824379127604161" />
+          <ConnectorPoint PointX="10.802083333333334" PointY="23.824379127604161" />
+          <ConnectorPoint PointX="10.901044166666667" PointY="23.824379127604161" />
+          <ConnectorPoint PointX="11.067710833333335" PointY="23.824379127604161" />
+          <ConnectorPoint PointX="12.28125" PointY="23.824379127604161" />
+          <ConnectorPoint PointX="12.28125" PointY="23.297506510416667" />
+        </AssociationConnector>
+        <AssociationConnector Association="ERS_LMTModel.FK_Review_RejectedBy" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="23.680005755208327" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="23.680005755208327" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="23.680005755208327" />
+          <ConnectorPoint PointX="10.901044166666667" PointY="23.680005755208327" />
+          <ConnectorPoint PointX="11.067710833333335" PointY="23.680005755208327" />
+          <ConnectorPoint PointX="12.0156225" PointY="23.680005755208327" />
+          <ConnectorPoint PointX="12.0156225" PointY="23.297506510416667" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Review_Reviewer" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.4942307692307688" PointY="21.375" />
-          <ConnectorPoint PointX="4.8160744349011209" PointY="21.053156334329646" />
-          <ConnectorPoint PointX="4.9339255650988791" PointY="20.93530520413189" />
-          <ConnectorPoint PointX="5.03125" PointY="20.837980769230768" />
-          <ConnectorPoint PointX="5.03125" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="5.510416666666667" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="5.677083333333333" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="18.110341796874998" />
-          <ConnectorPoint PointX="8.25" PointY="18.110341796874998" />
+          <ConnectorPoint PointX="4.5" PointY="23.711258255208321" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="23.711258255208321" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="23.711258255208321" />
+          <ConnectorPoint PointX="10.901044166666667" PointY="23.711258255208321" />
+          <ConnectorPoint PointX="11.067710833333335" PointY="23.711258255208321" />
+          <ConnectorPoint PointX="12.197916666666666" PointY="23.711258255208321" />
+          <ConnectorPoint PointX="12.364583333333334" PointY="23.711258255208321" />
+          <ConnectorPoint PointX="12.5468775" PointY="23.711258255208321" />
+          <ConnectorPoint PointX="12.5468775" PointY="23.297506510416667" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk1_EmployeeRole" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="23.261641066406249" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="23.261641066406249" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="23.261641066406249" />
-          <ConnectorPoint PointX="9.40625" PointY="23.261641066406249" />
-          <ConnectorPoint PointX="9.40625" PointY="22.922587890624996" />
+          <ConnectorPoint PointX="4.5" PointY="23.438278808593751" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="23.438278808593751" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="23.438278808593751" />
+          <ConnectorPoint PointX="9.40625" PointY="23.438278808593751" />
+          <ConnectorPoint PointX="9.40625" PointY="23.047587890624996" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk1_LMAllocation" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="26.227114635016029" />
-          <ConnectorPoint PointX="4.8160744349011217" PointY="26.543189069917151" />
-          <ConnectorPoint PointX="4.9339255650988791" PointY="26.661040200114908" />
-          <ConnectorPoint PointX="5.15625" PointY="26.883364635016029" />
-          <ConnectorPoint PointX="5.15625" PointY="31.903595377604162" />
-          <ConnectorPoint PointX="5.25" PointY="31.903595377604162" />
+          <ConnectorPoint PointX="4.5" PointY="26.544416067307687" />
+          <ConnectorPoint PointX="4.8160744349011217" PointY="26.860490502208808" />
+          <ConnectorPoint PointX="4.9339255650988791" PointY="26.978341632406565" />
+          <ConnectorPoint PointX="5.15625" PointY="27.200666067307687" />
+          <ConnectorPoint PointX="5.15625" PointY="32.028595377604162" />
+          <ConnectorPoint PointX="5.25" PointY="32.028595377604162" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk2_LMAllocation" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="26.167114635016031" />
-          <ConnectorPoint PointX="4.90625" PointY="26.573364635016031" />
-          <ConnectorPoint PointX="4.90625" PointY="31.903595377604162" />
-          <ConnectorPoint PointX="4.979166666666667" PointY="31.903595377604162" />
-          <ConnectorPoint PointX="5.145833333333333" PointY="31.903595377604162" />
-          <ConnectorPoint PointX="5.25" PointY="31.903595377604162" />
+          <ConnectorPoint PointX="4.5" PointY="26.484416067307688" />
+          <ConnectorPoint PointX="4.90625" PointY="26.890666067307688" />
+          <ConnectorPoint PointX="4.90625" PointY="32.028595377604162" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="32.028595377604162" />
+          <ConnectorPoint PointX="5.145833333333333" PointY="32.028595377604162" />
+          <ConnectorPoint PointX="5.25" PointY="32.028595377604162" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk2_EmployeeRole" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="11.662985026041639" />
-          <ConnectorPoint PointX="7.875" PointY="12.037985026041639" />
-          <ConnectorPoint PointX="7.875" PointY="21.836293945312498" />
-          <ConnectorPoint PointX="8.25" PointY="21.836293945312498" />
+          <ConnectorPoint PointX="7.5" PointY="17.47308430989581" />
+          <ConnectorPoint PointX="8.59375" PointY="17.47308430989581" />
+          <ConnectorPoint PointX="8.59375" PointY="20.875" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Permissions_Features" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="8.0019335937500031" />
-          <ConnectorPoint PointX="8.46875" PointY="8.0019335937500031" />
-          <ConnectorPoint PointX="8.46875" PointY="9.875" />
+          <ConnectorPoint PointX="10.5" PointY="11.170187174479167" />
+          <ConnectorPoint PointX="11.46875" PointY="11.170187174479167" />
+          <ConnectorPoint PointX="11.46875" PointY="15" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_TechSkills_Level" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="6.15625" />
-          <ConnectorPoint PointX="5.59375" PointY="6.15625" />
-          <ConnectorPoint PointX="5.59375" PointY="3.5571907552083246" />
+          <ConnectorPoint PointX="4.5" PointY="5.375" />
+          <ConnectorPoint PointX="4.875" PointY="5" />
+          <ConnectorPoint PointX="4.875" PointY="2.2785953776041623" />
+          <ConnectorPoint PointX="5.25" PointY="2.2785953776041623" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_MeetingSchedule" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="31.903595377604162" />
-          <ConnectorPoint PointX="7.5" PointY="31.903595377604162" />
+          <ConnectorPoint PointX="6.75" PointY="32.028595377604162" />
+          <ConnectorPoint PointX="7.5" PointY="32.028595377604162" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_MeetingNotes" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="9.1979166666666661" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="9.3645833333333339" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="11.447916666666666" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="11.614583333333334" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="11.791664166666665" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="11.958330833333333" PointY="32.595896559895834" />
-          <ConnectorPoint PointX="12.75" PointY="32.595896559895834" />
+          <ConnectorPoint PointX="9" PointY="32.845896559895834" />
+          <ConnectorPoint PointX="9.1979166666666661" PointY="32.845896559895834" />
+          <ConnectorPoint PointX="9.3645833333333339" PointY="32.845896559895834" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="32.845896559895834" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="32.845896559895834" />
+          <ConnectorPoint PointX="11.572916666666666" PointY="32.845896559895834" />
+          <ConnectorPoint PointX="11.739583333333334" PointY="32.845896559895834" />
+          <ConnectorPoint PointX="12.75" PointY="32.845896559895834" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_MeetingNotes_TemplateSection" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.90625" PointY="23.576396484374982" />
-          <ConnectorPoint PointX="11.90625" PointY="31.454195779947923" />
-          <ConnectorPoint PointX="12.75" PointY="31.454195779947923" />
+          <ConnectorPoint PointX="11.65625" PointY="40.375" />
+          <ConnectorPoint PointX="11.65625" PointY="31.704195779947923" />
+          <ConnectorPoint PointX="12.75" PointY="31.704195779947923" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_MeetingNotifications" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.25" PointY="33.710999348958325" />
-          <ConnectorPoint PointX="8.25" PointY="38.3362939453125" />
-          <ConnectorPoint PointX="9.1979166666666661" PointY="38.3362939453125" />
-          <ConnectorPoint PointX="9.3645833333333339" PointY="38.3362939453125" />
-          <ConnectorPoint PointX="9.75" PointY="38.3362939453125" />
+          <ConnectorPoint PointX="8.25" PointY="33.960999348958325" />
+          <ConnectorPoint PointX="8.25" PointY="38.4612939453125" />
+          <ConnectorPoint PointX="9.1979166666666661" PointY="38.4612939453125" />
+          <ConnectorPoint PointX="9.3645833333333339" PointY="38.4612939453125" />
+          <ConnectorPoint PointX="9.75" PointY="38.4612939453125" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_MeetingTemplate" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="40.15625" />
           <ConnectorPoint PointX="7.71875" PointY="40.15625" />
-          <ConnectorPoint PointX="7.71875" PointY="33.710999348958325" />
+          <ConnectorPoint PointX="7.71875" PointY="33.960999348958325" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_RedFlags" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.25" PointY="30" />
-          <ConnectorPoint PointX="8.25" PointY="27.460999348958339" />
+          <ConnectorPoint PointX="8.25" PointY="30.25" />
+          <ConnectorPoint PointX="8.25" PointY="27.710999348958339" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_TemplateSection" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="39.921872500000006" />
-          <ConnectorPoint PointX="7.635416666666667" PointY="39.921872500000006" />
-          <ConnectorPoint PointX="7.802083333333333" PointY="39.921872500000006" />
-          <ConnectorPoint PointX="9.1979166666666661" PointY="39.921872500000006" />
-          <ConnectorPoint PointX="9.3645833333333339" PointY="39.921872500000006" />
-          <ConnectorPoint PointX="11.447916666666666" PointY="39.921872500000006" />
-          <ConnectorPoint PointX="11.614583333333334" PointY="39.921872500000006" />
-          <ConnectorPoint PointX="11.8749975" PointY="39.921872500000006" />
-          <ConnectorPoint PointX="11.8749975" PointY="23.576396484374982" />
+          <ConnectorPoint PointX="6.75" PointY="40.046872500000006" />
+          <ConnectorPoint PointX="7.635416666666667" PointY="40.046872500000006" />
+          <ConnectorPoint PointX="7.802083333333333" PointY="40.046872500000006" />
+          <ConnectorPoint PointX="9.1979166666666661" PointY="40.046872500000006" />
+          <ConnectorPoint PointX="9.3645833333333339" PointY="40.046872500000006" />
+          <ConnectorPoint PointX="11.0468725" PointY="40.046872500000006" />
+          <ConnectorPoint PointX="11.0468725" PointY="40.375" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Permissions_Role" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="10.737740013020826" />
-          <ConnectorPoint PointX="8.25" PointY="10.737740013020826" />
+          <ConnectorPoint PointX="7.5" PointY="17.724287167968718" />
+          <ConnectorPoint PointX="8.5104166666666661" PointY="17.724287167968718" />
+          <ConnectorPoint PointX="8.6770833333333339" PointY="17.724287167968718" />
+          <ConnectorPoint PointX="10.901044166666667" PointY="17.724287167968718" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="17.724287167968718" />
+          <ConnectorPoint PointX="12" PointY="17.724287167968718" />
+          <ConnectorPoint PointX="12" PointY="16.980286458333339" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Questions_Position" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="23.739889322916667" />
-          <ConnectorPoint PointX="1.5" PointY="37.961293945312505" />
-          <ConnectorPoint PointX="3" PointY="37.961293945312505" />
+          <ConnectorPoint PointX="1.5" PointY="23.989889322916667" />
+          <ConnectorPoint PointX="1.5" PointY="38.211293945312505" />
+          <ConnectorPoint PointX="3" PointY="38.211293945312505" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_requestAllocation_Position" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.9062525" PointY="23.739889322916667" />
-          <ConnectorPoint PointX="1.9062525" PointY="27.542999674479169" />
-          <ConnectorPoint PointX="4.4998198383413408" PointY="27.542999674479169" />
-          <ConnectorPoint PointX="4.6664865050080069" PointY="27.542999674479169" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="27.542999674479169" />
-          <ConnectorPoint PointX="5.239583333333333" PointY="27.542999674479169" />
-          <ConnectorPoint PointX="10.25" PointY="27.542999674479169" />
+          <ConnectorPoint PointX="1.9062525" PointY="23.989889322916667" />
+          <ConnectorPoint PointX="1.9062525" PointY="27.792999674479169" />
+          <ConnectorPoint PointX="4.4998198383413408" PointY="27.792999674479169" />
+          <ConnectorPoint PointX="4.6664865050080069" PointY="27.792999674479169" />
+          <ConnectorPoint PointX="4.822916666666667" PointY="27.792999674479169" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="27.792999674479169" />
+          <ConnectorPoint PointX="10.25" PointY="27.792999674479169" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_requestAllocation_priority" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.28125" PointY="40.625" />
-          <ConnectorPoint PointX="9.28125" PointY="28.292854876302084" />
-          <ConnectorPoint PointX="10.25" PointY="28.292854876302084" />
+          <ConnectorPoint PointX="9.5" PointY="13.768992513020834" />
+          <ConnectorPoint PointX="10.9843775" PointY="13.768992513020834" />
+          <ConnectorPoint PointX="10.9843775" PointY="24.75" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_requestAllocation_Project" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="28.699029977213549" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="28.699029977213549" />
-          <ConnectorPoint PointX="5.239583333333333" PointY="28.699029977213549" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="28.699029977213549" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="28.699029977213549" />
-          <ConnectorPoint PointX="9.1979166666666661" PointY="28.699029977213549" />
-          <ConnectorPoint PointX="9.3645833333333339" PointY="28.699029977213549" />
-          <ConnectorPoint PointX="10.25" PointY="28.699029977213549" />
+          <ConnectorPoint PointX="4.5" PointY="28.58443146213942" />
+          <ConnectorPoint PointX="4.822916666666667" PointY="28.58443146213942" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="28.58443146213942" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="28.58443146213942" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="28.58443146213942" />
+          <ConnectorPoint PointX="9.1979166666666661" PointY="28.58443146213942" />
+          <ConnectorPoint PointX="9.3645833333333339" PointY="28.58443146213942" />
+          <ConnectorPoint PointX="10.25" PointY="28.58443146213942" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_requestAllocation_requestStatus" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.5" PointY="44.018992513020834" />
-          <ConnectorPoint PointX="11.53125" PointY="44.018992513020834" />
-          <ConnectorPoint PointX="11.53125" PointY="28.98020507812501" />
+          <ConnectorPoint PointX="9.28125" PointY="40.375" />
+          <ConnectorPoint PointX="9.28125" PointY="28.188715568309295" />
+          <ConnectorPoint PointX="10.25" PointY="28.188715568309295" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Review_ReviewType" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="16.672841796874998" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="16.672841796874998" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="16.672841796874998" />
-          <ConnectorPoint PointX="8.25" PointY="16.672841796874998" />
+          <ConnectorPoint PointX="10.5" PointY="19.110341796874998" />
+          <ConnectorPoint PointX="10.901044166666667" PointY="19.110341796874998" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="19.110341796874998" />
+          <ConnectorPoint PointX="11.25" PointY="19.110341796874998" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Review_Status" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="13.922841796874991" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="13.922841796874991" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="13.922841796874991" />
-          <ConnectorPoint PointX="9" PointY="13.922841796874991" />
-          <ConnectorPoint PointX="9" PointY="15.625" />
+          <ConnectorPoint PointX="10.5" PointY="16.970683593749982" />
+          <ConnectorPoint PointX="10.925451934901123" PointY="17.396135528651104" />
+          <ConnectorPoint PointX="11.043303065098879" PointY="17.513986658848861" />
+          <ConnectorPoint PointX="11.125" PointY="17.595683593749982" />
+          <ConnectorPoint PointX="11.125" PointY="21.169073079427083" />
+          <ConnectorPoint PointX="11.25" PointY="21.169073079427083" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_ReviewInfo_Review" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.75" PointY="17.836293945312505" />
-          <ConnectorPoint PointX="10.5" PointY="17.836293945312505" />
+          <ConnectorPoint PointX="12.75" PointY="20.961293945312505" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="20.961293945312505" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="20.961293945312505" />
+          <ConnectorPoint PointX="13.5" PointY="20.961293945312505" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_ReviewInfo_ReviewCategories" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="18.625" />
-          <ConnectorPoint PointX="1.5" PointY="17.836293945312505" />
-          <ConnectorPoint PointX="5.510416666666667" PointY="17.836293945312505" />
-          <ConnectorPoint PointX="5.677083333333333" PointY="17.836293945312505" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="17.836293945312505" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="17.836293945312505" />
-          <ConnectorPoint PointX="8" PointY="17.836293945312505" />
-          <ConnectorPoint PointX="8" PointY="20.162903645833325" />
-          <ConnectorPoint PointX="10.125" PointY="20.162903645833325" />
-          <ConnectorPoint PointX="10.125" PointY="18.410692917968753" />
-          <ConnectorPoint PointX="10.5" PointY="18.410692917968753" />
+          <ConnectorPoint PointX="1.5" PointY="20.662985026041667" />
+          <ConnectorPoint PointX="1.5" PointY="20.980286458333339" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="20.980286458333339" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="20.980286458333339" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="20.980286458333339" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="20.980286458333339" />
+          <ConnectorPoint PointX="5" PointY="20.980286458333339" />
+          <ConnectorPoint PointX="5" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="10.901044166666667" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="11.067710833333335" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="11.932289166666665" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="12.098955833333333" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="12.197916666666666" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="12.364583333333334" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="12.463544166666667" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="12.630210833333335" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="13.125" PointY="23.547506510416667" />
+          <ConnectorPoint PointX="13.125" PointY="20.386894972656258" />
+          <ConnectorPoint PointX="13.5" PointY="20.386894972656258" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_Skill_Role" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.2689925130208337" />
           <ConnectorPoint PointX="3" PointY="2.2689925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.fk_SectionOption" ManuallyRouted="false">
-          <ConnectorPoint PointX="12" PointY="21.865143229166677" />
-          <ConnectorPoint PointX="12.75" PointY="21.865143229166677" />
+          <ConnectorPoint PointX="12" PointY="42.115143229166677" />
+          <ConnectorPoint PointX="12.75" PointY="42.115143229166677" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.FK_TechSkills_Skill" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="2.2112939453124909" />
-          <ConnectorPoint PointX="5.25" PointY="2.2112939453124909" />
+          <ConnectorPoint PointX="4.5" PointY="1.6392976888020812" />
+          <ConnectorPoint PointX="5.25" PointY="1.6392976888020812" />
         </AssociationConnector>
         <AssociationConnector Association="ERS_LMTModel.aspnet_UsersInRoles" ManuallyRouted="false">
-          <ConnectorPoint PointX="16.5" PointY="16.932444661458334" />
-          <ConnectorPoint PointX="21" PointY="16.932444661458334" />
-          <ConnectorPoint PointX="21" PointY="14.701396484374996" />
+          <ConnectorPoint PointX="15.5" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="20" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="20" PointY="14.701396484374996" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -163,7 +163,7 @@ namespace ERSv1._2
             int EmpID = Int32.Parse(LineManagees.SelectedValue);
             int  DirectorID = Int32.Parse(Session["UserId"].ToString());
             // Creating Review For CrossLevel ( THere must be a seperat fun calling addReview in BAL )
-            int ReviewID = rev.AddReview(EmpID, LMIDWhoisOn , DirectorID , "Directors Feedback");
+            int ReviewID = rev.AddReview(EmpID, LMIDWhoisOn , DirectorID , "Directors Feedback" , "Crosslevel");
             int lCategoryID = rev.GetCategoryID("Director");
             Double lRating = Double.Parse(RatingsTxt.Text);
             String lComments = CommentsTxt.Text;
@@ -187,7 +187,7 @@ namespace ERSv1._2
             int LMIDWhoisOn = Int32.Parse(Request.QueryString["LMID"]);
             int EmpID = Int32.Parse(LineManagees.SelectedValue);
             int ReviewID = rev.GetLatestReviewID(LMIDWhoisOn, EmpID);
-            rev.RejectReview(ReviewID,FeedbackTxt.Text.ToString());
+            rev.RejectReview(ReviewID, FeedbackTxt.Text.ToString(), Int32.Parse(Session["UserID"].ToString()));
             Response.Redirect(ViewState["PreviousPageUrl"].ToString());
             // to reject 
             //    Copy Old Column of AReviewID to New Review's AReviewID

@@ -221,6 +221,10 @@
       <End Role="Employee" EntitySet="Employee" />
       <End Role="Review" EntitySet="Review" />
     </AssociationSet>
+    <AssociationSet Name="FK_Review_RejectedBy" Association="ERS_LMTModel.Store.FK_Review_RejectedBy">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
     <AssociationSet Name="FK_Review_Reviewer" Association="ERS_LMTModel.Store.FK_Review_Reviewer">
       <End Role="Employee" EntitySet="Employee" />
       <End Role="Review" EntitySet="Review" />
@@ -745,6 +749,7 @@
     <Property Name="IsActive" Type="int" />
     <Property Name="feedback" Type="varchar" Nullable="false" MaxLength="100" />
     <Property Name="AReviewID" Type="int" Nullable="false" />
+    <Property Name="RejectedBy" Type="int" />
   </EntityType>
   <EntityType Name="ReviewCategories">
     <Key>
@@ -1298,6 +1303,18 @@
       </Principal>
       <Dependent Role="Review">
         <PropertyRef Name="LMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_RejectedBy">
+    <End Role="Employee" Type="ERS_LMTModel.Store.Employee" Multiplicity="0..1" />
+    <End Role="Review" Type="ERS_LMTModel.Store.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="RejectedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

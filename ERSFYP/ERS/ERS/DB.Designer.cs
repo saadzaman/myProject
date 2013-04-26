@@ -46,6 +46,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_requestAllocation_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Employee), "RequestAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.RequestAllocation), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Review_Emp", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Employee), "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Review), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Review_LM", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Employee), "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Review), true)]
+[assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Review_RejectedBy", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Employee), "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Review), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "FK_Review_Reviewer", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ERS.Employee), "Review", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.Review), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk1_EmployeeRole", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "EmployeeRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.EmployeeRole), true)]
 [assembly: EdmRelationshipAttribute("ERS_LMTModel", "fk1_LMAllocation", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ERS.Employee), "LMAllocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ERS.LMAllocation), true)]
@@ -6544,8 +6545,30 @@ namespace ERS
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Review_Reviewer", "Review")]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Review_RejectedBy", "Review")]
         public EntityCollection<Review> Reviews2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Review>("ERS_LMTModel.FK_Review_RejectedBy", "Review");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Review>("ERS_LMTModel.FK_Review_RejectedBy", "Review", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Review_Reviewer", "Review")]
+        public EntityCollection<Review> Reviews3
         {
             get
             {
@@ -11218,6 +11241,30 @@ namespace ERS
         private global::System.Int32 _AReviewID;
         partial void OnAReviewIDChanging(global::System.Int32 value);
         partial void OnAReviewIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> RejectedBy
+        {
+            get
+            {
+                return _RejectedBy;
+            }
+            set
+            {
+                OnRejectedByChanging(value);
+                ReportPropertyChanging("RejectedBy");
+                _RejectedBy = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RejectedBy");
+                OnRejectedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _RejectedBy;
+        partial void OnRejectedByChanging(Nullable<global::System.Int32> value);
+        partial void OnRejectedByChanged();
 
         #endregion
 
@@ -11306,8 +11353,46 @@ namespace ERS
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Review_Reviewer", "Employee")]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Review_RejectedBy", "Employee")]
         public Employee Employee2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("ERS_LMTModel.FK_Review_RejectedBy", "Employee").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("ERS_LMTModel.FK_Review_RejectedBy", "Employee").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Employee> Employee2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("ERS_LMTModel.FK_Review_RejectedBy", "Employee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Employee>("ERS_LMTModel.FK_Review_RejectedBy", "Employee", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ERS_LMTModel", "FK_Review_Reviewer", "Employee")]
+        public Employee Employee3
         {
             get
             {
@@ -11323,7 +11408,7 @@ namespace ERS
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Employee> Employee2Reference
+        public EntityReference<Employee> Employee3Reference
         {
             get
             {

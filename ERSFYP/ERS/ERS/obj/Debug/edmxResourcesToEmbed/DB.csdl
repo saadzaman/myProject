@@ -159,6 +159,10 @@
       <End Role="Employee" EntitySet="Employees" />
       <End Role="Review" EntitySet="Reviews" />
     </AssociationSet>
+    <AssociationSet Name="FK_Review_RejectedBy" Association="ERS_LMTModel.FK_Review_RejectedBy">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
     <AssociationSet Name="FK_Review_Reviewer" Association="ERS_LMTModel.FK_Review_Reviewer">
       <End Role="Employee" EntitySet="Employees" />
       <End Role="Review" EntitySet="Reviews" />
@@ -540,7 +544,8 @@
     <NavigationProperty Name="RequestAllocations" Relationship="ERS_LMTModel.FK_requestAllocation_Employee" FromRole="Employee" ToRole="RequestAllocation" />
     <NavigationProperty Name="Reviews" Relationship="ERS_LMTModel.FK_Review_Emp" FromRole="Employee" ToRole="Review" />
     <NavigationProperty Name="Reviews1" Relationship="ERS_LMTModel.FK_Review_LM" FromRole="Employee" ToRole="Review" />
-    <NavigationProperty Name="Reviews2" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Employee" ToRole="Review" />
+    <NavigationProperty Name="Reviews2" Relationship="ERS_LMTModel.FK_Review_RejectedBy" FromRole="Employee" ToRole="Review" />
+    <NavigationProperty Name="Reviews3" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Employee" ToRole="Review" />
     <NavigationProperty Name="EmployeeRoles" Relationship="ERS_LMTModel.fk1_EmployeeRole" FromRole="Employee" ToRole="EmployeeRole" />
     <NavigationProperty Name="LMAllocations" Relationship="ERS_LMTModel.fk1_LMAllocation" FromRole="Employee" ToRole="LMAllocation" />
     <NavigationProperty Name="LMAllocations1" Relationship="ERS_LMTModel.fk2_LMAllocation" FromRole="Employee" ToRole="LMAllocation" />
@@ -793,9 +798,11 @@
     <Property Name="IsActive" Type="Int32" />
     <Property Name="feedback" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
     <Property Name="AReviewID" Type="Int32" Nullable="false" />
+    <Property Name="RejectedBy" Type="Int32" />
     <NavigationProperty Name="Employee" Relationship="ERS_LMTModel.FK_Review_Emp" FromRole="Review" ToRole="Employee" />
     <NavigationProperty Name="Employee1" Relationship="ERS_LMTModel.FK_Review_LM" FromRole="Review" ToRole="Employee" />
-    <NavigationProperty Name="Employee2" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Review" ToRole="Employee" />
+    <NavigationProperty Name="Employee2" Relationship="ERS_LMTModel.FK_Review_RejectedBy" FromRole="Review" ToRole="Employee" />
+    <NavigationProperty Name="Employee3" Relationship="ERS_LMTModel.FK_Review_Reviewer" FromRole="Review" ToRole="Employee" />
     <NavigationProperty Name="ReviewType" Relationship="ERS_LMTModel.FK_Review_ReviewType" FromRole="Review" ToRole="ReviewType" />
     <NavigationProperty Name="Status1" Relationship="ERS_LMTModel.FK_Review_Status" FromRole="Review" ToRole="Status" />
     <NavigationProperty Name="ReviewInfoes" Relationship="ERS_LMTModel.FK_ReviewInfo_Review" FromRole="Review" ToRole="ReviewInfo" />
@@ -1237,6 +1244,18 @@
       </Principal>
       <Dependent Role="Review">
         <PropertyRef Name="LMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_RejectedBy">
+    <End Role="Employee" Type="ERS_LMTModel.Employee" Multiplicity="0..1" />
+    <End Role="Review" Type="ERS_LMTModel.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="RejectedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

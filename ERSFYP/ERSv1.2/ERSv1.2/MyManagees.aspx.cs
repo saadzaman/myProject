@@ -38,7 +38,7 @@ namespace ERSv1._2
 
                     int EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);  // He is the Person i.e LM's Managee whose review will be Opened
                     int peerID = Int32.Parse((row.FindControl("PeerID") as HiddenField).Value);
-                    Response.Redirect("ReviewForm.aspx?OpenedFor=show&ROE=" + EmpID + "&SRI=" + ReviewID);
+                    Response.Redirect("ReviewForm.aspx?ROE=" + EmpID + "&SRI=" + ReviewID);
 
                     break;
 
@@ -50,7 +50,7 @@ namespace ERSv1._2
                         Reviews rev = new Reviews();
                         EmpID = Int32.Parse((row.FindControl("ImPeerOf") as HiddenField).Value);
                         peerID = Int32.Parse((row.FindControl("PeerID") as HiddenField).Value);
-                        rev.AddReview(EmpID, (int)Session["UserID"], peerID, "None");
+                        rev.AddReview(EmpID, (int)Session["UserID"], peerID, "None" , "Solicitation");
                         
                         string script = "$('#req').show();";
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "UserSecurity", script, true);
@@ -89,7 +89,7 @@ namespace ERSv1._2
                     Peers.DataSource = BManagees.GetPeerList(EmpID,LMID);
                     Peers.DataBind();
                     Reviews rev = new Reviews();
-                    rev.AddReview(EmpID, LMID, EmpID, "Self");
+                    rev.AddReview(EmpID, LMID, EmpID, "Self" , "Solicitation");
                     
                     // Label Fail = (row.FindControl("Fail") as Label);
                     // Fail.Text = rev.GetType(SelfId);
