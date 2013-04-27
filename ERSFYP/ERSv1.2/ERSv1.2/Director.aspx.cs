@@ -23,7 +23,11 @@ namespace ERSv1._2
             if (!IsPostBack)
             { 
             ERS.BAL.Director DirectorInst = new ERS.BAL.Director();
-            LineManagerList.DataSource = DirectorInst.GetLineManagers(DirectorID);
+            List<ERS.DAL.LineManagersWithDirector> BindingList = DirectorInst.GetLineManagers(DirectorID);
+        //    BindingList.OrderBy(x => x.DirectorID == DirectorID);
+              BindingList.Sort((x, y) => (x.DirectorID != DirectorID).CompareTo(true));
+            //CarList.Sort();
+            LineManagerList.DataSource = BindingList ;
             LineManagerList.DataBind();
             }
 
