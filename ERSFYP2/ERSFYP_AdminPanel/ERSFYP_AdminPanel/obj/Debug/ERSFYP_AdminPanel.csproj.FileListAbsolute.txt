@@ -1,0 +1,14 @@
+c:\users\saad\documents\visual studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERSFYP_AdminPanel.dll
+c:\users\saad\documents\visual studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERSFYP_AdminPanel.pdb
+c:\users\saad\documents\visual studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.dll
+c:\users\saad\documents\visual studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.pdb
+c:\users\saad\documents\visual studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.csprojResolveAssemblyReference.cache
+F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ResolveAssemblyReference.cache
+F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.dll
+F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERSFYP_AdminPanel.dll
+F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERSFYP_AdminPanel.pdb
+F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERS.dll
+F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERS.pdb
+F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.pdb
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERS.dll
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERS.pdb

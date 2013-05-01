@@ -1,0 +1,4 @@
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERSFYP_AdminPanel.dll
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERSFYP_AdminPanel.pdb
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Release\ERSFYP_AdminPanel.dll
+C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Release\ERSFYP_AdminPanel.pdb

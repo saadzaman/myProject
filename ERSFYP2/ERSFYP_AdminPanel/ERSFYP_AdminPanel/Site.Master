@@ -1,0 +1,57 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="ERSFYP_AdminPanel.SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+    <title></title>
+     <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript" src="Scripts/jquery-1.9.1.min.js" ></script>
+      <script type="text/javascript" src="Scripts/jquery.tablesorter.min.js" ></script>
+     
+     <script type="text/javascript" src="assets/js/bootstrap-modal.js"></script>
+      <script type="text/javascript" src="assets/js/bootstrap-alert.js"></script>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat=server id="mainform">
+    <div class="container">
+
+    <div class="hero-unit">
+    
+    
+    <div class="row">
+    <div class="pagination-centered">
+    <h2 class="text-info">Employee Review System</h2>
+    
+    </div>
+        
+   
+    
+    </div>
+
+<div class="row padding-top15">  
+<div class="span" id="navBar" runat="server">  
+<ul class="nav nav-tabs">  
+<li runat="server" id="Employees"><a href="Employees.aspx">Employees</a> </li>   
+<li runat="server" id="Relations"><a href="Relations.aspx">Relations</a></li>  
+<li runat="server" id="Categories"><a href="CategoryWeightage.aspx">Categories</a></li>   
+<li runat="server" id="Others"><a href="Others.aspx">Others</a></li>   
+<li><a href="#">Help</a></li>   
+</ul>  
+</div>  
+</div>  
+   
+
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+     
+             </div>
+    </div>
+    </form>
+    <div class="footer">
+        
+    </div>
+   
+</body>
+</html>
