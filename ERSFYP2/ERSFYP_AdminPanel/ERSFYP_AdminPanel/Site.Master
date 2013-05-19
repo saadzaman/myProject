@@ -34,7 +34,7 @@
 <div class="row padding-top15">  
 <div class="span" id="navBar" runat="server">  
 <ul class="nav nav-tabs">  
-<li runat="server" id="Employees"><a href="Employees.aspx">Employees</a> </li>   
+<li runat="server" id="Employees"><a href="Employee.aspx">Employees</a> </li>   
 <li runat="server" id="Relations"><a href="Relations.aspx">Relations</a></li>  
 <li runat="server" id="Categories"><a href="CategoryWeightage.aspx">Categories</a></li>   
 <li runat="server" id="Others"><a href="Others.aspx">Others</a></li>   

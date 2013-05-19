@@ -12,3 +12,9 @@ F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERS.pdb
 F:\Imab\fyp\ERSv1.2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.pdb
 C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERS.dll
 C:\Users\Saad\Documents\Visual Studio 2010\Projects\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERS.pdb
+C:\Users\Saad\ERSFYP2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERSFYP_AdminPanel.dll
+C:\Users\Saad\ERSFYP2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERSFYP_AdminPanel.pdb
+C:\Users\Saad\ERSFYP2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\bin\ERS.pdb
+C:\Users\Saad\ERSFYP2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.csprojResolveAssemblyReference.cache
+C:\Users\Saad\ERSFYP2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.dll
+C:\Users\Saad\ERSFYP2\ERSFYP_AdminPanel\ERSFYP_AdminPanel\obj\Debug\ERSFYP_AdminPanel.pdb
